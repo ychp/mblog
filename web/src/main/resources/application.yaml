@@ -1,0 +1,48 @@
+server:
+  port: 8084
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: web
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    pool:
+      max-active: 300
+      max-idle: 100
+      max-wait: 1000
+    database: 4
+    timeout: 100000
+  datasource:
+    name: blog
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: anywhere
+  freemarker:
+    cache: false
+    suffix: .ftl
+    template-loader-path: classpath:/webapp/templates
+    variables:
+      title: FishMemory
+      canSignup: false
+      supportBlack: true
+      supportSignUp: false
+      domain: blog-dev.yingchengpeng.win
+  resources:
+    static-locations: classpath:/webapp/static
+
+
+mybatis:
+  type-aliases-package: com.ycp.blog.*.model
+
+logging:
+  file: /Users/yingchengpeng/Documents/log/blog/web/root.log
+
+api:
+  ip:
+    address:
+      type: 1
+      apiKey:
