@@ -10,30 +10,31 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>web</module>
+        <module>user-api</module>
+        <module>common</module>
+        <module>user</module>
+        <module>mybatis-starter</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatis.version>3.4.1</mybatis.version>
-        <mybatis-spring.version>1.3.0</mybatis-spring.version>
-        <spring.version>4.3.3.RELEASE</spring.version>
-        <c3p0.version>0.9.5</c3p0.version>
-        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <lombok.version>1.16.6</lombok.version>
+        <logback.version>1.1.7</logback.version>
         <guava.version>18.0</guava.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
+        <hikari.version>2.4.6</hikari.version>
+        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
+        <mybatis-spring.version>1.3.0</mybatis-spring.version>
+
+        <spring.version>4.3.3.RELEASE</spring.version>
         <jedis.version>2.7.3</jedis.version>
         <spring-data-redis.version>1.6.2.RELEASE</spring-data-redis.version>
-        <slf4j.version>1.7.20</slf4j.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
-        <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
         <mybatis-spring-boot.version>1.1.1</mybatis-spring-boot.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
         <hibernate.version>5.2.4.Final</hibernate.version>
-        <jackson.version>2.6.7</jackson.version>
-        <servlet-api.version>3.1.0</servlet-api.version>
-        <persistence-api.version>1.0</persistence-api.version>
-        <mail.version>1.5.5</mail.version>
+        <jackson.version>2.8.7</jackson.version>
     </properties>
 
     <dependencies>
@@ -41,12 +42,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- guava -->
@@ -62,7 +57,67 @@
             <version>${commons-lang3.version}</version>
         </dependency>
 
+        <!-- log -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- database -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikari.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+
+
+            <!-- json -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-guava</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

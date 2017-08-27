@@ -1,6 +1,8 @@
 package com.ychp.blog.web;
 
+import com.ychp.blog.user.impl.UserAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * Desc:
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * Date: 16/9/14
  */
 @Configuration
+@Import(UserAutoConfiguration.class)
 public class WebAutoConfiguration {
 
 
