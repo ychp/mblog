@@ -27,7 +27,7 @@ public class Encryption {
      * @param value 待加密字符串
      * @param key 原始密钥字符串
      */
-    private static String Decrypt3DES(String value, String key) throws EncryptionException {
+    public static String decrypt3DES(String value, String key) throws EncryptionException {
         byte[] b = decryptMode(GetKeyBytes(key), Base64.decode(value));
         return new String(b != null ? b : new byte[0]);
     }
@@ -37,7 +37,7 @@ public class Encryption {
      * @param value 待加密字符串
      * @param key 原始密钥字符串
      */
-    public static String Encrypt3DES(String value, String key) throws EncryptionException {
+    public static String encrypt3DES(String value, String key) throws EncryptionException {
         return byte2Base64(encryptMode(GetKeyBytes(key), md5Encode(value, key).getBytes()));
     }
 
@@ -122,7 +122,7 @@ public class Encryption {
      * @param inStr 待加密字符串
      * @return 返回32位md5码
      */
-    private static String md5Encode(String inStr, String key) {
+    public static String md5Encode(String inStr, String key) {
         MessageDigest md5;
         try {
             String password = inStr + key.substring(0,8);
@@ -142,7 +142,7 @@ public class Encryption {
      */
     public static boolean checkPassword(String value, String key, String equStr){
         String inStr = md5Encode(value, key);
-        String originStr = Decrypt3DES(equStr, key);
+        String originStr = decrypt3DES(equStr, key);
         return Objects.equal(inStr, originStr);
     }
 
@@ -187,18 +187,6 @@ public class Encryption {
 
     public static String factoryAppSecret(String appCode, String appName){
         return md5Encode(appName + System.currentTimeMillis() + appCode);
-    }
-
-    public static void main(String[] args) throws Exception {
-        String salt = "grqx5iCM2Ma8KT9x1hja6acW";
-        System.out.println("key:" + salt);
-        String password = "123456";
-        System.out.println("password:" + md5Encode(password, salt));
-        password = Encrypt3DES(password, salt);
-        System.out.println("password:" + password);
-        password = Decrypt3DES(password, salt);
-        System.out.println("origin_password:" + password);
-
     }
 
 }
