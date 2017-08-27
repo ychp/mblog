@@ -18,4 +18,7 @@ public class UserDao extends BaseDao<User> {
         super(sqlSession, objectMapper);
     }
 
+    public User login(String name) {
+        return getSqlSession().selectOne(sqlId("login"), name);
+    }
 }

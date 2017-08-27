@@ -19,7 +19,7 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-guava</artifactId>
         </dependency>
-        
+
     </dependencies>
 
 

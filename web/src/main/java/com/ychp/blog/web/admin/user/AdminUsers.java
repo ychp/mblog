@@ -4,6 +4,7 @@ import com.ychp.blog.user.model.User;
 import com.ychp.blog.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,18 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/user")
-public class Users {
+public class AdminUsers {
 
     @Autowired
     private UserReadService userReadService;
 
-    @GetMapping
-    public User detail() {
-        return userReadService.findById(0L);
+    @GetMapping("{id}/detail")
+    public User detail(@PathVariable Long id) {
+        return userReadService.findById(id);
     }
 
-    @GetMapping("e")
-    public User detail1() {
-        return userReadService.findById(null);
-    }
 }

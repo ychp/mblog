@@ -115,4 +115,11 @@
         where `id`=#{id}
     </delete>
 
+    <select id="login" parameterType="string" resultMap="UserMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+        WHERE `nick_name` = #{name} LIMIT 1
+    </select>
 </mapper>

@@ -19,6 +19,11 @@ public interface UserReadService {
     User findById(Long id);
 
     /**
+     * 登录
+     */
+    User login(String name, String password);
+
+    /**
      * 根据条件获取分页
      *
      * @param criteria 条件

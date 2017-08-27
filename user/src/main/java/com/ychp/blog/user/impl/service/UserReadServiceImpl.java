@@ -7,6 +7,7 @@ import com.ychp.blog.user.service.UserReadService;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.Paging;
+import com.ychp.common.util.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,20 @@ public class UserReadServiceImpl implements UserReadService {
         } catch (Exception e) {
             throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
         }
+    }
+
+    @Override
+    public User login(String name, String password) {
+        try {
+            User user = userDao.login(name);
+            if(Encryption.checkPassword(password, user.getSalt(), user.getPassword())) {
+                return user;
+            }
+        } catch (Exception e) {
+            throw new ResponseException("user.login.fail", e.getMessage(), e.getCause());
+        }
+
+        throw new ResponseException("user.login.fail");
     }
 
     @Override

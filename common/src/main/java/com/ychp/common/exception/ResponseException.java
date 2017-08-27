@@ -16,6 +16,10 @@ public class ResponseException extends RuntimeException {
     @Getter
     private final Integer status;
 
+    public ResponseException(String errorCode) {
+        this(errorCode, 500, errorCode);
+    }
+
     public ResponseException(String errorCode, String message) {
         this(errorCode, 500, message);
     }
