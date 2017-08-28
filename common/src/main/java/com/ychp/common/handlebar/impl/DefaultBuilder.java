@@ -15,9 +15,14 @@ import java.util.Map;
 public class DefaultBuilder extends Builder {
 
     @Override
-    protected String buildFile(String templatePath, Map<String, Object> params) throws IOException {
+    protected String buildFile(String templateOrPath, Map<String, Object> params, Boolean isPath) throws IOException {
         Handlebars handlebars = getHandlebars();
-        Template template = handlebars.compile(templatePath);
+        Template template;
+        if(isPath) {
+            template = handlebars.compile(templateOrPath);
+        } else {
+            template = handlebars.compileInline(templateOrPath);
+        }
         return template.apply(params);
     }
 }

@@ -18,13 +18,13 @@ import static com.ychp.common.handlebar.constant.BuilderConstants.*;
 @Slf4j
 public abstract class Builder {
 
-    public String build(String template, Map<String, Object> params, Map<String, String> args, Boolean isWriteToLocal){
+    public String build(String template, Map<String, Object> params, Map<String, String> args, Boolean isPath, Boolean isWriteToLocal){
         String content = null;
         try {
             if(StringUtils.isEmpty(template)){
                 return "";
             }
-            content = buildFile(template, params);
+            content = buildFile(template, params, isPath);
             if(isWriteToLocal) {
                 String fileSuffix = args.get(FILE_FILESUFFIX_KEY);
                 String outPath = args.get(OUT_PATH_KEY) != null ? args.get(OUT_PATH_KEY) : getDefaultOutPath(args);
@@ -66,7 +66,7 @@ public abstract class Builder {
         }
     }
 
-    protected abstract String buildFile(String templatePath, Map<String, Object> paramMap) throws IOException;
+    protected abstract String buildFile(String templateOrPath, Map<String, Object> params, Boolean isPath) throws IOException;
 
     protected Handlebars getHandlebars(){
         Handlebars handlebars = new Handlebars();

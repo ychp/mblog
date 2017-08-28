@@ -11,18 +11,24 @@ package com.ychp.msg.email.impl;
 
 import com.google.common.base.Throwables;
 import com.ychp.common.exception.InvalidException;
+import com.ychp.common.exception.ResponseException;
 import com.ychp.common.handlebar.Builder;
 import com.ychp.msg.email.EmailSender;
+import com.ychp.msg.email.dto.EmailTemplateDto;
+import com.ychp.msg.email.properties.EmailProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * @author langhsu on 2015/8/14.
@@ -33,10 +39,14 @@ public class DefaultEmailSender implements EmailSender {
     private final Builder builder;
 
     @Autowired
-    public DefaultEmailSender(String host, String userName, String password, Builder builder) {
-        this.host = host;
-        this.userName = userName;
-        this.password = password;
+    public DefaultEmailSender(EmailProperties properties, Builder builder) {
+        this.host = properties.getHost();
+        this.userName = properties.getUserName();
+        this.password = properties.getPassword();
+        List<EmailTemplateDto> templateDtoList = properties.getTemplates();
+        if(!CollectionUtils.isEmpty(templateDtoList)) {
+            this.templateDtos = templateDtoList.stream().collect(Collectors.toMap(EmailTemplateDto::getKey, emailTemplateDto -> emailTemplateDto));
+        }
         this.builder = builder;
     }
     private boolean inited = false;
@@ -79,14 +89,28 @@ public class DefaultEmailSender implements EmailSender {
     private String host;
     private String userName;
     private String password;
+    private Map<String, EmailTemplateDto> templateDtos;
     // 发送器
     private JavaMailSenderImpl sender;
 
     @Override
-    public void sendTemplete(String address, String subject, String template, Map<String, Object> params) {
-        final String html = builder.build(template, params, null, false);
+    public void sendTemplate(String address, String templateKey, Map<String, Object> params) {
+        EmailTemplateDto emailTemplate = getTemplate(templateKey);
+        if(emailTemplate == null) {
+            throw new ResponseException("email.template.not.exists");
+        }
+        final String content = builder.build(emailTemplate.getContent(), params, null, false, false);
+        sendText(address, emailTemplate.getTitle(), content, false);
+    }
 
+    @Override
+    public void sendTemplate(String address, String subject, String template, Map<String, Object> params) {
+        final String html = builder.build(template, params, null, false, false);
         sendText(address, subject, html, true);
+    }
+
+    private EmailTemplateDto getTemplate(String templateKey) {
+        return templateDtos.get(templateKey);
     }
 
     @Override

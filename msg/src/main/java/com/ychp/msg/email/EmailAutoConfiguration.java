@@ -25,6 +25,6 @@ public class EmailAutoConfiguration {
 
     @Bean
     public EmailSender emailSender(EmailProperties emailProperties, Builder builder) {
-        return new DefaultEmailSender(emailProperties.getHost(), emailProperties.getUserName(), emailProperties.getPassword(), builder);
+        return new DefaultEmailSender(emailProperties, builder);
     }
 }

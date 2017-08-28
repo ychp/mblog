@@ -1,7 +1,10 @@
 package com.ychp.msg.email.properties;
 
+import com.ychp.msg.email.dto.EmailTemplateDto;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 /**
  * Desc:
@@ -17,5 +20,6 @@ public class EmailProperties {
     private String host;
     private String userName;
     private String password;
+    private List<EmailTemplateDto> templates;
 
 }
