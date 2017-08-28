@@ -44,6 +44,12 @@ mybatis:
 logging:
   file: /Users/yingchengpeng/Documents/log/blog/web/root.log
 
+email:
+  host: ${EMAIL_HOST:stmp.qq.com}
+  userName: ${EMAIL_USER_NAME}
+  password: ${EMAIL_PASSWORD}
+
+
 api:
   ip:
     address:

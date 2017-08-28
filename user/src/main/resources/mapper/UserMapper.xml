@@ -23,7 +23,7 @@
     </resultMap>
 
     <sql id="tb">
-        `user`
+        `sky_user`
     </sql>
 
     <sql id="cols_all">
