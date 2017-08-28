@@ -45,19 +45,9 @@ logging:
   file: /Users/yingchengpeng/Documents/log/blog/web/root.log
 
 email:
-  host: smtp.qq.com
-  userName: ychp@yingchengpeng.com
-  password: yvdtkyuuratwbdge
-
-mail:
-  smtp:
-  useSSL: true
-  port: 587
-  address: ychp@yingchengpeng.com
-  user: ychp@yingchengpeng.com
-  password: yvdtkyuuratwbdge
-  receiver:
-  isUsed: true
+  host: ${EMAIL_HOST:stmp.qq.com}
+  userName: ${EMAIL_USER_NAME}
+  password: ${EMAIL_PASSWORD}
 
 api:
   ip:
