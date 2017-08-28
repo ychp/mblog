@@ -42,7 +42,7 @@ public class CaptchaGenerator {
     }
 
 
-    private String generateCaptchaToken() {
+    public String generateCaptchaToken() {
         return tokenGenerator.next();
     }
 

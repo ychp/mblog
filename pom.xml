@@ -15,6 +15,7 @@
         <module>user</module>
         <module>mybatis-starter</module>
         <module>msg</module>
+        <module>redis-starter</module>
     </modules>
 
     <properties>
@@ -165,6 +166,9 @@
                 <artifactId>spring-boot</artifactId>
                 <version>1.5.2.RELEASE</version>
             </dependency>
+
+            <!-- redis -->
+
         </dependencies>
 
     </dependencyManagement>

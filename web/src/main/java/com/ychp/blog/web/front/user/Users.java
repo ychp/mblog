@@ -51,9 +51,21 @@ public class Users {
         if(!Objects.equals(captchaToken, captcha)) {
             throw new ResponseException("captcha.mismatch");
         }
+
+        HttpSession session = request.getSession();
+        String sessionId = session.getId();
+        String code = captchaGenerator.generateCaptchaToken();
+
         Map<String, Object> params = Maps.newHashMap();
-        params.put("code", captchaToken);
+        params.put("code", code);
         emailSender.sendTemplate(email, REGISTER_CODE, params);
     }
 
+    @GetMapping("send-email-test")
+    public void sendEmailTest(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sessionId = session.getId();
+        String code = captchaGenerator.generateCaptchaToken();
+
+    }
 }
