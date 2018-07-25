@@ -4,12 +4,13 @@ import com.ychp.blog.user.impl.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
 import com.ychp.blog.web.session.SessionManager;
 import com.ychp.msg.MsgAutoConfiguration;
-import com.ychp.redis.RedisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -17,10 +18,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Author: <a href="ychp@terminus.io">应程鹏</a>
  * Date: 16/9/14
  */
+@EnableWebMvc
 @Configuration
 @Import({UserAutoConfiguration.class,
-        MsgAutoConfiguration.class,
-        RedisAutoConfiguration.class})
+        MsgAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -39,5 +40,14 @@ public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
         registry.addInterceptor(sessionInterceptor);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

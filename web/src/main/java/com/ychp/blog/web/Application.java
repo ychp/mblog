@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Date: 16/7/20
  */
 @AutoConfigureAfter(WebAutoConfiguration.class)
-@EnableWebMvc
 @SpringBootApplication
 public class Application {
 

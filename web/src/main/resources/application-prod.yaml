@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 5201
   ssl:
     enabled: false
 
@@ -9,7 +9,7 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-    password:
+    password: anywhere
     pool:
       max-active: 300
       max-idle: 100
@@ -17,22 +17,12 @@ spring:
     database: 4
     timeout: 100000
   datasource:
-    url: jdbc:mysql://localhost:3306/blog_new?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: anywhere
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 300
-  freemarker:
-    cache: false
-    suffix: .ftl
-    template-loader-path: classpath:/webapp/templates
-    variables:
-      title: FishMemory
-      canSignup: false
-      supportBlack: true
-      supportSignUp: false
-      domain: blog-dev.yingchengpeng.win
   resources:
     static-locations: classpath:/webapp/static
 
@@ -42,12 +32,12 @@ mybatis:
   mapperLocations: classpath:mapper/*Mapper.xml
 
 logging:
-  file: /Users/yingchengpeng/Documents/log/blog/web/root.log
+  file: /var/log/blog/web/root.log
 
 email:
   host: ${EMAIL_HOST:stmp.qq.com}
-  userName: ${EMAIL_USER_NAME}
-  password: ${EMAIL_PASSWORD}
+  userName: ${EMAIL_USER_NAME:}
+  password: ${EMAIL_PASSWORD:}
   templates:
     - key: email.user.register.code
       title: 用户注册
@@ -58,8 +48,3 @@ email:
       content: >
         身份验证, 您的验证码为{{code}}.
 
-api:
-  ip:
-    address:
-      type: 1
-      apiKey:

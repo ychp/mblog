@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <lombok.version>1.16.14</lombok.version>
         <logback.version>1.1.7</logback.version>
-        <guava.version>18.0</guava.version>
+        <guava.version>24.0-jre</guava.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <hikari.version>2.4.6</hikari.version>
@@ -37,6 +37,8 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <hibernate.version>5.2.4.Final</hibernate.version>
         <jackson.version>2.8.7</jackson.version>
+
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>

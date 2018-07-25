@@ -37,34 +37,10 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Value("${cache.expire.time:60}")
     private Long expiredTime;
-    private LoadingCache<Long, List<String>> authByRole;
-    private LoadingCache<String, List<String>> white;
     private LoadingCache<Long, User> userById;
 
     @PostConstruct
     public void init() {
-        white = CacheBuilder.newBuilder()
-                .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
-                .initialCapacity(100)
-                .maximumSize(1000)
-                .build(new CacheLoader<String, List<String>>() {
-            @Override
-            public List<String> load(String s) throws Exception {
-                return Lists.newArrayList("/", "/login", "/api/login");
-            }
-        });
-
-        authByRole = CacheBuilder.newBuilder()
-                .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
-                .initialCapacity(100)
-                .maximumSize(1000)
-                .build(new CacheLoader<Long, List<String>>() {
-            @Override
-            public List<String> load(Long s) throws Exception {
-                return Lists.newArrayList("/", "/login", "/api/login");
-            }
-        });
-
         userById = CacheBuilder.newBuilder()
                 .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
                 .initialCapacity(100)
@@ -83,9 +59,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = sessionManager.getSession(request, msid);
         Long userId = (Long) session.getAttribute("userId");
         String uri = request.getRequestURI();
-        if(contains(white.get("all"), uri)) {
-            return true;
-        }
 
         if(userId == null) {
 
