@@ -3,7 +3,6 @@ package com.ychp.blog.web;
 import com.ychp.blog.user.impl.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
 import com.ychp.blog.web.session.SessionManager;
-import com.ychp.msg.MsgAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@Import({UserAutoConfiguration.class,
-        MsgAutoConfiguration.class})
+@Import({UserAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
