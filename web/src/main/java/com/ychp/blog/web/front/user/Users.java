@@ -32,7 +32,7 @@ public class Users {
 
     @Autowired
     private CaptchaGenerator captchaGenerator;
-    @Autowired
+    @Autowired(required = false)
     private EmailSender emailSender;
 
     @GetMapping("captcha")
