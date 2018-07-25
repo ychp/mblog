@@ -1,5 +1,5 @@
 server:
-  port: 5201
+  port: 520
   ssl:
     enabled: false
 
