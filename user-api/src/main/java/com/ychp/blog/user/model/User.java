@@ -1,5 +1,7 @@
 package com.ychp.blog.user.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import java.util.Date;
  * Author: <a href="ychp@terminus.io">应程鹏</a>
  * Date: 2017/8/27
  */
+@ApiModel(description = "用户表")
 @EqualsAndHashCode(of = { "nickName",  "mobile",  "email",  "homePage",  "ip",  "avatar",  "password",  "salt",  "status"})
 @ToString
 public class User implements Serializable {
@@ -27,6 +30,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("用户名")
     private String nickName;
 
     /**

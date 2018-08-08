@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,10 +19,13 @@ import java.util.stream.Collectors;
  */
 public abstract class Builder {
 
-    public List<String> build(String templatePath, String outPath, Map<String, Object> templateParamMap,
+    public List<String> build(String templatePath, String outPath,
+                              String baseName,
+                              Map<String, Object> templateParamMap,
                               Boolean isPath, Boolean isWriteToLocal){
         List<String> templates = getTemplatePath(templatePath);
         List<String> contents = Lists.newArrayListWithCapacity(templates.size());
+        templateParamMap.put("currentDate", new Date());
         try {
             outPath = StringUtils.isEmpty(outPath) ? getDefaultOutPath(): outPath;
             String content;
@@ -34,8 +38,7 @@ public abstract class Builder {
                 content = buildFile(template, templateParamMap, isPath);
                 contents.add(content);
                 if(isWriteToLocal) {
-                    fileName = template.substring(template.indexOf(templatePath) + templatePath.length(),
-                            template.lastIndexOf('.'));
+                    fileName = getFileName(template, baseName);
                     new FileService().writeToLocal(outPath + File.separator + fileName, content);
                 }
             }
@@ -58,7 +61,14 @@ public abstract class Builder {
             return Lists.newArrayList(basePath);
         }
         List<File> files = getAllFiles(basePath);
-        return files.stream().map(File::getAbsolutePath).collect(Collectors.toList());
+        return files.stream()
+                .map(item -> {
+                    String path = item.getPath();
+                    path = path.substring(path.indexOf("resources") + "resources".length() + 1);
+                    path = path.replace(".hbs", "");
+                    return path;
+                })
+                .collect(Collectors.toList());
     }
 
     private List<File> getAllFiles(String basePath) {
@@ -99,6 +109,12 @@ public abstract class Builder {
         String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         int lastIndex = path.lastIndexOf(File.separator) + 1;
         return path.substring(0, lastIndex);
+    }
+
+    protected String getFileName(String template, String baseName) {
+        return StringUtils.isEmpty(baseName) ?
+                template.substring(template.indexOf(File.separator) + 1) :
+                baseName + template.substring(template.indexOf('.'));
     }
 
     /**

@@ -22,7 +22,7 @@ public class MybatisColumnDto implements Serializable {
 
     private String javaType;
 
-    private Boolean modelColumn = true;
+    private Boolean needEquals = true;
 
     private String comment;
 }

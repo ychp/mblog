@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2018-08-08
  */
-public class BaseRepository<T> {
+public class BaseRepository<T, K> {
 
     private final SqlSession sqlSession;
     private final ObjectMapper objectMapper;
@@ -30,7 +29,7 @@ public class BaseRepository<T> {
     protected static final String LIST = "list";
     protected static final String COUNT = "count";
     protected static final String PAGING = "paging";
-    private final static TypeReference<Map<String, Object>> type = new TypeReference<Map<String, Object>>(){};
+    private final static TypeReference<Map<String, Object>> TYPE = new TypeReference<Map<String, Object>>(){};
 
     private final String nameSpace;
 
@@ -81,7 +80,7 @@ public class BaseRepository<T> {
      * @param id 主键
      * @return 对象
      */
-    public T findById(Long id){
+    public T findById(K id){
         return sqlSession.selectOne(sqlId(FIND_BY_ID), id);
     }
 
@@ -90,7 +89,7 @@ public class BaseRepository<T> {
      * @param ids 主键列表
      * @return 删除记录数
      */
-    public List<T> findByIds(List<Long> ids){
+    public List<T> findByIds(List<K> ids){
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
         }
@@ -105,7 +104,7 @@ public class BaseRepository<T> {
     public List<T> list(T criteria){
         Map<String, Object> params = Maps.newHashMap();
         if (criteria != null) {
-            Map<String, Object> objMap = objectMapper.convertValue(criteria, type);
+            Map<String, Object> objMap = objectMapper.convertValue(criteria, TYPE);
             params.putAll(objMap);
         }
         return sqlSession.selectList(sqlId(LIST), params);

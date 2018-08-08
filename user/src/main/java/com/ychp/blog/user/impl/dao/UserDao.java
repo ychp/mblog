@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * Date: 2017/8/27
  */
 @Repository
-public class UserDao extends BaseRepository<User> {
+public class UserDao extends BaseRepository<User, Long> {
 
     public UserDao(SqlSession sqlSession, ObjectMapper objectMapper) {
         super(sqlSession, objectMapper);

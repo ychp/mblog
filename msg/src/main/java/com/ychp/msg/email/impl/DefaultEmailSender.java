@@ -99,13 +99,13 @@ public class DefaultEmailSender implements EmailSender {
         if(emailTemplate == null) {
             throw new ResponseException("email.template.not.exists");
         }
-        final List<String> contents = builder.build(emailTemplate.getContent(), null, params, false, false);
+        final List<String> contents = builder.build(emailTemplate.getContent(), null, null, params, false, false);
         sendText(address, emailTemplate.getTitle(), contents.get(0), false);
     }
 
     @Override
     public void sendTemplate(String address, String subject, String template, Map<String, Object> params) {
-        final List<String> htmls = builder.build(template, null, params, false, false);
+        final List<String> htmls = builder.build(template, null, null, params, false, false);
         sendText(address, subject, htmls.get(0), true);
     }
 

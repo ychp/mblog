@@ -1,0 +1,20 @@
+package {{package}}.server.repository
+
+import {{package}}.model.{{modelName}}
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ychp.mybatis.repository.BaseRepository;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+/**
+* @author yingchengpeng
+* @date: {{#formatDate currentDate}}{{/formatDate}}
+*/
+@Repository
+public class {{modelName}}Repository extends BaseRepository<{{modelName}}, Long> {
+
+    public {{modelName}}Repository(SqlSession sqlSession, ObjectMapper objectMapper) {
+        super(sqlSession, objectMapper);
+    }
+
+}

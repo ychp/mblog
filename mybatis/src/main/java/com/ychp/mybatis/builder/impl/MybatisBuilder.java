@@ -6,27 +6,33 @@ import com.ychp.code.builder.Builder;
 import com.ychp.mybatis.builder.dto.MybatisColumnDto;
 import com.ychp.mybatis.builder.utils.MybatisUtils;
 
+import java.io.File;
 import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 17/2/10
+ * @author yingchengpeng
+ * @date 2018-08-08
  */
 public class MybatisBuilder extends Builder {
+
+    private static final List<String> IGNORE_EQUALS_COLUMN = Lists.newArrayList("createdAt, updatedAt");
+
+    @Override
+    protected String getFileName(String template, String baseName) {
+        String fileName = template.substring(template.indexOf(File.separator) + 1);
+        return fileName.replace("Model", baseName);
+    }
 
     protected static Map<String, Object> generalTemplateParamMap(String tableName, String basePackage) {
         Map<String, Object> templateParamMap = Maps.newHashMap();
         templateParamMap.put("tableName", tableName);
-        templateParamMap.put("modelName", MybatisUtils.camelName(tableName));
-        templateParamMap.put("modelPackage", basePackage + ".model");
+        templateParamMap.put("modelName", MybatisUtils.camelNameWithAll(tableName));
         templateParamMap.put("package", basePackage);
 
         String host = "127.0.0.1";
-        String port = "2206";
+        String port = "3306";
         String database = "blog_new";
         String username = "root";
         String password = "anywhere";
@@ -34,10 +40,17 @@ public class MybatisBuilder extends Builder {
         String url="jdbc:mysql://" + host + ":" + port + "/" + database + "?user=" + username + "&password=" + password;
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(url);
             DatabaseMetaData dbMetaData = connection.getMetaData();
+            String catalog = connection.getCatalog();
+
+            ResultSet resultSet = dbMetaData.getTables(catalog, "%", tableName, new String[] { "TABLE" });
+
+            while (resultSet.next()) {
+                String remarks = resultSet.getString("REMARKS");
+                templateParamMap.put("tableRemarks", remarks);
+            }
 
             MybatisColumnDto columnDto;
             String columnName;
@@ -46,7 +59,6 @@ public class MybatisBuilder extends Builder {
 
             //主键
             MybatisColumnDto primaryColumnDto = null;
-            String catalog = connection.getCatalog();
             ResultSet columnRs = dbMetaData.getPrimaryKeys(catalog, null, tableName);
             while(columnRs.next()){
                 columnName = columnRs.getString("COLUMN_NAME");
@@ -58,14 +70,14 @@ public class MybatisBuilder extends Builder {
             }
 
             List<MybatisColumnDto> columns = Lists.newArrayList();
-            ResultSet colRet = dbMetaData.getColumns(null,"%", tableName,"%");
+            ResultSet colRet = dbMetaData.getColumns(catalog,"%", tableName,"%");
             while(colRet.next()) {
                 columnName = colRet.getString("COLUMN_NAME");
                 columnType = colRet.getString("TYPE_NAME");
                 datasize = colRet.getInt("COLUMN_SIZE");
                 if(primaryColumnDto != null && primaryColumnDto.getSqlColumn().equals(columnName)){
                     primaryColumnDto.setJavaType(MybatisUtils.getJavaTypeByDBType(columnType, datasize));
-                    primaryColumnDto.setModelColumn(false);
+                    primaryColumnDto.setNeedEquals(false);
                     templateParamMap.put("primaryColumn", primaryColumnDto);
                     continue;
                 }
@@ -78,6 +90,9 @@ public class MybatisBuilder extends Builder {
                 columnDto.setJavaType(MybatisUtils.getJavaTypeByDBType(columnType, datasize));
                 columnDto.setComment(colRet.getString("REMARKS"));
 
+                if(IGNORE_EQUALS_COLUMN.contains(columnDto.getJavaColumn())) {
+                    columnDto.setNeedEquals(false);
+                }
                 columns.add(columnDto);
             }
 
@@ -99,11 +114,12 @@ public class MybatisBuilder extends Builder {
     }
 
     public static void main(String[] args){
-        String templatePath = "mybatis";
-        String outPath = "mybatis-out";
+        String templatePath = "mybatis/src/main/resources/templates";
+        String outPath = "/Users/yingchengpeng/ychp/blog/mybatis/src/main/resources/code";
         String tableName = "sky_user";
         String basePackage = "com.ychp.user";
         Builder builder = new MybatisBuilder();
-        builder.build(templatePath, outPath, generalTemplateParamMap(tableName, basePackage), true, true);
+        builder.build(templatePath, outPath, MybatisUtils.camelNameWithAll(tableName),
+                generalTemplateParamMap(tableName, basePackage), true, true);
     }
 }
