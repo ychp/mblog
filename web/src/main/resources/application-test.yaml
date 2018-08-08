@@ -1,5 +1,5 @@
 server:
-  port: 520
+  port: 8099
   ssl:
     enabled: false
 
@@ -7,9 +7,9 @@ spring:
   application:
     name: web
   redis:
-    host: 127.0.0.1
-    port: 6379
-    password: anywhere
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_AUTH:anywhere}
     pool:
       max-active: 300
       max-idle: 100
@@ -17,13 +17,12 @@ spring:
     database: 4
     timeout: 100000
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: anywhere
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:blog-api}?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ${MYSQL_NAME:root}
+    password: ${MYSQL_PASSWORD:anywhere}
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 300
-
 
 mybatis:
   type-aliases-package: com.ychp.blog.user.model
@@ -31,6 +30,4 @@ mybatis:
 
 logging:
   file: /var/log/blog/root.log
-
-
 
