@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.ychp.common.model.Paging;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +18,10 @@ import java.util.Map;
  */
 public class BaseRepository<T, K> {
 
-    private final SqlSession sqlSession;
-    private final ObjectMapper objectMapper;
+    @Resource
+    private SqlSession sqlSession;
+    @Resource
+    private ObjectMapper objectMapper;
 
     private static final String CREATE = "create";
     private static final String DELETE = "delete";
@@ -34,8 +36,7 @@ public class BaseRepository<T, K> {
     private final String nameSpace;
 
 
-    @Autowired
-    public BaseRepository(SqlSession sqlSession, ObjectMapper objectMapper){
+    public BaseRepository(){
         if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
             nameSpace = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
                     .getActualTypeArguments()[0]).getSimpleName();
@@ -44,8 +45,6 @@ public class BaseRepository<T, K> {
             nameSpace = ((Class<T>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass())
                     .getActualTypeArguments()[0]).getSimpleName();
         }
-        this.sqlSession = sqlSession;
-        this.objectMapper = objectMapper;
     }
 
     /**
