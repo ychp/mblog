@@ -1,6 +1,6 @@
-INSERT INTO `sky_user` (`id`, `nick_name`, `mobile`, `email`, `home_page`, `ip`, `avatar`, `password`, `salt`, `status`, `created_at`, `updated_at`)
+INSERT INTO `sky_user` (`id`, `name`, `nick_name`, `password`, `salt`, `status`, `created_at`, `updated_at`)
 VALUES
-	(1, 'admin', NULL, NULL, NULL, NULL, NULL, 'ZCyqCBiFf5ky6m/BeFJFyGuk6LSVlu5f', 'grqx5iCM2Ma8KT9x1hja6acW', 1, '2017-08-27 00:00:00', '2017-08-27 00:00:00');
+	(1, 'admin', 'admin', 'ZCyqCBiFf5ky6m/BeFJFyGuk6LSVlu5f', 'grqx5iCM2Ma8KT9x1hja6acW', 1, now(), now());
 
 INSERT INTO `role` (`id`, `name`, `status`, `created_at`, `updated_at`)
 VALUES

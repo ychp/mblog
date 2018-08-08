@@ -410,8 +410,7 @@ CREATE TABLE IF NOT EXISTS `sky_friend_link` (
   `priority` int(10) DEFAULT 0 COMMENT '优先级',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_article_label_article_id` (`article_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '友情链接表';
 
 DROP TABLE IF EXISTS `sky_ip_info`;
