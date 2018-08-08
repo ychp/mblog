@@ -11,7 +11,7 @@ ENV REDIS_AUTH="anywhere"
 
 EXPOSE 8099
 
-CMD ["java", "-Duser.timezone=Asia/Shanghai",
+ENTRYPOINT ["sh","-c", "java", "-Duser.timezone=Asia/Shanghai",
   "-DMYSQL_HOST=$MYSQL_HOST",
   "-DMYSQL_PORT=$MYSQL_PORT",
   "-DMYSQL_DATABASE=$MYSQL_DATABASE",
