@@ -2,7 +2,7 @@ package com.ychp.blog.user.impl.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ychp.blog.user.model.User;
-import com.ychp.mybatis.dao.BaseDao;
+import com.ychp.mybatis.repository.BaseRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * Date: 2017/8/27
  */
 @Repository
-public class UserDao extends BaseDao<User> {
+public class UserDao extends BaseRepository<User> {
 
     public UserDao(SqlSession sqlSession, ObjectMapper objectMapper) {
         super(sqlSession, objectMapper);

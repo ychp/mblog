@@ -1,10 +1,9 @@
-package com.ychp.mybatis.dao;
+package com.ychp.mybatis.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.ychp.common.model.Paging;
-import com.ychp.mybatis.constants.MybatisConstants;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +17,7 @@ import java.util.Map;
  * Author: <a href="ychp@terminus.io">应程鹏</a>
  * Date: 2017/8/27
  */
-public class BaseDao<T> {
+public class BaseRepository<T> {
 
     private final SqlSession sqlSession;
     private final ObjectMapper objectMapper;
@@ -37,7 +36,7 @@ public class BaseDao<T> {
 
 
     @Autowired
-    public BaseDao(SqlSession sqlSession, ObjectMapper objectMapper){
+    public BaseRepository(SqlSession sqlSession, ObjectMapper objectMapper){
         if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
             nameSpace = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
                     .getActualTypeArguments()[0]).getSimpleName();

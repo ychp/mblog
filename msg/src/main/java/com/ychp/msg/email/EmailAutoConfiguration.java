@@ -1,10 +1,9 @@
 package com.ychp.msg.email;
 
-import com.ychp.common.handlebar.Builder;
-import com.ychp.common.handlebar.impl.DefaultBuilder;
+import com.ychp.code.builder.Builder;
+import com.ychp.code.builder.impl.DefaultBuilder;
 import com.ychp.msg.email.impl.DefaultEmailSender;
 import com.ychp.msg.email.properties.EmailProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

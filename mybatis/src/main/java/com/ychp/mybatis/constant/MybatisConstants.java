@@ -1,4 +1,4 @@
-package com.ychp.mybatis.constants;
+package com.ychp.mybatis.constant;
 
 /**
  * Desc:

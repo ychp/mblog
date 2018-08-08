@@ -10,9 +10,9 @@
 package com.ychp.msg.email.impl;
 
 import com.google.common.base.Throwables;
+import com.ychp.code.builder.Builder;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
-import com.ychp.common.handlebar.Builder;
 import com.ychp.msg.email.EmailSender;
 import com.ychp.msg.email.dto.EmailTemplateDto;
 import com.ychp.msg.email.properties.EmailProperties;
@@ -99,14 +99,14 @@ public class DefaultEmailSender implements EmailSender {
         if(emailTemplate == null) {
             throw new ResponseException("email.template.not.exists");
         }
-        final String content = builder.build(emailTemplate.getContent(), params, null, false, false);
-        sendText(address, emailTemplate.getTitle(), content, false);
+        final List<String> contents = builder.build(emailTemplate.getContent(), null, params, false, false);
+        sendText(address, emailTemplate.getTitle(), contents.get(0), false);
     }
 
     @Override
     public void sendTemplate(String address, String subject, String template, Map<String, Object> params) {
-        final String html = builder.build(template, params, null, false, false);
-        sendText(address, subject, html, true);
+        final List<String> htmls = builder.build(template, null, params, false, false);
+        sendText(address, subject, htmls.get(0), true);
     }
 
     private EmailTemplateDto getTemplate(String templateKey) {
