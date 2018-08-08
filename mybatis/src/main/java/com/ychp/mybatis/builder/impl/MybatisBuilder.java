@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class MybatisBuilder extends Builder {
 
-    private static final List<String> IGNORE_EQUALS_COLUMN = Lists.newArrayList("createdAt, updatedAt");
+    private static final List<String> IGNORE_EQUALS_COLUMN = Lists.newArrayList("createdAt", "updatedAt");
 
     @Override
     protected String getFileName(String template, String baseName) {
@@ -28,7 +28,7 @@ public class MybatisBuilder extends Builder {
     protected static Map<String, Object> generalTemplateParamMap(String tableName, String basePackage) {
         Map<String, Object> templateParamMap = Maps.newHashMap();
         templateParamMap.put("tableName", tableName);
-        templateParamMap.put("modelName", MybatisUtils.camelNameWithAll(tableName));
+        templateParamMap.put("modelName", MybatisUtils.camelNameWithAll(tableName).replace("Sky", ""));
         templateParamMap.put("package", basePackage);
 
         String host = "127.0.0.1";
@@ -65,8 +65,7 @@ public class MybatisBuilder extends Builder {
                 primaryColumnDto = new MybatisColumnDto();
                 primaryColumnDto.setSqlColumn(columnName);
                 primaryColumnDto.setJavaColumn(MybatisUtils.camelName(columnName));
-                primaryColumnDto.setJavaXmlColumn("{" + MybatisUtils.camelName(columnName) + "}");
-                primaryColumnDto.setJavaXmlColumn(MybatisUtils.camelName(columnName));
+                primaryColumnDto.setJavaXmlColumn(columnName);
             }
 
             List<MybatisColumnDto> columns = Lists.newArrayList();
@@ -85,8 +84,7 @@ public class MybatisBuilder extends Builder {
                 columnDto = new MybatisColumnDto();
                 columnDto.setSqlColumn(columnName);
                 columnDto.setJavaColumn(MybatisUtils.camelName(columnName));
-                columnDto.setJavaXmlColumn("{" + MybatisUtils.camelName(columnName) + "}");
-                columnDto.setJavaXmlColumn(MybatisUtils.camelName(columnName));
+                columnDto.setJavaXmlColumn(columnName);
                 columnDto.setJavaType(MybatisUtils.getJavaTypeByDBType(columnType, datasize));
                 columnDto.setComment(colRet.getString("REMARKS"));
 
@@ -119,7 +117,7 @@ public class MybatisBuilder extends Builder {
         String tableName = "sky_user";
         String basePackage = "com.ychp.user";
         Builder builder = new MybatisBuilder();
-        builder.build(templatePath, outPath, MybatisUtils.camelNameWithAll(tableName),
+        builder.build(templatePath, outPath, MybatisUtils.camelNameWithAll(tableName).replace("Sky", ""),
                 generalTemplateParamMap(tableName, basePackage), true, true);
     }
 }

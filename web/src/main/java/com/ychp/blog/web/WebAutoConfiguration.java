@@ -1,6 +1,6 @@
 package com.ychp.blog.web;
 
-import com.ychp.blog.user.impl.UserAutoConfiguration;
+import com.ychp.user.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
 import com.ychp.blog.web.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;

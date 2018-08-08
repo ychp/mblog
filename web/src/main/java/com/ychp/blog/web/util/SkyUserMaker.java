@@ -1,6 +1,6 @@
 package com.ychp.blog.web.util;
 
-import com.ychp.blog.user.model.User;
+import com.ychp.user.model.User;
 import com.ychp.common.model.SkyUser;
 import org.dozer.DozerBeanMapper;
 

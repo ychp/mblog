@@ -4,9 +4,9 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
-import com.ychp.blog.user.model.User;
-import com.ychp.blog.user.service.UserReadService;
 import com.ychp.blog.web.session.SessionManager;
+import com.ychp.user.model.User;
+import com.ychp.user.service.UserReadService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +38,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
     @Value("${cache.expire.time:60}")
     private Long expiredTime;
     private LoadingCache<Long, User> userById;
+    private LoadingCache<String, List<String>> white;
 
     @PostConstruct
     public void init() {
@@ -51,20 +52,40 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                         return userReadService.findById(id);
                     }
                 });
+
+        white = CacheBuilder.newBuilder()
+                .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
+                .initialCapacity(100)
+                .maximumSize(1000)
+                .build(new CacheLoader<String, List<String>>() {
+                    @Override
+                    public List<String> load(String s) throws Exception {
+                        return Lists.newArrayList("/", "/login", "/api/user/login",
+                                "/api/v2/api-docs", "/swagger.*");
+                    }
+                });
+
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String msid = getMsid(request, response);
-        HttpSession session = sessionManager.getSession(request, msid);
-        Long userId = (Long) session.getAttribute("userId");
+//        String msid = getMsid(request, response);
+//        HttpSession session = sessionManager.getSession(request, msid);
+
+        HttpSession session = request.getSession();
+        Object userId = session.getAttribute("userId");
         String uri = request.getRequestURI();
 
-        if(userId == null) {
-
+        if(userId != null) {
+            User user = userById.get(Long.valueOf(userId.toString()));
+            return true;
         }
 
-        return true;
+        if(contains(white.get("all"), uri)) {
+            return true;
+        }
+
+        return false;
     }
 
     private boolean contains(List<String> uris, String uri) {

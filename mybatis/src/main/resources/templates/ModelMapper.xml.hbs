@@ -5,7 +5,7 @@
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="{{modelName}}">
-    <resultMap id="{{modelName}}Map" type="User">
+    <resultMap id="{{modelName}}Map" type="{{modelName}}">
         <id column="{{primaryColumn.javaXmlColumn}}" property="{{primaryColumn.javaColumn}}"/>
         {{#each columns}}<result column="{{javaXmlColumn}}" property="{{javaColumn}}"/>
         {{/each}}
@@ -37,8 +37,8 @@
 
     <sql id="update_criteria">
         <set>
-            {{#each columns}}{{#if needEquals}}<if test="{{javaColumn}} != null">`{{javaXmlColumn}}` = #{{#formatParam javaColumn}}{{/formatParam}}</if>{{/if}}
-            {{/each}}
+            {{#each columns}}{{#if needEquals}}<if test="{{javaColumn}} != null">`{{javaXmlColumn}}` = #{{#formatParam javaColumn}}{{/formatParam}},</if>
+            {{/if}}{{/each}}
             updated_at = now()
         </set>
     </sql>

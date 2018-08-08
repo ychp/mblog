@@ -1,4 +1,4 @@
-package com.ychp.blog.user.model;
+package com.ychp.user.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,19 +11,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
- */
+* @author yingchengpeng
+* @date: 2018/08/08
+*/
 @ApiModel(description = "用户表")
-@EqualsAndHashCode(of = { "nickName",  "mobile",  "email",  "homePage",  "ip",  "avatar",  "password",  "salt",  "status"})
 @ToString
+@EqualsAndHashCode(of = { "name", "nickName", "mobile", "email", "homePage", "avatar", "password", "salt", "status" })
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 6348462167146628656L;
+    private static final long serialVersionUID = -2796900462003393210L;
+    /**
+     * 主键
+     */
     @Getter
     @Setter
-    private Long id;
-
+    @ApiModelProperty("主键")
+    private String id;
 
     /**
      * 用户名
@@ -31,6 +34,14 @@ public class User implements Serializable {
     @Getter
     @Setter
     @ApiModelProperty("用户名")
+    private String name;
+
+    /**
+     * 昵称
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("昵称")
     private String nickName;
 
     /**
@@ -38,6 +49,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("手机号码")
     private String mobile;
 
     /**
@@ -45,6 +57,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("邮箱")
     private String email;
 
     /**
@@ -52,20 +65,15 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("主页")
     private String homePage;
-
-    /**
-     * ip地址
-     */
-    @Getter
-    @Setter
-    private String ip;
 
     /**
      * 头像
      */
     @Getter
     @Setter
+    @ApiModelProperty("头像")
     private String avatar;
 
     /**
@@ -73,6 +81,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("密码")
     private String password;
 
     /**
@@ -80,6 +89,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
+    @ApiModelProperty("秘钥")
     private String salt;
 
     /**
@@ -87,7 +97,8 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
-    private Integer status;
+    @ApiModelProperty("状态")
+    private String status;
 
     @Getter
     @Setter

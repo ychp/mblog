@@ -1,7 +1,7 @@
-package com.ychp.blog.web.admin.user;
+package com.ychp.blog.web.controller.user;
 
-import com.ychp.blog.user.model.User;
-import com.ychp.blog.user.service.UserReadService;
+import com.ychp.user.model.User;
+import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

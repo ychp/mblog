@@ -1,13 +1,13 @@
-package com.ychp.blog.user.impl.service;
+package com.ychp.user.server.service;
 
-import com.ychp.blog.user.dto.UserCriteria;
-import com.ychp.blog.user.impl.dao.UserDao;
-import com.ychp.blog.user.model.User;
-import com.ychp.blog.user.service.UserReadService;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.Paging;
 import com.ychp.common.util.Encryption;
+import com.ychp.user.dto.UserCriteria;
+import com.ychp.user.model.User;
+import com.ychp.user.server.dao.UserRepository;
+import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserReadServiceImpl implements UserReadService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserReadServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserReadServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class UserReadServiceImpl implements UserReadService {
             throw new InvalidException("user.id.empty", "id", id);
         }
         try {
-            return userDao.findById(id);
+            return userRepository.findById(id);
         } catch (Exception e) {
             throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
         }
@@ -41,7 +41,7 @@ public class UserReadServiceImpl implements UserReadService {
     @Override
     public User login(String name, String password) {
         try {
-            User user = userDao.login(name);
+            User user = userRepository.findByName(name);
             if(Encryption.checkPassword(password, user.getSalt(), user.getPassword())) {
                 return user;
             }
@@ -55,7 +55,7 @@ public class UserReadServiceImpl implements UserReadService {
     @Override
     public Paging<User> paging(UserCriteria criteria) {
         try {
-            return userDao.paging(criteria.toMap());
+            return userRepository.paging(criteria.toMap());
         } catch (Exception e) {
             throw new ResponseException("user.paging.fail", e.getMessage(), e.getCause());
         }

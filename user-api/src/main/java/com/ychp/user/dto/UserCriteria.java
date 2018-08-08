@@ -1,4 +1,4 @@
-package com.ychp.blog.user.dto;
+package com.ychp.user.dto;
 
 import com.ychp.common.model.PagingCriteria;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.ychp.blog.user.service;
+package com.ychp.user.service;
 
-import com.ychp.blog.user.model.User;
+import com.ychp.user.model.User;
 
 /**
  * Created with terminus generator

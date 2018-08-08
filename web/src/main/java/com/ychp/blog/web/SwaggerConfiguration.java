@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ychp.blog.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.ychp.blog.web.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
