@@ -1,5 +1,6 @@
 package com.ychp.blog.web;
 
+import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.ip.IPServiceAutoConfiguration;
 import com.ychp.user.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
@@ -48,5 +49,10 @@ public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public CaptchaGenerator captchaGenerator() {
+        return new CaptchaGenerator();
     }
 }

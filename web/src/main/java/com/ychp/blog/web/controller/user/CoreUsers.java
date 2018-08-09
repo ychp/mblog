@@ -1,7 +1,8 @@
 package com.ychp.blog.web.controller.user;
 
-import com.ychp.blog.web.component.captcha.CaptchaGenerator;
+import com.ychp.blog.web.constant.SessionConstants;
 import com.ychp.blog.web.util.SkyUserMaker;
+import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.Encryption;
@@ -80,7 +81,9 @@ public class CoreUsers {
     public ResponseEntity<byte[]> getCaptcha(HttpServletRequest request) {
         byte[] imgCache;
         HttpSession session = request.getSession();
-        imgCache = captchaGenerator.captcha(session);
+        String token = captchaGenerator.generateCaptchaToken();
+        session.setAttribute(SessionConstants.CAPTCHA_TOKEN, token);
+        imgCache = captchaGenerator.captcha(token);
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(imgCache, headers, HttpStatus.CREATED);

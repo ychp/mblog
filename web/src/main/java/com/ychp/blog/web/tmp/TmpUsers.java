@@ -1,15 +1,12 @@
 package com.ychp.blog.web.tmp;
 
 import com.google.common.collect.Maps;
-import com.ychp.blog.web.component.captcha.CaptchaGenerator;
+import com.ychp.blog.web.constant.SessionConstants;
+import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.msg.email.EmailSender;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +36,8 @@ public class TmpUsers {
 
     @PostMapping("send-email")
     public void sendEmail(String email, String captcha, HttpServletRequest request) {
-        String captchaToken = captchaGenerator.getGeneratedKey(request.getSession());
+
+        String captchaToken = request.getSession().getAttribute(SessionConstants.CAPTCHA_TOKEN).toString();
         if(!Objects.equals(captchaToken, captcha)) {
             throw new ResponseException("captcha.mismatch");
         }
