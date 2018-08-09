@@ -13,8 +13,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class {{modelName}}Repository extends BaseRepository<{{modelName}}, Long> {
 
-    public {{modelName}}Repository(SqlSession sqlSession, ObjectMapper objectMapper) {
-        super(sqlSession, objectMapper);
-    }
-
 }

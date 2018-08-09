@@ -1,7 +1,7 @@
 package com.ychp.blog.web.controller.user;
 
 import com.ychp.common.model.Paging;
-import com.ychp.user.dto.UserCriteria;
+import com.ychp.user.dto.query.UserCriteria;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * Desc:
@@ -21,7 +19,7 @@ import javax.annotation.Resource;
 @RequestMapping("/api/admin/user")
 public class AdminUsers {
 
-    @Resource
+    @Autowired
     private UserReadService userReadService;
 
     @GetMapping("{id}/detail")

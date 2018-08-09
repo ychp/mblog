@@ -1,12 +1,13 @@
 package com.ychp.user.service;
 
-import com.ychp.user.dto.UserCriteria;
+import com.ychp.user.dto.UserVO;
+import com.ychp.user.dto.query.UserCriteria;
 import com.ychp.user.model.User;
 import com.ychp.common.model.Paging;
 
 /**
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 public interface UserReadService {
 
@@ -19,7 +20,18 @@ public interface UserReadService {
     User findById(Long id);
 
     /**
+     * 根据id查询用户基础信息
+     *
+     * @param id 主键id
+     * @return 查询结果
+     */
+    UserVO findDetailById(Long id);
+
+    /**
      * 登录
+     * @param name 用户名
+     * @param password 密码
+     * @return 用户
      */
     User login(String name, String password);
 

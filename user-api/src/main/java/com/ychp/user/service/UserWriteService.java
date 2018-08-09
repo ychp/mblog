@@ -1,26 +1,39 @@
 package com.ychp.user.service;
 
 import com.ychp.user.model.User;
+import com.ychp.user.model.UserProfile;
 
 /**
- * Created with terminus generator
- * Author:  yingchengpeng
- * Date: 2017-08-27 11:01:01
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 public interface UserWriteService {
 
     /**
      * 创建用户
+     * @param user 需要创建的数据
+     * @return 主键
      */
-    Long createUser(User user);
+    Long create(User user);
 
     /**
      * 更新用户
+     * @param user 需要更新的数据
+     * @return 操作结果
      */
-    Boolean updateUser(User user);
+    Boolean update(User user);
 
     /**
-     * 根据主键id逻辑删除用户
+     * 更新用户信息
+     * @param profile 需要更新的数据
+     * @return 操作结果
      */
-    Boolean deleteUser(Long userId);
+    Boolean saveProfile(UserProfile profile);
+
+    /**
+     * 根据主键id删除用户
+     * @param id 主键
+     * @return 操作结果
+     */
+    Boolean delete(Long id);
 }

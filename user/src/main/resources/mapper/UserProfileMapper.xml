@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
  ~ Author:  yingchengpeng
- ~ Date: 2018/08/08
+ ~ Date: 2018/08/09
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="User">
-    <resultMap id="UserMap" type="User">
+<mapper namespace="UserProfile">
+    <resultMap id="UserProfileMap" type="UserProfile">
         <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="nick_name" property="nickName"/>
-        <result column="mobile" property="mobile"/>
-        <result column="email" property="email"/>
-        <result column="password" property="password"/>
-        <result column="salt" property="salt"/>
-        <result column="status" property="status"/>
+        <result column="user_id" property="userId"/>
+        <result column="home_page" property="homePage"/>
+        <result column="avatar" property="avatar"/>
+        <result column="gender" property="gender"/>
+        <result column="birth" property="birth"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
-
+        
     </resultMap>
 
     <sql id="tb">
-        `sky_user`
+        `sky_user_profile`
     </sql>
 
     <sql id="cols_all">
@@ -28,61 +26,57 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `name`, `nick_name`, `mobile`, `email`, `password`, `salt`, `status`, `created_at`, `updated_at`
+        `user_id`, `home_page`, `avatar`, `gender`, `birth`, `created_at`, `updated_at` 
     </sql>
 
     <sql id="vals">
-        #{name}, #{nickName}, #{mobile}, #{email}, #{password}, #{salt}, #{status}, now(), now()
+         #{userId}, #{homePage}, #{avatar}, #{gender}, #{birth}, now(), now()
     </sql>
 
     <sql id="criteria">
         <where>
             <if test="id != null">AND `id` = #{id}</if>
-            <if test="name != null">AND `name` = #{name}</if>
-            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
-            <if test="mobile != null">AND `mobile` = #{mobile}</if>
-            <if test="email != null">AND `email` = #{email}</if>
-            <if test="status != null">AND `status` = #{status}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="gender != null">AND `gender` = #{gender}</if>
+            <if test="birth != null">AND `birth` = #{birth}</if>
 
         </where>
     </sql>
 
     <sql id="update_criteria">
         <set>
-            <if test="name != null">`name` = #{name},</if>
-            <if test="nickName != null">`nick_name` = #{nickName},</if>
-            <if test="mobile != null">`mobile` = #{mobile},</if>
-            <if test="email != null">`email` = #{email},</if>
-            <if test="password != null">`password` = #{password},</if>
-            <if test="status != null">`status` = #{status},</if>
-
+            <if test="homePage != null">`home_page` = #{homePage},</if>
+            <if test="avatar != null">`avatar` = #{avatar},</if>
+            <if test="gender != null">`gender` = #{gender},</if>
+            <if test="birth != null">`birth` = #{birth},</if>
+            
             updated_at = now()
         </set>
     </sql>
 
 
-    <select id="findById" parameterType="long" resultMap="UserMap">
+    <select id="findById" parameterType="long" resultMap="UserProfileMap">
         SELECT
-        <include refid="cols_all"/>
+            <include refid="cols_all"/>
         FROM <include refid="tb"/>
         WHERE `id` = #{id} LIMIT 1
     </select>
 
-    <select id="list" parameterType="map" resultMap="UserMap">
+    <select id="list" parameterType="map" resultMap="UserProfileMap">
         SELECT
         <include refid="cols_all"/>
         FROM <include refid="tb"/>
         <include refid="criteria"/>
     </select>
 
-    <insert id="create" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+    <insert id="create" parameterType="UserProfile" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO <include refid="tb"/>
         (<include refid="cols_exclude_id"/>)
         VALUES
         (<include refid="vals"/>)
     </insert>
 
-    <update id="update" parameterType="User">
+    <update id="update" parameterType="UserProfile">
         UPDATE
         <include refid="tb"/>
         <include refid="update_criteria"/>
@@ -98,7 +92,7 @@
     </select>
 
     <!-- 分页查询 -->
-    <select id="paging" parameterType="map" resultMap="UserMap">
+    <select id="paging" parameterType="map" resultMap="UserProfileMap">
         SELECT
         <include refid="cols_all"/>
         FROM
@@ -112,10 +106,20 @@
         where `id` = #{id}
     </delete>
 
-    <select id="findByName" parameterType="String" resultMap="UserMap">
+    <select id="findByUserId" parameterType="long" resultMap="UserProfileMap">
         SELECT
         <include refid="cols_all"/>
         FROM <include refid="tb"/>
-        WHERE `name` = #{name} LIMIT 1
+        WHERE `user_id` = #{userId} LIMIT 1
+    </select>
+
+    <select id="findByUserIds" parameterType="list" resultMap="UserProfileMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM <include refid="tb"/>
+        WHERE `user_id` IN
+        <foreach collection="list" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
     </select>
 </mapper>

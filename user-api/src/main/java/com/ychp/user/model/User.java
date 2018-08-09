@@ -26,7 +26,7 @@ public class User implements Serializable {
     @Getter
     @Setter
     @ApiModelProperty("主键")
-    private String id;
+    private Long id;
 
     /**
      * 用户名
@@ -59,22 +59,6 @@ public class User implements Serializable {
     @Setter
     @ApiModelProperty("邮箱")
     private String email;
-
-    /**
-     * 主页
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("主页")
-    private String homePage;
-
-    /**
-     * 头像
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("头像")
-    private String avatar;
 
     /**
      * 密码

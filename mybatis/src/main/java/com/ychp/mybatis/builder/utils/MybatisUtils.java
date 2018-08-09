@@ -1,9 +1,8 @@
 package com.ychp.mybatis.builder.utils;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 17/2/12
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 public class MybatisUtils {
 
@@ -102,6 +101,9 @@ public class MybatisUtils {
         String javaType;
 
         switch (dbType.toLowerCase()){
+            case "bigint":
+                javaType = "Long";
+                break;
             case "int":
                 if(dataSize >= 10){
                     javaType = "Long";

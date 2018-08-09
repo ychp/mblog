@@ -10,9 +10,9 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Desc: 分页的基类,用于包含所有都要用的分页条件
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * 分页的基类,用于包含所有都要用的分页条件
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -84,7 +84,7 @@ public class PagingCriteria extends Criteria implements Serializable {
      * 如果Start的时间和End的时间一致, 则End+1day
      */
     protected void formatDate(){
-
+        // todo
     }
 
 }

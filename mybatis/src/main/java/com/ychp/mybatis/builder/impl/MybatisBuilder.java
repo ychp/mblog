@@ -28,7 +28,8 @@ public class MybatisBuilder extends Builder {
     protected static Map<String, Object> generalTemplateParamMap(String tableName, String basePackage) {
         Map<String, Object> templateParamMap = Maps.newHashMap();
         templateParamMap.put("tableName", tableName);
-        templateParamMap.put("modelName", MybatisUtils.camelNameWithAll(tableName).replace("Sky", ""));
+        templateParamMap.put("modelName", MybatisUtils.camelNameWithAll(tableName.replace("sky", "")));
+        templateParamMap.put("modelParam", MybatisUtils.camelName(tableName.replace("sky", "")));
         templateParamMap.put("package", basePackage);
 
         String host = "127.0.0.1";
@@ -114,7 +115,7 @@ public class MybatisBuilder extends Builder {
     public static void main(String[] args){
         String templatePath = "mybatis/src/main/resources/templates";
         String outPath = "/Users/yingchengpeng/ychp/blog/mybatis/src/main/resources/code";
-        String tableName = "sky_user";
+        String tableName = "sky_user_profile";
         String basePackage = "com.ychp.user";
         Builder builder = new MybatisBuilder();
         builder.build(templatePath, outPath, MybatisUtils.camelNameWithAll(tableName).replace("Sky", ""),

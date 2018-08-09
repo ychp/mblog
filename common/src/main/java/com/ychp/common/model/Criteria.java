@@ -14,13 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
- *
- * Author:  yingchengpeng
- * Date: 2017-08-27 11:01:01
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
-public abstract class Criteria{
+public abstract class Criteria {
 
-    private final static TypeReference<Map<String, Object>> model = new TypeReference<Map<String, Object>>(){};
+    private final static TypeReference<Map<String, Object>> MODEL = new TypeReference<Map<String, Object>>(){};
     protected static final ObjectMapper MAPPER = new ObjectMapper();
     static{
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
@@ -30,6 +29,6 @@ public abstract class Criteria{
     }
 
     public Map<String, Object> toMap(){
-        return MAPPER.convertValue(this, model);
+        return MAPPER.convertValue(this, MODEL);
     }
 }

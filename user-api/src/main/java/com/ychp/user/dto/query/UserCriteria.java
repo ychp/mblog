@@ -1,4 +1,4 @@
-package com.ychp.user.dto;
+package com.ychp.user.dto.query;
 
 import com.ychp.common.model.PagingCriteria;
 import io.swagger.annotations.ApiModel;
@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -14,8 +15,8 @@ import java.io.Serializable;
  * @date 2018-08-08
  */
 @ApiModel(description = "用户查询类型")
-@Data
-public class UserCriteria extends PagingCriteria implements Serializable {
+@ToString
+public class UserCriteria extends PagingCriteria {
 
     private static final long serialVersionUID = 8815059999975666033L;
 

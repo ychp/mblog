@@ -24,7 +24,7 @@
     </sql>
 
     <sql id="vals">
-        {{#each columns}} {{#if needEquals}}#{{#formatParam javaColumn}}{{/formatParam}},{{/if}}{{/each}} now(), now()
+        {{#each columns}}{{#if needEquals}} #{{#formatParam javaColumn}}{{/formatParam}},{{/if}}{{/each}} now(), now()
     </sql>
 
     <sql id="criteria">

@@ -4,6 +4,9 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
+import com.ychp.blog.web.util.SkyUserMaker;
+import com.ychp.common.model.SkyUser;
+import com.ychp.common.util.RequestUtils;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,14 +68,13 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
         if(userId != null) {
             User user = userById.get(Long.valueOf(userId.toString()));
+            SkyUser skyUser = SkyUserMaker.make(user);
+            RequestUtils.put(skyUser);
             return true;
         }
 
-        if(contains(white.get("all"), uri)) {
-            return true;
-        }
+        return contains(white.get("all"), uri);
 
-        return false;
     }
 
     private boolean contains(List<String> uris, String uri) {
