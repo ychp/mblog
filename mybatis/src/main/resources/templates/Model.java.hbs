@@ -12,11 +12,11 @@ import java.util.Date;
 
 /**
 * @author yingchengpeng
-* @date: {{#formatDate currentDate}}{{/formatDate}}
+* @date {{#formatDate currentDate}}{{/formatDate}}
 */
 @ApiModel(description = "{{tableRemarks}}")
 @ToString
-@EqualsAndHashCode(of = { {{#each columns}} {{#if needEquals}}"{{javaColumn}}",{{/if}}{{/each}} })
+@EqualsAndHashCode(of = { {{#each columns}}{{#if needEquals}} "{{javaColumn}}",{{/if}}{{/each}} })
 public class {{modelName}} implements Serializable {
     private static final long serialVersionUID = -1L;
 

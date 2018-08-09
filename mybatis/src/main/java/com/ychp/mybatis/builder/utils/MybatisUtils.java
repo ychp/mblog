@@ -102,6 +102,7 @@ public class MybatisUtils {
 
         switch (dbType.toLowerCase()){
             case "bigint":
+            case "bigint unsigned":
                 javaType = "Long";
                 break;
             case "int":

@@ -139,6 +139,7 @@ DROP TABLE IF EXISTS `sky_ip_info`;
 CREATE TABLE IF NOT EXISTS `sky_ip_info` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ip` varchar(32) DEFAULT NULL COMMENT 'ip地址',
+  `country` varchar(128) DEFAULT NULL COMMENT '国家',
   `province` varchar(128) DEFAULT NULL COMMENT '省份',
   `city` varchar(128) DEFAULT NULL COMMENT '城市',
   `created_at` datetime DEFAULT NULL,

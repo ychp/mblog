@@ -15,9 +15,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 16/9/14
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 @EnableWebMvc
 @Configuration

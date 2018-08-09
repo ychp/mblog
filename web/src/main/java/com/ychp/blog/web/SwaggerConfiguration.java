@@ -12,9 +12,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 18/7/25
+ * @author yingchengpeng
+ * @date 2018-08-09
  */
 @EnableSwagger2
 @Configuration

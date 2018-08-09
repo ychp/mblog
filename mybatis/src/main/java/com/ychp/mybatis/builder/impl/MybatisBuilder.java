@@ -115,7 +115,7 @@ public class MybatisBuilder extends Builder {
     public static void main(String[] args){
         String templatePath = "mybatis/src/main/resources/templates";
         String outPath = "/Users/yingchengpeng/ychp/blog/mybatis/src/main/resources/code";
-        String tableName = "sky_user_profile";
+        String tableName = "sky_user_login_log";
         String basePackage = "com.ychp.user";
         Builder builder = new MybatisBuilder();
         builder.build(templatePath, outPath, MybatisUtils.camelNameWithAll(tableName).replace("Sky", ""),

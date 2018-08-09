@@ -1,5 +1,6 @@
 package com.ychp.blog.web.controller.user;
 
+import com.ychp.blog.web.async.user.LoginLogAsync;
 import com.ychp.blog.web.constant.SessionConstants;
 import com.ychp.blog.web.util.SkyUserMaker;
 import com.ychp.common.captcha.CaptchaGenerator;
@@ -7,6 +8,7 @@ import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
+import com.ychp.ip.component.IPServer;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
@@ -42,6 +44,12 @@ public class CoreUsers {
     @Autowired
     private UserWriteService userWriteService;
 
+    @Autowired
+    private IPServer ipServer;
+
+    @Autowired
+    private LoginLogAsync loginLogAsync;
+
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("{id}")
     public SkyUser detail(@PathVariable Long id) {
@@ -50,14 +58,19 @@ public class CoreUsers {
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("login")
-    public Long login(@ApiParam("用户名") @RequestParam String name,
+    public SkyUser login(@ApiParam("用户名") @RequestParam String name,
                       @ApiParam("密码") @RequestParam String password,
                       @ApiParam("验证码TODO") @RequestParam(required = false) String captcha,
                       HttpServletRequest request) {
         User user = userReadService.login(name, password);
         HttpSession session = request.getSession();
         session.setAttribute("userId", user.getId());
-        return user.getId();
+
+        SkyUser skyUser = SkyUserMaker.make(user);
+        skyUser.setIp(ipServer.getIp(request));
+
+        loginLogAsync.log(skyUser);
+        return skyUser;
     }
 
     @ApiOperation(value = "修改密码",httpMethod = "PUT")
