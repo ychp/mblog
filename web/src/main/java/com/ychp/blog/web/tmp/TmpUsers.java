@@ -1,4 +1,4 @@
-package com.ychp.blog.web.controller.user;
+package com.ychp.blog.web.tmp;
 
 import com.google.common.collect.Maps;
 import com.ychp.blog.web.component.captcha.CaptchaGenerator;
