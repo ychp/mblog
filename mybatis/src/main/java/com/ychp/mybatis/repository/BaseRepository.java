@@ -3,7 +3,7 @@ package com.ychp.mybatis.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
-import com.ychp.common.model.Paging;
+import com.ychp.common.model.paging.Paging;
 import org.apache.ibatis.session.SqlSession;
 
 import javax.annotation.Resource;

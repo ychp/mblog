@@ -1,5 +1,6 @@
 package com.ychp.blog.web;
 
+import com.ychp.ip.IPServiceAutoConfiguration;
 import com.ychp.user.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
 import com.ychp.blog.web.session.SessionManager;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@Import({UserAutoConfiguration.class})
+@Import({IPServiceAutoConfiguration.class, UserAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean

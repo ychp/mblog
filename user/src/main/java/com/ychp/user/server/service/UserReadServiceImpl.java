@@ -2,7 +2,7 @@ package com.ychp.user.server.service;
 
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
-import com.ychp.common.model.Paging;
+import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.Encryption;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.dto.query.UserCriteria;

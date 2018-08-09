@@ -5,8 +5,7 @@ import com.ychp.blog.web.util.SkyUserMaker;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.Encryption;
-import com.ychp.common.util.RequestUtils;
-import com.ychp.msg.email.EmailSender;
+import com.ychp.common.util.SessionContextUtils;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
@@ -63,7 +62,7 @@ public class CoreUsers {
     @ApiOperation(value = "修改密码",httpMethod = "PUT")
     @PutMapping("change-password")
     public Boolean changePassword(String oldPassword, String newPassword) {
-        Long userId = RequestUtils.getUserId();
+        Long userId = SessionContextUtils.getUserId();
         User user = userReadService.findById(userId);
         if(!Encryption.checkPassword(oldPassword, user.getSalt(), user.getPassword())) {
             throw new ResponseException("user.password.mismatch");

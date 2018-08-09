@@ -6,7 +6,7 @@ import com.ychp.common.model.SkyUser;
  * @author yingchengpeng
  * @date 2018/8/9
  */
-public class RequestUtils {
+public class SessionContextUtils {
 
 	private static final ThreadLocal<SkyUser> USER_THREAD_LOCAL = new ThreadLocal<>();
 

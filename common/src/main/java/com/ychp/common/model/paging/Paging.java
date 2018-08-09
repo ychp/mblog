@@ -1,4 +1,4 @@
-package com.ychp.common.model;
+package com.ychp.common.model.paging;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

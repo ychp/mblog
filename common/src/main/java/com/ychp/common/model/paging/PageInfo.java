@@ -1,4 +1,4 @@
-package com.ychp.common.model;
+package com.ychp.common.model.paging;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;

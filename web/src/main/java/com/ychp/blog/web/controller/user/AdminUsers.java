@@ -1,6 +1,6 @@
 package com.ychp.blog.web.controller.user;
 
-import com.ychp.common.model.Paging;
+import com.ychp.common.model.paging.Paging;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.dto.query.UserCriteria;
 import com.ychp.user.model.User;

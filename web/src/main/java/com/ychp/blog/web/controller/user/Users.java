@@ -1,7 +1,7 @@
 package com.ychp.blog.web.controller.user;
 
 import com.ychp.blog.web.controller.bean.request.user.UserProfileRequest;
-import com.ychp.common.util.RequestUtils;
+import com.ychp.common.util.SessionContextUtils;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.model.User;
 import com.ychp.user.model.UserProfile;
@@ -32,14 +32,14 @@ public class Users {
     @ApiOperation(value = "获取用户基础信息(用户详情)", httpMethod = "GET")
     @GetMapping("profile")
     public UserVO detail() {
-        Long userId = RequestUtils.getUserId();
+        Long userId = SessionContextUtils.getUserId();
         return userReadService.findDetailById(userId);
     }
 
     @ApiOperation(value = "更新用户基础信息(用户详情)", httpMethod = "POST")
     @PostMapping("profile")
     public Boolean updateProfile(@RequestBody UserProfileRequest request) {
-        Long userId = RequestUtils.getUserId();
+        Long userId = SessionContextUtils.getUserId();
 
         User toUpdate = generateUser(request, userId);
         if(toUpdate != null) {

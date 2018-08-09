@@ -6,14 +6,15 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ychp.blog.web.util.SkyUserMaker;
 import com.ychp.common.model.SkyUser;
-import com.ychp.common.util.RequestUtils;
+import com.ychp.common.util.SessionContextUtils;
+import com.ychp.ip.component.IPServer;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,8 +27,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
-    @Resource
+    @Autowired
     private UserReadService userReadService;
+
+    @Autowired
+    private IPServer ipServer;
 
     @Value("${cache.expire.time:60}")
     private Long expiredTime;
@@ -69,7 +73,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
         if(userId != null) {
             User user = userById.get(Long.valueOf(userId.toString()));
             SkyUser skyUser = SkyUserMaker.make(user);
-            RequestUtils.put(skyUser);
+            String ip = ipServer.getIp(request);
+            skyUser.setIp(ip);
+            SessionContextUtils.put(skyUser);
             return true;
         }
 

@@ -1,4 +1,4 @@
-package com.ychp.common.model;
+package com.ychp.common.model.paging;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
