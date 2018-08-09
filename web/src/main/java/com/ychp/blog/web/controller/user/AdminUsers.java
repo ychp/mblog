@@ -1,9 +1,12 @@
 package com.ychp.blog.web.controller.user;
 
 import com.ychp.common.model.paging.Paging;
+import com.ychp.user.dto.UserLoginLogVO;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.dto.query.UserCriteria;
+import com.ychp.user.dto.query.UserLoginLogCriteria;
 import com.ychp.user.model.User;
+import com.ychp.user.service.UserLoginLogReadService;
 import com.ychp.user.service.UserReadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +28,9 @@ public class AdminUsers {
     @Autowired
     private UserReadService userReadService;
 
+    @Autowired
+    private UserLoginLogReadService userLoginLogReadService;
+
     @ApiOperation("用户详情接口")
     @GetMapping("{id}/detail")
     public UserVO detail(@PathVariable Long id) {
@@ -35,5 +41,11 @@ public class AdminUsers {
     @GetMapping("paging")
     public Paging<User> paging(UserCriteria criteria) {
         return userReadService.paging(criteria);
+    }
+
+    @ApiOperation("用户登录日志分页接口")
+    @GetMapping("login-log/paging")
+    public Paging<UserLoginLogVO> pagingLoginLog(UserLoginLogCriteria criteria) {
+        return userLoginLogReadService.paging(criteria);
     }
 }

@@ -1,5 +1,6 @@
 package com.ychp.common.model.paging;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,9 @@ public class Paging<T> implements Serializable {
 
     public Boolean isEmpty() {
         return datas == null || datas.isEmpty();
+    }
+
+    public static Paging empty() {
+        return new Paging<>(0L, Lists.newArrayListWithCapacity(0));
     }
 }

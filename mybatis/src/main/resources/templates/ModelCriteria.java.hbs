@@ -25,14 +25,14 @@ public class {{modelName}}Criteria extends PagingCriteria {
     @ApiModelProperty("主键")
     private {{primaryColumn.javaType}} {{primaryColumn.javaColumn}};
 
-    {{#each columns}}
-        /**
-         * {{comment}}
-         */
-        @Getter
-        @Setter
-        @ApiModelProperty("{{comment}}")
-        private {{javaType}} {{javaColumn}};
-    {{/each}}
+{{#each columns}}
+    /**
+     * {{comment}}
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("{{comment}}")
+    private {{javaType}} {{javaColumn}};
+{{/each}}
 
 }
