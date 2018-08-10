@@ -110,6 +110,15 @@ public class BaseRepository<T, K> {
     }
 
     /**
+     * 查询对象列表
+     * @param criteria 查询条件
+     * @return 查询到的对象列表
+     */
+    public List<T> list(Map<String, Object> criteria){
+        return sqlSession.selectList(sqlId(LIST), criteria);
+    }
+
+    /**
      * 查询分页对象
      * @param criteria 查询条件
      * @return 查询到的分页对象

@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author yingchengpeng
  * @date 2018-08-10
@@ -62,6 +64,12 @@ public class Labels {
         label.setId(id);
         label.setVisible(false);
         return labelWriteService.update(label);
+    }
+
+    @ApiOperation("获取所有可见的标签-文章编辑页使用")
+    @GetMapping("all-visible")
+    public List<Label> listVisible() {
+        return labelReadService.listVisible();
     }
 
 }

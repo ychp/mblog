@@ -31,6 +31,6 @@ public class LabelCriteria extends PagingCriteria {
     @Getter
     @Setter
     @ApiModelProperty("是否可见，0.不可见，1.可见")
-    private String visible;
+    private Boolean visible;
 
 }

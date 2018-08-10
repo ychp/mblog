@@ -4,6 +4,8 @@ import com.ychp.blog.dto.query.LabelCriteria;
 import com.ychp.blog.model.Label;
 import com.ychp.common.model.paging.Paging;
 
+import java.util.List;
+
 /**
 * @author yingchengpeng
 * @date: 2018/08/10
@@ -25,5 +27,12 @@ public interface LabelReadService {
      * @return 分页结果
      */
     Paging<Label> paging(LabelCriteria criteria);
+
+    /**
+     * 根据条件获取数据
+     *
+     * @return 结果
+     */
+    List<Label> listVisible();
 
 }

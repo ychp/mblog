@@ -10,6 +10,8 @@ import com.ychp.blog.service.LabelReadService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 
 /**
 * @author yingchengpeng
@@ -37,6 +39,17 @@ public class LabelReadServiceImpl implements LabelReadService {
     public Paging<Label> paging(LabelCriteria criteria) {
         try {
             return labelRepository.paging(criteria.toMap());
+        } catch (Exception e) {
+            throw new ResponseException("label.paging.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
+    public List<Label> listVisible() {
+        try {
+            LabelCriteria criteria = new LabelCriteria();
+            criteria.setVisible(true);
+            return labelRepository.list(criteria.toMap());
         } catch (Exception e) {
             throw new ResponseException("label.paging.fail", e.getMessage(), e.getCause());
         }
