@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 set -e
+echo 'pull newest code'
+git pull
+
 local_path=`pwd`
+
+echo 'package'
 mvn clean package -Dmaven.test.skip
+
+echo 'make image'
 cp ${local_path}/web/target/blog.jar ${local_path}/docker/
 cd ${local_path}/docker
 docker build . -t blog:1.0
 
+echo 'start service'
 if [ -f ~/blog.sh ];
 then
     sh ~/blog.sh
