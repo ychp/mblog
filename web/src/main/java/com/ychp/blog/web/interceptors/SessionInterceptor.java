@@ -60,6 +60,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     @Override
                     public List<String> load(String s) throws Exception {
                         return Lists.newArrayList(
+                                "/api/user/captcha",
+                                "/api/user/register",
                                 "/api/user/login",
                                 "/api/v2/api-docs",
                                 "/swagger.*",

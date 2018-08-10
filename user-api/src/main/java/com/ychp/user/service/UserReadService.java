@@ -43,4 +43,12 @@ public interface UserReadService {
      */
     Paging<User> paging(UserCriteria criteria);
 
+    /**
+     * 根据用户名查询
+     *
+     * @param name 用户名
+     * @return 查询结果
+     */
+    User findByName(String name);
+
 }

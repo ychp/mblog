@@ -6,10 +6,10 @@ import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.Encryption;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.dto.query.UserCriteria;
-import com.ychp.user.model.User;
-import com.ychp.user.model.UserProfile;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;
+import com.ychp.user.model.User;
+import com.ychp.user.model.UserProfile;
 import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,6 +106,15 @@ public class UserReadServiceImpl implements UserReadService {
             return userRepository.paging(criteria.toMap());
         } catch (Exception e) {
             throw new ResponseException("user.paging.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
+    public User findByName(String name) {
+        try {
+            return userRepository.findByName(name);
+        } catch (Exception e) {
+            throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
         }
     }
 }

@@ -1,8 +1,15 @@
 package com.ychp.blog.web.controller.user;
 
+import com.ychp.blog.web.async.user.LoginLogAsync;
+import com.ychp.blog.web.constant.SessionConstants;
 import com.ychp.blog.web.controller.bean.request.user.UserProfileRequest;
+import com.ychp.blog.web.controller.bean.request.user.UserRegisterRequest;
+import com.ychp.blog.web.util.SkyUserMaker;
 import com.ychp.common.exception.ResponseException;
+import com.ychp.common.model.SkyUser;
+import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
+import com.ychp.ip.component.IPServer;
 import com.ychp.user.cache.AddressCacher;
 import com.ychp.user.dto.UserVO;
 import com.ychp.user.model.Address;
@@ -15,6 +22,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 /**
  * Desc:
@@ -34,6 +45,47 @@ public class Users {
 
     @Autowired
     private AddressCacher addressCacher;
+
+    @Autowired
+    private IPServer ipServer;
+
+    @Autowired
+    private LoginLogAsync loginLogAsync;
+
+    @ApiOperation(value = "注册", httpMethod = "POST")
+    @PostMapping("register")
+    public SkyUser register(@RequestBody UserRegisterRequest registerRequest, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String token = (String) session.getAttribute(SessionConstants.CAPTCHA_TOKEN);
+        if(!Objects.equals(registerRequest.getCaptcha(), token)) {
+            throw new ResponseException("register.captcha.mismatch");
+        }
+
+        session.removeAttribute(SessionConstants.CAPTCHA_TOKEN);
+
+        if(StringUtils.isEmpty(registerRequest.getName()) || StringUtils.isEmpty(registerRequest.getPassword())) {
+            throw new ResponseException("user.register.info.empty");
+        }
+
+        User user = userReadService.findByName(registerRequest.getName());
+        if(user != null) {
+            throw new ResponseException("user.name.exist");
+        }
+
+        user = new User();
+        user.setName(registerRequest.getName());
+        user.setNickName(registerRequest.getName());
+        user.setSalt(Encryption.getSalt());
+        user.setPassword(Encryption.encrypt3DES(registerRequest.getPassword(), user.getSalt()));
+        userWriteService.create(user);
+        session.setAttribute("userId", user.getId());
+
+        SkyUser skyUser = SkyUserMaker.make(user);
+        skyUser.setIp(ipServer.getIp(request));
+        loginLogAsync.log(skyUser);
+        return skyUser;
+    }
 
     @ApiOperation(value = "获取用户基础信息(用户详情)", httpMethod = "GET")
     @GetMapping("profile")
