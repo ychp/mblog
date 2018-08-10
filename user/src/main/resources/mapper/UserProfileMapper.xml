@@ -11,7 +11,16 @@
         <result column="home_page" property="homePage"/>
         <result column="avatar" property="avatar"/>
         <result column="gender" property="gender"/>
+        <result column="real_name" property="realName"/>
         <result column="birth" property="birth"/>
+        <result column="country_id" property="countryId"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="country" property="country"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="synopsis" property="synopsis"/>
+        <result column="profile" property="profile"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
         
@@ -26,11 +35,11 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `user_id`, `home_page`, `avatar`, `gender`, `birth`, `created_at`, `updated_at` 
+        `user_id`, `home_page`, `avatar`, `gender`, `real_name`, `birth`, `country_id`, `province_id`, `city_id`, `country`, `province`, `city`, `synopsis`, `profile`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{userId}, #{homePage}, #{avatar}, #{gender}, #{birth}, now(), now()
+        #{userId}, #{homePage}, #{avatar}, #{gender}, #{realName}, #{birth}, #{countryId}, #{provinceId}, #{cityId}, #{country}, #{province}, #{city}, #{synopsis}, #{profile}, now(), now()
     </sql>
 
     <sql id="criteria">
@@ -38,7 +47,11 @@
             <if test="id != null">AND `id` = #{id}</if>
             <if test="userId != null">AND `user_id` = #{userId}</if>
             <if test="gender != null">AND `gender` = #{gender}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
             <if test="birth != null">AND `birth` = #{birth}</if>
+            <if test="countryId != null">AND `country_id` = #{countryId}</if>
+            <if test="provinceId != null">AND `province_id` = #{provinceId}</if>
+            <if test="cityId != null">AND `city_id` = #{cityId}</if>
 
         </where>
     </sql>
@@ -48,8 +61,17 @@
             <if test="homePage != null">`home_page` = #{homePage},</if>
             <if test="avatar != null">`avatar` = #{avatar},</if>
             <if test="gender != null">`gender` = #{gender},</if>
+            <if test="realName != null">`real_name` = #{realName},</if>
             <if test="birth != null">`birth` = #{birth},</if>
-            
+            <if test="countryId != null">`country_id` = #{countryId},</if>
+            <if test="provinceId != null">`province_id` = #{provinceId},</if>
+            <if test="cityId != null">`city_id` = #{cityId},</if>
+            <if test="country != null">`country` = #{country},</if>
+            <if test="province != null">`province` = #{province},</if>
+            <if test="city != null">`city` = #{city},</if>
+            <if test="synopsis != null">`synopsis` = #{synopsis},</if>
+            <if test="profile != null">`profile` = #{profile},</if>
+
             updated_at = now()
         </set>
     </sql>

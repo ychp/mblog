@@ -52,10 +52,82 @@ public class UserProfileRequest implements Serializable {
 	private String gender;
 
 	/**
+	 * 真实姓名
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("真实姓名")
+	private String realName;
+
+	/**
 	 * 出生日期
 	 */
 	@Getter
 	@Setter
 	@ApiModelProperty("出生日期")
 	private Date birth;
+
+	/**
+	 * 国家ID
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("国家ID")
+	private Long countryId;
+
+	/**
+	 * 省份ID
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("省份ID")
+	private Long provinceId;
+
+	/**
+	 * 城市ID
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("城市ID")
+	private Long cityId;
+
+	/**
+	 * 国家
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("国家")
+	private String country;
+
+	/**
+	 * 省份
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("省份")
+	private String province;
+
+	/**
+	 * 城市
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("城市")
+	private String city;
+
+	/**
+	 * 简介
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("简介")
+	private String synopsis;
+
+	/**
+	 * 职业
+	 */
+	@Getter
+	@Setter
+	@ApiModelProperty("职业")
+	private String profile;
 }

@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ychp.blog.web.util.SkyUserMaker;
+import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
@@ -58,7 +59,11 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                 .build(new CacheLoader<String, List<String>>() {
                     @Override
                     public List<String> load(String s) throws Exception {
-                        return Lists.newArrayList("/api/user/login", "/api/v2/api-docs", "/swagger.*");
+                        return Lists.newArrayList(
+                                "/api/user/login",
+                                "/api/v2/api-docs",
+                                "/swagger.*",
+                                "/api/address/.*");
                     }
                 });
 
@@ -79,8 +84,11 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        return contains(white.get("all"), uri);
+        if(contains(white.get("all"), uri)) {
+            return true;
+        }
 
+        throw new ResponseException(401, "user.not.login");
     }
 
     private boolean contains(List<String> uris, String uri) {

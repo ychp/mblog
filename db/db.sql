@@ -25,12 +25,35 @@ CREATE TABLE IF NOT EXISTS `sky_user_profile` (
   `home_page` varchar(256) DEFAULT NULL COMMENT '主页',
   `avatar` varchar(256) DEFAULT NULL COMMENT '头像',
   `gender` varchar(8) DEFAULT NULL COMMENT '性别：male,female',
+  `real_name` varchar(256) DEFAULT NULL COMMENT '真实姓名',
   `birth` date DEFAULT NULL COMMENT '出生日期',
+  `country_id` int(9) DEFAULT NULL COMMENT '国家ID',
+  `province_id` int(9) DEFAULT NULL COMMENT '省份ID',
+  `city_id` int(9) DEFAULT NULL COMMENT '城市ID',
+  `country` varchar(256) DEFAULT NULL COMMENT '国家',
+  `province` varchar(256) DEFAULT NULL COMMENT '省份',
+  `city` varchar(256) DEFAULT NULL COMMENT '城市',
+  `synopsis` varchar(1024) DEFAULT NULL COMMENT '简介',
+  `profile` varchar(512) DEFAULT NULL COMMENT '职业',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_profile_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户信息表';
+
+DROP TABLE IF EXISTS `sky_address`;
+
+CREATE TABLE IF NOT EXISTS `sky_address` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` bigint(20) DEFAULT NULL COMMENT '父级ID',
+  `name` varchar(64) DEFAULT NULL COMMENT '名称',
+  `level` int(11) DEFAULT NULL COMMENT '级别',
+  `pinyin` varchar(128) DEFAULT NULL COMMENT '拼音',
+  `english_name` varchar(128) DEFAULT NULL COMMENT '英文名',
+  `unicode_code` varchar(256) DEFAULT NULL COMMENT 'ASCII码',
+  PRIMARY KEY (`id`),
+  KEY `idx_address_pid` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '地址树表';
 
 DROP TABLE IF EXISTS `sky_user_login_log`;
 

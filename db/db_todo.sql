@@ -32,3 +32,12 @@ CREATE TABLE IF NOT EXISTS `sky_config` (
   PRIMARY KEY (`id`),
   KEY `idx_config_key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '配置表';
+
+INSERT INTO `role` (`id`, `name`, `status`, `created_at`, `updated_at`)
+VALUES
+	(1, 'root', 1, '2017-08-27 00:00:00', '2017-08-27 00:00:00'),
+	(2, 'user', 1, '2017-08-27 00:00:00', '2017-08-27 00:00:00');
+
+INSERT INTO `user_role` (`user_id`, `role_id`, `role_name`, `created_at`, `updated_at`)
+VALUES
+	(1, 1, 'root', '2017-08-27 00:00:00', '2017-08-27 00:00:00');

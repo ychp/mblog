@@ -1,8 +1,11 @@
 package com.ychp.blog.web.controller.user;
 
 import com.ychp.blog.web.controller.bean.request.user.UserProfileRequest;
+import com.ychp.common.exception.ResponseException;
 import com.ychp.common.util.SessionContextUtils;
+import com.ychp.user.cache.AddressCacher;
 import com.ychp.user.dto.UserVO;
+import com.ychp.user.model.Address;
 import com.ychp.user.model.User;
 import com.ychp.user.model.UserProfile;
 import com.ychp.user.service.UserReadService;
@@ -28,6 +31,9 @@ public class Users {
 
     @Autowired
     private UserWriteService userWriteService;
+
+    @Autowired
+    private AddressCacher addressCacher;
 
     @ApiOperation(value = "获取用户基础信息(用户详情)", httpMethod = "GET")
     @GetMapping("profile")
@@ -68,6 +74,13 @@ public class Users {
         if(StringUtils.isEmpty(request.getAvatar())
                 && StringUtils.isEmpty(request.getHomePage())
                 && StringUtils.isEmpty(request.getGender())
+                && StringUtils.isEmpty(request.getNickName())
+                && StringUtils.isEmpty(request.getProfile())
+                && StringUtils.isEmpty(request.getRealName())
+                && StringUtils.isEmpty(request.getSynopsis())
+                && request.getCountryId() == null
+                && request.getProvinceId() == null
+                && request.getCityId() == null
                 && request.getBirth() == null) {
             return null;
         }
@@ -77,6 +90,36 @@ public class Users {
         profile.setHomePage(request.getHomePage());
         profile.setGender(request.getGender());
         profile.setAvatar(request.getAvatar());
+        profile.setRealName(request.getRealName());
+        profile.setSynopsis(request.getSynopsis());
+        profile.setProfile(request.getProfile());
+
+        if(request.getCountryId() != null) {
+            profile.setCountryId(request.getCountryId());
+            Address country = addressCacher.findById(request.getCountryId());
+            if(country == null) {
+                throw new ResponseException("country.not.exist");
+            }
+            profile.setCountry(country.getName());
+        }
+
+        if(request.getProvinceId() != null) {
+            profile.setProvinceId(request.getProvinceId());
+            Address province = addressCacher.findById(request.getProvinceId());
+            if(province == null) {
+                throw new ResponseException("province.not.exist");
+            }
+            profile.setProvince(province.getName());
+        }
+
+        if(request.getCityId() != null) {
+            profile.setCityId(request.getCityId());
+            Address city = addressCacher.findById(request.getCityId());
+            if(city == null) {
+                throw new ResponseException("city.not.exist");
+            }
+            profile.setCity(city.getName());
+        }
         return profile;
     }
 

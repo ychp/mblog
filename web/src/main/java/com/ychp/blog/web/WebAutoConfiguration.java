@@ -2,7 +2,8 @@ package com.ychp.blog.web;
 
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.ip.IPServiceAutoConfiguration;
-import com.ychp.user.UserAutoConfiguration;
+import com.ychp.user.UserApiAutoConfig;
+import com.ychp.user.impl.UserAutoConfiguration;
 import com.ychp.blog.web.interceptors.SessionInterceptor;
 import com.ychp.blog.web.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@Import({IPServiceAutoConfiguration.class, UserAutoConfiguration.class})
+@Import({IPServiceAutoConfiguration.class,
+        UserApiAutoConfig.class,
+        UserAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean

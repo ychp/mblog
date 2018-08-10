@@ -44,5 +44,6 @@ public class ResponseExceptionResolver {
             log.error("get message fail by code = {}, case {}", se.getErrorCode(), Throwables.getStackTraceAsString(e));
         }
         response.sendError(se.getStatus(), message);
+        response.setStatus(se.getStatus());
     }
 }

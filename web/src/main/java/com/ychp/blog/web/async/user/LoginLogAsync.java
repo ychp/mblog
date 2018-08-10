@@ -2,7 +2,7 @@ package com.ychp.blog.web.async.user;
 
 import com.ychp.common.model.SkyUser;
 import com.ychp.user.model.UserLoginLog;
-import com.ychp.user.server.repository.UserLoginLogRepository;
+import com.ychp.user.impl.server.repository.UserLoginLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
