@@ -2,18 +2,19 @@ package com.ychp.blog.web.exception;
 
 import com.google.common.base.Throwables;
 import com.ychp.common.exception.InvalidException;
-import com.ychp.common.exception.ResponseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Desc:
@@ -31,8 +32,9 @@ public class InvalidExceptionResolver {
         this.messageSource = messageSource;
     }
 
+    @ResponseBody
     @ExceptionHandler(value = InvalidException.class)
-    public void OPErrorHandler(InvalidException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<String> OPErrorHandler(InvalidException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         log.error("request uri[{}] by error {} = {} fail, case {}", uri, se.getParamKey(), se.getParam(), Throwables.getStackTraceAsString(se));
@@ -43,6 +45,6 @@ public class InvalidExceptionResolver {
         } catch (Exception e) {
             log.error("get message fail by code = {}, case {}", se.getErrorCode(), Throwables.getStackTraceAsString(e));
         }
-        response.sendError(500, message);
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

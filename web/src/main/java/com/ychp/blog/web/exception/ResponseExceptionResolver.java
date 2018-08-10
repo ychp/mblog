@@ -5,8 +5,11 @@ import com.ychp.common.exception.ResponseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +33,9 @@ public class ResponseExceptionResolver {
         this.messageSource = messageSource;
     }
 
+    @ResponseBody
     @ExceptionHandler(value = ResponseException.class)
-    public void OPErrorHandler(ResponseException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<String> OPErrorHandler(ResponseException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -43,7 +47,6 @@ public class ResponseExceptionResolver {
         } catch (Exception e) {
             log.error("get message fail by code = {}, case {}", se.getErrorCode(), Throwables.getStackTraceAsString(e));
         }
-        response.sendError(se.getStatus(), message);
-        response.setStatus(se.getStatus());
+        return new ResponseEntity<>(message, HttpStatus.valueOf(se.getStatus()));
     }
 }
