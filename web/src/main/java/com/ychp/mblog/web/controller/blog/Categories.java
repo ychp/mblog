@@ -27,9 +27,7 @@ public class Categories {
 
     @ApiOperation(value = "类目创建接口", httpMethod = "POST")
     @PostMapping
-    public Long create(String name) {
-        Category category = new Category();
-        category.setName(name);
+    public Long create(@RequestBody Category category) {
         return categoryWriteService.create(category);
     }
 

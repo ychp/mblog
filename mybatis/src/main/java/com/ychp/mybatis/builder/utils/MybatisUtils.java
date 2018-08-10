@@ -112,6 +112,9 @@ public class MybatisUtils {
                     javaType = "Integer";
                 }
                 break;
+            case "bit":
+                javaType = "Boolean";
+                break;
             case "tinyint":
                 if(dataSize > 1){
                     javaType = "Integer";
