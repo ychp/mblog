@@ -25,7 +25,7 @@ spring:
       maximum-pool-size: 300
 
 mybatis:
-  type-aliases-package: com.ychp.user.model
+  type-aliases-package: com.ychp.user.model, com.ychp.blog.model
   mapper-locations: classpath:mapper/*Mapper.xml
 
 logging:

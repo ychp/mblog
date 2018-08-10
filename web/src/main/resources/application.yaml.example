@@ -9,7 +9,6 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-    password:
     pool:
       max-active: 300
       max-idle: 100
@@ -23,22 +22,12 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 300
-  freemarker:
-    cache: false
-    suffix: .ftl
-    template-loader-path: classpath:/webapp/templates
-    variables:
-      title: FishMemory
-      canSignup: false
-      supportBlack: true
-      supportSignUp: false
-      domain: blog-dev.yingchengpeng.win
   resources:
     static-locations: classpath:/webapp/static
 
 
 mybatis:
-  typeAliasesPackage: com.ychp.blog.user.model
+  typeAliasesPackage: com.ychp.user.model, com.ychp.blog.model
   mapperLocations: classpath:mapper/*Mapper.xml
 
 logging:
