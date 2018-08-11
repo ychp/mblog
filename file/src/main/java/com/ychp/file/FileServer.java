@@ -1,7 +1,6 @@
 package com.ychp.file;
 
 import com.ychp.file.bean.request.MultipartFileRequest;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
