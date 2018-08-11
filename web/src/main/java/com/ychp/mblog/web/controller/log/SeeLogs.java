@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author yingchengpeng
  * @date 2018/8/11
  */
-@Api(description = "访问记录")
+@Api(description = "访问记录-所有页面都要请求，不需要关心请求结果")
 @RestController
 @RequestMapping("/api/see-log")
 public class SeeLogs {
