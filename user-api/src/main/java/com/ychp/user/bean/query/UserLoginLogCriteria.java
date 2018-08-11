@@ -1,4 +1,4 @@
-package com.ychp.user.dto.query;
+package com.ychp.user.bean.query;
 
 import com.ychp.common.model.paging.PagingCriteria;
 import io.swagger.annotations.ApiModel;
@@ -22,7 +22,7 @@ public class UserLoginLogCriteria extends PagingCriteria {
      */
     @Getter
     @Setter
-    @ApiModelProperty("用户ID")
+    @ApiModelProperty(value = "用户ID", example = "1")
     private Long userId;
 
     /**

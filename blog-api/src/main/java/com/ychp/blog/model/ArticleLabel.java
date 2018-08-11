@@ -16,10 +16,10 @@ import java.util.Date;
 */
 @ApiModel(description = "文章标签")
 @ToString
-@EqualsAndHashCode(of = {  "name", "visible", })
-public class Label implements Serializable {
+@EqualsAndHashCode(of = {  "articleId", "labelId", "labelName", })
+public class ArticleLabel implements Serializable {
 
-    private static final long serialVersionUID = 7891359682240407213L;
+    private static final long serialVersionUID = -9213868987504359678L;
     /**
      * 主键
      */
@@ -29,20 +29,28 @@ public class Label implements Serializable {
     private Long id;
 
     /**
-     * 名称
+     * 文章ID
      */
     @Getter
     @Setter
-    @ApiModelProperty("名称")
-    private String name;
+    @ApiModelProperty(value = "文章ID", example = "1")
+    private Long articleId;
 
     /**
-     * 是否可见，0.不可见，1.可见
+     * 标签ID
      */
     @Getter
     @Setter
-    @ApiModelProperty("是否可见，0.不可见，1.可见")
-    private Boolean visible;
+    @ApiModelProperty(value = "标签ID", example = "1")
+    private Long labelId;
+
+    /**
+     * 标签
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("标签")
+    private String labelName;
 
     @Getter
     @Setter

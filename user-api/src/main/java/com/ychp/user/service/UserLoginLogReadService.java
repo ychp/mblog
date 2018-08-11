@@ -1,8 +1,8 @@
 package com.ychp.user.service;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.user.dto.UserLoginLogVO;
-import com.ychp.user.dto.query.UserLoginLogCriteria;
+import com.ychp.user.bean.response.UserLoginLogVO;
+import com.ychp.user.bean.query.UserLoginLogCriteria;
 
 /**
 * @author yingchengpeng

@@ -1,4 +1,4 @@
-package com.ychp.user.dto.query;
+package com.ychp.user.bean.query;
 
 import com.ychp.common.model.paging.PagingCriteria;
 import io.swagger.annotations.ApiModel;

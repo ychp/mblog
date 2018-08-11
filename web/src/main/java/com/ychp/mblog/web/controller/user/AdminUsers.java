@@ -1,15 +1,16 @@
 package com.ychp.mblog.web.controller.user;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.user.dto.UserLoginLogVO;
-import com.ychp.user.dto.UserVO;
-import com.ychp.user.dto.query.UserCriteria;
-import com.ychp.user.dto.query.UserLoginLogCriteria;
+import com.ychp.user.bean.response.UserLoginLogVO;
+import com.ychp.user.bean.response.UserVO;
+import com.ychp.user.bean.query.UserCriteria;
+import com.ychp.user.bean.query.UserLoginLogCriteria;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserLoginLogReadService;
 import com.ychp.user.service.UserReadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class AdminUsers {
 
     @ApiOperation("用户详情接口")
     @GetMapping("{id}/detail")
-    public UserVO detail(@PathVariable Long id) {
+    public UserVO detail(@ApiParam(example = "1") @PathVariable Long id) {
         return userReadService.findDetailById(id);
     }
 

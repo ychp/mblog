@@ -24,7 +24,7 @@ public class Address implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
     /**
@@ -32,7 +32,7 @@ public class Address implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("父级ID")
+    @ApiModelProperty(value = "父级ID", example = "0")
     private Long pid;
 
     /**
@@ -48,7 +48,7 @@ public class Address implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("级别")
+    @ApiModelProperty(value = "级别", example = "1")
     private Long level;
 
     /**

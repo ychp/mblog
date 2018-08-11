@@ -1,11 +1,11 @@
-package com.ychp.blog.dto.query;
+package com.ychp.blog.bean.query;
 
 import com.ychp.common.model.paging.PagingCriteria;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author yingchengpeng
@@ -13,17 +13,9 @@ import lombok.Setter;
  */
 @ApiModel(description = "查询类型")
 @ToString
-public class CategoryCriteria extends PagingCriteria {
+public class LabelCriteria extends PagingCriteria {
 
-    private static final long serialVersionUID = 7346127129736911979L;
-    /**
-     * 主键
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("主键")
-    private Long id;
-
+    private static final long serialVersionUID = -6958493921726719604L;
 
     /**
      * 名称
@@ -33,5 +25,12 @@ public class CategoryCriteria extends PagingCriteria {
     @ApiModelProperty("名称")
     private String name;
 
+    /**
+     * 是否可见，0.不可见，1.可见
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("是否可见，0.不可见，1.可见")
+    private Boolean visible;
 
 }

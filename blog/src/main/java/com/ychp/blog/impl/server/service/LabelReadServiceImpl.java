@@ -3,7 +3,7 @@ package com.ychp.blog.impl.server.service;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.paging.Paging;
-import com.ychp.blog.dto.query.LabelCriteria;
+import com.ychp.blog.bean.query.LabelCriteria;
 import com.ychp.blog.model.Label;
 import com.ychp.blog.impl.server.repository.LabelRepository;
 import com.ychp.blog.service.LabelReadService;

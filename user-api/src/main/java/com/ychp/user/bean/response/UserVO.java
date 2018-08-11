@@ -1,4 +1,4 @@
-package com.ychp.user.dto;
+package com.ychp.user.bean.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,7 +23,7 @@ public class UserVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("主键")
+	@ApiModelProperty(value = "主键", example = "1")
 	private Long id;
 
 	/**
@@ -63,8 +63,8 @@ public class UserVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("状态")
-	private String status;
+	@ApiModelProperty(value = "状态", example = "1")
+	private Integer status;
 
 	/**
 	 * 主页
@@ -111,7 +111,7 @@ public class UserVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("国家ID")
+	@ApiModelProperty(value = "国家ID", example = "1")
 	private Long countryId;
 
 	/**
@@ -119,7 +119,7 @@ public class UserVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("省份ID")
+	@ApiModelProperty(value = "省份ID", example = "11")
 	private Long provinceId;
 
 	/**
@@ -127,7 +127,7 @@ public class UserVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("城市ID")
+	@ApiModelProperty(value = "城市ID", example = "111")
 	private Long cityId;
 
 	/**

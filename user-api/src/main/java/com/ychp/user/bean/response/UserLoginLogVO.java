@@ -1,4 +1,4 @@
-package com.ychp.user.dto;
+package com.ychp.user.bean.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +27,7 @@ public class UserLoginLogVO implements Serializable {
 	 */
 	@Getter
 	@Setter
-	@ApiModelProperty("用户ID")
+	@ApiModelProperty(value = "用户ID", example = "1")
 	private Long userId;
 
 	/**

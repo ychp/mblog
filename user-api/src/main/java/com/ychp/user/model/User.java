@@ -16,7 +16,7 @@ import java.util.Date;
 */
 @ApiModel(description = "用户表")
 @ToString
-@EqualsAndHashCode(of = { "name", "nickName", "mobile", "email", "homePage", "avatar", "password", "salt", "status" })
+@EqualsAndHashCode(of = { "name", "nickName", "mobile", "email", "password", "salt", "status" })
 public class User implements Serializable {
 
     private static final long serialVersionUID = -2796900462003393210L;
@@ -25,7 +25,7 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
     /**
@@ -81,8 +81,8 @@ public class User implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("状态")
-    private String status;
+    @ApiModelProperty(value = "状态", example = "1")
+    private Integer status;
 
     @Getter
     @Setter

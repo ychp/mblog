@@ -1,12 +1,13 @@
 package com.ychp.mblog.web.controller.blog;
 
-import com.ychp.blog.dto.query.CategoryCriteria;
+import com.ychp.blog.bean.query.CategoryCriteria;
 import com.ychp.blog.model.Category;
 import com.ychp.blog.service.CategoryReadService;
 import com.ychp.blog.service.CategoryWriteService;
 import com.ychp.common.model.paging.Paging;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class Categories {
 
     @ApiOperation(value = "类目更新接口", httpMethod = "PUT")
     @PutMapping
-    public Boolean update(Long id, String name) {
+    public Boolean update(@ApiParam(example = "1") Long id, String name) {
         Category category = new Category();
         category.setId(id);
         category.setName(name);

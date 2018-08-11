@@ -11,7 +11,7 @@ import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
 import com.ychp.user.cache.AddressCacher;
-import com.ychp.user.dto.UserVO;
+import com.ychp.user.bean.response.UserVO;
 import com.ychp.user.model.Address;
 import com.ychp.user.model.User;
 import com.ychp.user.model.UserProfile;

@@ -81,7 +81,7 @@ public class UserProfile implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("国家ID")
+    @ApiModelProperty(value = "国家ID", example = "1")
     private Long countryId;
 
     /**
@@ -89,7 +89,7 @@ public class UserProfile implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("省份ID")
+    @ApiModelProperty(value = "省份ID", example = "11")
     private Long provinceId;
 
     /**
@@ -97,7 +97,7 @@ public class UserProfile implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("城市ID")
+    @ApiModelProperty(value = "城市ID", example = "111")
     private Long cityId;
 
     /**

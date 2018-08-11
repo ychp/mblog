@@ -1,6 +1,6 @@
 package com.ychp.blog.service;
 
-import com.ychp.blog.dto.query.CategoryCriteria;
+import com.ychp.blog.bean.query.CategoryCriteria;
 import com.ychp.blog.model.Category;
 import com.ychp.common.model.paging.Paging;
 

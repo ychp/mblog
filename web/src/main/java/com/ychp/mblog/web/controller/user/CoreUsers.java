@@ -52,7 +52,7 @@ public class CoreUsers {
 
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("{id}")
-    public SkyUser detail(@PathVariable Long id) {
+    public SkyUser detail(@ApiParam(example = "1") @PathVariable Long id) {
         return SkyUserMaker.make(userReadService.findById(id));
     }
 

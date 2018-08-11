@@ -14,12 +14,13 @@ import java.util.Date;
 * @author yingchengpeng
 * @date 2018/08/10
 */
-@ApiModel(description = "文章标签")
+@ApiModel(description = "文章详情")
 @ToString
-@EqualsAndHashCode(of = {  "name", "visible", })
-public class Label implements Serializable {
+@EqualsAndHashCode(of = {  "articleId", "content", })
+public class ArticleDetail implements Serializable {
 
-    private static final long serialVersionUID = 7891359682240407213L;
+    private static final long serialVersionUID = 41956923893272101L;
+
     /**
      * 主键
      */
@@ -29,20 +30,20 @@ public class Label implements Serializable {
     private Long id;
 
     /**
-     * 名称
+     * 文章ID
      */
     @Getter
     @Setter
-    @ApiModelProperty("名称")
-    private String name;
+    @ApiModelProperty(value = "文章ID", example = "1")
+    private Long articleId;
 
     /**
-     * 是否可见，0.不可见，1.可见
+     * 内容
      */
     @Getter
     @Setter
-    @ApiModelProperty("是否可见，0.不可见，1.可见")
-    private Boolean visible;
+    @ApiModelProperty("内容")
+    private String content;
 
     @Getter
     @Setter

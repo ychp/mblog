@@ -1,6 +1,6 @@
 package com.ychp.blog.service;
 
-import com.ychp.blog.dto.query.LabelCriteria;
+import com.ychp.blog.bean.query.LabelCriteria;
 import com.ychp.blog.model.Label;
 import com.ychp.common.model.paging.Paging;
 

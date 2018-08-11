@@ -25,7 +25,7 @@ public class Category implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
     /**
