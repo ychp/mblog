@@ -29,4 +29,16 @@ public class LikeAsync {
 		}
 	}
 
+	@Async
+	public void decrease(Long aimId, Integer type) {
+		switch (type) {
+			case 1:
+				articleSummaryRepository.decreaseLike(aimId);
+				break;
+			case 2:
+			case 3:
+			default:
+		}
+	}
+
 }

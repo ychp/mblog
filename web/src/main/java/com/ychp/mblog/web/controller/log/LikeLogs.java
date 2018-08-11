@@ -20,10 +20,7 @@ import com.ychp.user.service.IpInfoWriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -60,9 +57,9 @@ public class LikeLogs {
 	@Autowired
 	private LikeAsync likeAsync;
 
-	@ApiOperation("访问记录记录接口")
+	@ApiOperation(value = "点赞接口", httpMethod = "POST")
 	@PostMapping
-	public void log(@RequestBody LikeLogRequest likeLogRequest, HttpServletRequest request) {
+	public void like(@RequestBody LikeLogRequest likeLogRequest, HttpServletRequest request) {
 		String ip = ipServer.getIp(request);
 
 		LikeLog exist = likeLogReadService.findByAimAndIp(likeLogRequest.getAimId(),
@@ -120,5 +117,21 @@ public class LikeLogs {
 		deviceInfo.setBrowserVersion(userAgent.getBrowserVersion());
 		deviceInfo.setDevice(userAgent.getDevice());
 		return deviceInfo;
+	}
+
+	@ApiOperation(value = "取消点赞", httpMethod = "DELETE")
+	@DeleteMapping
+	public void cancel(@RequestBody LikeLogRequest likeLogRequest, HttpServletRequest request) {
+		String ip = ipServer.getIp(request);
+
+		LikeLog exist = likeLogReadService.findByAimAndIp(likeLogRequest.getAimId(),
+				likeLogRequest.getType(), ip);
+
+		if(exist == null) {
+			throw new ResponseException("aim.not.liked");
+		}
+
+		likeLogWriteService.delete(exist.getId());
+		likeAsync.decrease(likeLogRequest.getAimId(), likeLogRequest.getType());
 	}
 }

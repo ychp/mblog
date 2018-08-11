@@ -28,4 +28,8 @@ public class ArticleSummaryRepository extends BaseRepository<ArticleSummary, Lon
 	public Boolean increaseLike(Long articleId) {
 		return getSqlSession().update(sqlId("increaseLike"), articleId) == 1;
 	}
+
+	public Boolean decreaseLike(Long articleId) {
+		return getSqlSession().update(sqlId("decreaseLike"), articleId) == 1;
+	}
 }
