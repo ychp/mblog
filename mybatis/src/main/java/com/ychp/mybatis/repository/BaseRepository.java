@@ -84,9 +84,9 @@ public class BaseRepository<T, K> {
     }
 
     /**
-     * 批量删除
+     * 批量查询
      * @param ids 主键列表
-     * @return 删除记录数
+     * @return
      */
     public List<T> findByIds(List<K> ids){
         if (ids == null || ids.isEmpty()) {

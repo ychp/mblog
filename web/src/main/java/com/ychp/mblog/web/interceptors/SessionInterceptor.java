@@ -70,7 +70,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                                 "/error",
                                 "/csrf",
                                 "/index",
-                                "/api/friend-link/visible");
+                                "/api/friend-link/visible",
+                                "/api/see-log");
                     }
                 });
 
