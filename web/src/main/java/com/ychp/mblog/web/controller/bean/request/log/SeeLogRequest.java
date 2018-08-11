@@ -14,6 +14,7 @@ import java.io.Serializable;
 @ApiModel(description = "访问记录信息")
 public class SeeLogRequest implements Serializable {
 
+	private static final long serialVersionUID = 3636653204641921531L;
 	@ApiModelProperty("完整的访问地址")
 	private String url;
 

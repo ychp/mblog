@@ -2,6 +2,8 @@ package com.ychp.user.service;
 
 import com.ychp.user.model.DeviceInfo;
 
+import java.util.List;
+
 /**
 * @author yingchengpeng
 * @date: 2018/08/11
@@ -16,4 +18,10 @@ public interface DeviceInfoReadService {
      */
     DeviceInfo findByUniqueInfo(DeviceInfo deviceInfo);
 
+    /**
+     * 根据id集合获取数据
+     * @param ids id集合
+     * @return 数据
+     */
+    List<DeviceInfo> findByIds(List<Long> ids);
 }

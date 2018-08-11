@@ -24,4 +24,8 @@ public class ArticleSummaryRepository extends BaseRepository<ArticleSummary, Lon
 	public Boolean increasePopular(Long articleId) {
 		return getSqlSession().update(sqlId("increasePopular"), articleId) == 1;
 	}
+
+	public Boolean increaseLike(Long articleId) {
+		return getSqlSession().update(sqlId("increaseLike"), articleId) == 1;
+	}
 }
