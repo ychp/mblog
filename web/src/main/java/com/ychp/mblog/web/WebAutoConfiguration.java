@@ -2,6 +2,7 @@ package com.ychp.mblog.web;
 
 import com.ychp.blog.impl.BlogAutoConfiguration;
 import com.ychp.common.captcha.CaptchaGenerator;
+import com.ychp.file.cos.CosAutoConfiguration;
 import com.ychp.ip.IPServiceAutoConfiguration;
 import com.ychp.mblog.web.interceptors.SessionInterceptor;
 import com.ychp.mblog.web.session.SessionManager;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @Import({IPServiceAutoConfiguration.class,
+        CosAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
         BlogAutoConfiguration.class})

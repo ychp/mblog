@@ -4,11 +4,11 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
-import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
+import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                                 "/csrf",
                                 "/index",
                                 "/api/friend-link/visible",
-                                "/api/see-log");
+                                "/api/see-log",
+                                "/api/file/.*");
                     }
                 });
 
