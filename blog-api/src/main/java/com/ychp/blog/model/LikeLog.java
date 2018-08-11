@@ -33,7 +33,7 @@ public class LikeLog implements Serializable {
      */
     @Getter
     @Setter
-    @ApiModelProperty("类型:1.文章,2.说说,3.照片")
+    @ApiModelProperty(value = "类型:1.文章,2.说说,3.照片", example = "1")
     private Integer type;
 
     /**
