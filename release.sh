@@ -18,6 +18,15 @@ if [ -f ~/blog.sh ];
 then
     sh ~/blog.sh
 else
+    echo 'if [ -f /var/run/blog-api.pid ];' >> ~/blog.sh
+    echo 'then' >> ~/blog.sh
+    echo '  pid=`cat /var/run/blog-api.pid`' >> ~/blog.sh
+    echo '  docker stop $pid' >> ~/blog.sh
+    echo '  docker rm $pid' >> ~/blog.sh
+    echo '  rm /var/run/blog-api.pid' >> ~/blog.sh
+    echo 'fi;' >> ~/blog.sh
+    echo 'pid=`docker run -p 8099:8099 -v /var/log/blog_new:/var/log/blog \'
+
     echo "请输入数据库连接:"
     read mysql_host
 
@@ -30,6 +39,11 @@ else
     echo "请输入数据库密码:"
     read mysql_password
 
+    echo '-e MYSQL_HOST='${mysql_host}' \'
+    echo '-e MYSQL_PORT='${mysql_port}' \'
+    echo '-e MYSQL_DATABASE='${mysql_database}' \'
+    echo '-e MYSQL_PASSWORD='${mysql_password}' \'
+
     echo "请输入redis链接:"
     read redis_host
 
@@ -39,23 +53,38 @@ else
     echo "请输入redis密码:"
     read redis_password
 
-    echo 'if [ -f /var/run/blog-api.pid ];' >> ~/blog.sh
-    echo 'then' >> ~/blog.sh
-    echo '  pid=`cat /var/run/blog-api.pid`' >> ~/blog.sh
-    echo '  docker stop $pid' >> ~/blog.sh
-    echo '  docker rm $pid' >> ~/blog.sh
-    echo '  rm /var/run/blog-api.pid' >> ~/blog.sh
-    echo 'fi;' >> ~/blog.sh
-    echo 'pid=`docker run -p 8099:8099 \
-        -v /var/log/blog_new:/var/log/blog \
-        -e MYSQL_HOST='${mysql_host}' \
-        -e MYSQL_PORT='${mysql_port}' \
-        -e MYSQL_DATABASE='${mysql_database}' \
-        -e MYSQL_PASSWORD='${mysql_password}' \
-        -e REDIS_HOST='${redis_host}' \
-        -e REDIS_PORT='${redis_port}' \
-        -e REDIS_AUTH='${redis_password}' \
-        -dit blog:1.0`' >> ~/blog.sh
+    echo '-e REDIS_HOST='${redis_host}' \'
+    echo '-e REDIS_PORT='${redis_port}' \'
+    echo '-e REDIS_AUTH='${redis_password}' \'
+
+    echo "请输入对象存储服务类型:"
+    read file_type
+    echo '-e FILE_TYPE='${file_type}' \'
+
+    if [ "$file_type" == "cos" ];
+    then
+        echo "请输入COS secretId:"
+        read cos_secret_id
+        echo '-e COS_SECRET_ID='${cos_secret_id}' \'
+
+        echo "请输入COS secretKey:"
+        read cos_secret_key
+        echo '-e COS_SECRET_KEY='${cos_secret_key}' \'
+
+        echo "请输入COS appId:"
+        read cos_app_id
+        echo '-e COS_APP_ID='${cos_app_id}' \'
+
+        echo "请输入COS bucketName:"
+        read cos_bucket_name
+        echo '-e COS_BUCKET_NAME='${cos_bucket_name}' \'
+
+        echo "请输入COS region:"
+        read cos_region
+        echo '-e COS_REGION='${cos_region}' \'
+    fi;
+
+    echo '-dit blog:1.0`' >> ~/blog.sh
     echo 'echo $pid >> /var/run/blog-api.pid' >> ~/blog.sh
     firewall-cmd --permanent --add-port=8099/tcp
     firewall-cmd --reload

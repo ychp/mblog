@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2018/8/11
  */
 @Data
-@ConfigurationProperties(prefix = "cos")
+@ConfigurationProperties(prefix = "file.cos")
 public class CosToken {
 
 	/**

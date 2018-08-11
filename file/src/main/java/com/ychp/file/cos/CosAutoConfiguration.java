@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/8/11
  */
 @Configuration
-@ConditionalOnProperty(name = "cos.enable", havingValue = "true")
+@ConditionalOnProperty(name = "file.type", havingValue = "cos")
 @EnableConfigurationProperties(CosToken.class)
 public class CosAutoConfiguration {
 
