@@ -31,4 +31,7 @@ public class ArticleDetailVO implements Serializable {
 
 	@ApiModelProperty("文章数据汇总")
 	private ArticleSummary summary;
+
+	@ApiModelProperty("是否点赞")
+	private Boolean hasLiked;
 }
