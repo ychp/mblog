@@ -74,6 +74,17 @@ public class CoreUsers {
         return skyUser;
     }
 
+    @ApiOperation(value = "注销", httpMethod = "POST")
+    @PostMapping("logout")
+    public Boolean logout(HttpServletRequest request) {
+        SkyUser skyUser = SessionContextUtils.currentUser();
+        skyUser.setIp(ipServer.getIp(request));
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return true;
+    }
+
     @ApiOperation(value = "修改密码",httpMethod = "PUT")
     @PutMapping("change-password")
     public Boolean changePassword(String oldPassword, String newPassword) {
