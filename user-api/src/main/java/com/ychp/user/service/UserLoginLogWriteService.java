@@ -17,15 +17,8 @@ public interface UserLoginLogWriteService {
 
     /**
      * 更新
-     * @param userLoginLog 需要更新的数据
+     * @param id 需要更新的数据
      * @return 操作结果
      */
-    Boolean update(UserLoginLog userLoginLog);
-
-    /**
-     * 根据主键id删除数据
-     * @param id 主键
-     * @return 操作结果
-     */
-    Boolean delete(Long id);
+    Boolean logout(Long id);
 }

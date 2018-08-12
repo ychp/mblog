@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserLoginLogRepository extends BaseRepository<UserLoginLog, Long> {
 
+	public Boolean logout(Long id) {
+		return getSqlSession().update(sqlId("logout"), id) == 1;
+	}
 }

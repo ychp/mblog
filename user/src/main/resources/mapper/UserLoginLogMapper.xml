@@ -9,8 +9,8 @@
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="ip" property="ip"/>
-        <result column="created_at" property="createdAt"/>
-        <result column="updated_at" property="updatedAt"/>
+        <result column="login_at" property="loginAt"/>
+        <result column="logout_at" property="logoutAt"/>
         
     </resultMap>
 
@@ -23,37 +23,20 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `user_id`, `ip`, `created_at`, `updated_at` 
+        `user_id`, `ip`, `login_at`
     </sql>
 
     <sql id="vals">
-         #{userId}, #{ip}, now(), now()
+         #{userId}, #{ip}, now()
     </sql>
 
     <sql id="criteria">
         <where>
             <if test="userId != null">AND `user_id` = #{userId}</if>
             <if test="ip != null">AND `ip` = #{ip}</if>
-            <if test="createdAt != null">AND `created_at` = #{createdAt}</if>
-            <if test="updatedAt != null">AND `updated_at` = #{updatedAt}</if>
-            
+
         </where>
     </sql>
-
-    <sql id="update_criteria">
-        <set>
-            <if test="userId != null">`user_id` = #{userId},</if>
-            <if test="ip != null">`ip` = #{ip},</if>
-            updated_at = now()
-        </set>
-    </sql>
-
-    <select id="findById" parameterType="long" resultMap="UserLoginLogMap">
-        SELECT
-            <include refid="cols_all"/>
-        FROM <include refid="tb"/>
-        WHERE `id` = #{id} LIMIT 1
-    </select>
 
     <select id="list" parameterType="map" resultMap="UserLoginLogMap">
         SELECT
@@ -69,10 +52,10 @@
         (<include refid="vals"/>)
     </insert>
 
-    <update id="update" parameterType="UserLoginLog">
+    <update id="logout" parameterType="UserLoginLog">
         UPDATE
         <include refid="tb"/>
-        <include refid="update_criteria"/>
+        SET `logout_at` = now()
         WHERE `id` = #{id}
     </update>
 
@@ -94,8 +77,4 @@
         ORDER BY `id` DESC LIMIT #{offset}, #{limit}
     </select>
 
-    <delete id="delete" parameterType="long">
-        delete from <include refid="tb"/>
-        where `id` = #{id}
-    </delete>
 </mapper>

@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `sky_user_login_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `ip` varchar(256) NOT NULL COMMENT 'ip地址',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `login_at` datetime NOT NULL,
+  `logout_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_login_log_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户登录信息表';

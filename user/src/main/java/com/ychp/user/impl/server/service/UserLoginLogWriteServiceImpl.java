@@ -4,8 +4,8 @@ import com.ychp.common.exception.ResponseException;
 import com.ychp.user.impl.server.repository.UserLoginLogRepository;
 import com.ychp.user.model.UserLoginLog;
 import com.ychp.user.service.UserLoginLogWriteService;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -29,20 +29,11 @@ public class UserLoginLogWriteServiceImpl implements UserLoginLogWriteService {
     }
 
     @Override
-    public Boolean update(UserLoginLog userLoginLog) {
+    public Boolean logout(Long id) {
         try {
-            return userLoginLogRepository.update(userLoginLog);
+            return userLoginLogRepository.logout(id);
         } catch (Exception e) {
-            throw new ResponseException("userLoginLog.update.fail", e.getMessage(), e.getCause());
-        }
-    }
-
-    @Override
-    public Boolean delete(Long id) {
-        try {
-            return userLoginLogRepository.delete(id);
-        } catch (Exception e) {
-            throw new ResponseException("userLoginLog.delete.fail", e.getMessage(), e.getCause());
+            throw new ResponseException("userLoginLog.logout.fail", e.getMessage(), e.getCause());
         }
     }
 
