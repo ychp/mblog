@@ -81,7 +81,7 @@ public class CoreUsers {
         skyUser.setIp(ipServer.getIp(request));
 
         HttpSession session = request.getSession();
-        session.invalidate();
+        session.removeAttribute("userId");
         return true;
     }
 
