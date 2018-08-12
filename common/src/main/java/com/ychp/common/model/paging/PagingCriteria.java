@@ -84,7 +84,7 @@ public class PagingCriteria extends Criteria implements Serializable {
      * 如果Start的时间和End的时间一致, 则End+1day
      */
     protected void formatDate(){
-        // todo
+
     }
 
 }

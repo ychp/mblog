@@ -4,6 +4,8 @@ import com.ychp.blog.bean.query.CategoryCriteria;
 import com.ychp.blog.model.Category;
 import com.ychp.common.model.paging.Paging;
 
+import java.util.List;
+
 /**
 * @author yingchengpeng
 * @date: 2018/08/10
@@ -25,5 +27,11 @@ public interface CategoryReadService {
      * @return 分页结果
      */
     Paging<Category> paging(CategoryCriteria criteria);
+
+    /**
+     * 获取所有类目
+     * @return 所有类目
+     */
+    List<Category> listAll();
 
 }

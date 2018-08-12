@@ -6,6 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.joda.time.DateTime;
+
+import java.util.Date;
 
 /**
  * @author yingchengpeng
@@ -58,11 +61,26 @@ public class ArticleCriteria extends PagingCriteria {
     private String author;
 
     /**
-     * 是否可见，0.不可见，1.可见
+     * 是否可见
      */
     @Getter
     @Setter
-    @ApiModelProperty("是否可见，0.不可见，1.可见")
+    @ApiModelProperty("是否可见")
     private Boolean visible;
 
+    @Getter
+    @Setter
+    @ApiModelProperty("发布开始时间")
+    private Date publishAtStart;
+
+    @Getter
+    @Setter
+    @ApiModelProperty("发布结束时间")
+    private Date publishAtEnd;
+
+    @Override
+    protected void formatDate() {
+        super.formatDate();
+        publishAtEnd = new DateTime(publishAtEnd).plusDays(1).withTimeAtStartOfDay().minusMillis(1).toDate();
+    }
 }

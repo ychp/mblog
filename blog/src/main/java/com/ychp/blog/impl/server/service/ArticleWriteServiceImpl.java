@@ -108,4 +108,13 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 			throw new ResponseException("article.summary.decrease.like.fail", e.getMessage(), e.getCause());
 		}
 	}
+
+	@Override
+	public Boolean updateCategoryName(Long categoryId, String categoryName) {
+		try {
+			return articleRepository.updateCategoryName(categoryId, categoryName);
+		} catch (Exception e) {
+			throw new ResponseException("article.update.category.fail", e.getMessage(), e.getCause());
+		}
+	}
 }

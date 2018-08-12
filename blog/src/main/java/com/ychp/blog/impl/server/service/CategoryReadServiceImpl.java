@@ -1,5 +1,6 @@
 package com.ychp.blog.impl.server.service;
 
+import com.google.common.collect.Maps;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.paging.Paging;
@@ -9,6 +10,8 @@ import com.ychp.blog.impl.server.repository.CategoryRepository;
 import com.ychp.blog.service.CategoryReadService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 /**
@@ -39,6 +42,15 @@ public class CategoryReadServiceImpl implements CategoryReadService {
             return categoryRepository.paging(criteria.toMap());
         } catch (Exception e) {
             throw new ResponseException("category.paging.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
+    public List<Category> listAll() {
+        try {
+            return categoryRepository.list(Maps.newHashMap());
+        } catch (Exception e) {
+            throw new ResponseException("category.list.fail", e.getMessage(), e.getCause());
         }
     }
 

@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(description = "文章")
 @RestController
-@RequestMapping("/api/admin/blog")
-public class AdminBlogs {
+@RequestMapping("/api/admin/article")
+public class AdminArticles {
 
     @Autowired
     private ArticleReadService articleReadService;

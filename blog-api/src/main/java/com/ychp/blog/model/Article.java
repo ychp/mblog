@@ -95,6 +95,11 @@ public class Article implements Serializable {
 
     @Getter
     @Setter
+    @ApiModelProperty("发布时间")
+    private Date publishAt;
+
+    @Getter
+    @Setter
     private Date createdAt;
 
     @Getter

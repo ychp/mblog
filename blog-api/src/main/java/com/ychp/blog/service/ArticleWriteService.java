@@ -58,4 +58,12 @@ public interface ArticleWriteService {
      * @return 操作结果
      */
     Boolean decreaseLike(Long id);
+
+    /**
+     * 更新类目名称
+     * @param categoryId 类目id
+     * @param categoryName 类目名称
+     * @return 操作结果
+     */
+    Boolean updateCategoryName(Long categoryId, String categoryName);
 }

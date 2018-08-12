@@ -1,15 +1,15 @@
 package com.ychp.mblog.web.controller.blog;
 
-import com.ychp.blog.bean.query.CategoryCriteria;
 import com.ychp.blog.model.Category;
 import com.ychp.blog.service.CategoryReadService;
-import com.ychp.blog.service.CategoryWriteService;
-import com.ychp.common.model.paging.Paging;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author yingchengpeng
@@ -23,28 +23,10 @@ public class Categories {
     @Autowired
     private CategoryReadService categoryReadService;
 
-    @Autowired
-    private CategoryWriteService categoryWriteService;
-
-    @ApiOperation(value = "类目创建接口", httpMethod = "POST")
-    @PostMapping
-    public Long create(@RequestBody Category category) {
-        return categoryWriteService.create(category);
-    }
-
-    @ApiOperation(value = "类目更新接口", httpMethod = "PUT")
-    @PutMapping
-    public Boolean update(@ApiParam(example = "1") Long id, String name) {
-        Category category = new Category();
-        category.setId(id);
-        category.setName(name);
-        return categoryWriteService.update(category);
-    }
-
-    @ApiOperation("类目分页接口")
-    @GetMapping("paging")
-    public Paging<Category> paging(CategoryCriteria criteria) {
-        return categoryReadService.paging(criteria);
+    @ApiOperation("类目")
+    @GetMapping("list")
+    public List<Category> listAll() {
+        return categoryReadService.listAll();
     }
 
 }

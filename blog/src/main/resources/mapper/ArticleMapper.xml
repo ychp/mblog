@@ -15,6 +15,7 @@
         <result column="author" property="author"/>
         <result column="visible" property="visible"/>
         <result column="deleted" property="deleted"/>
+        <result column="publish_at" property="publishAt"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
         
@@ -29,11 +30,11 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `title`, `category_id`, `category_name`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `created_at`, `updated_at`
+        `title`, `category_id`, `category_name`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `publish_at`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{title}, #{categoryId}, #{categoryName}, #{synopsis}, #{userId}, #{author}, #{visible}, #{deleted}, now(), now()
+         #{title}, #{categoryId}, #{categoryName}, #{synopsis}, #{userId}, #{author}, #{visible}, #{deleted}, now(), now(), now()
     </sql>
 
     <sql id="criteria">
@@ -45,6 +46,8 @@
             <if test="userId != null">AND `user_id` = #{userId}</if>
             <if test="author != null">AND `author` = #{author}</if>
             <if test="visible != null">AND `visible` = #{visible}</if>
+            <if test="publishAtStart != null">AND `publish_at` &gt;= #{publishAtStart}</if>
+            <if test="publishAtEnd != null">AND `publish_at` &lt;= #{publishAtEnd}</if>
             AND `deleted` = 0
         </where>
     </sql>
@@ -56,8 +59,7 @@
             <if test="categoryName != null">`category_name` = #{categoryName},</if>
             <if test="synopsis != null">`synopsis` = #{synopsis},</if>
             <if test="visible != null">`visible` = #{visible},</if>
-            
-            updated_at = now()
+            `publish_at` = now(), `updated_at` = now()
         </set>
     </sql>
 
@@ -113,4 +115,10 @@
         SET `deleted` = 1 AND `updated_at` = now()
         where `id` = #{id}
     </delete>
+
+    <update id="updateCategoryName" parameterType="map">
+        UPDATE <include refid="tb"/>
+        SET `category_name` = #{categoryName}, `updated_at` = now()
+        WHERE `category_id` = #{categoryId} AND `deleted` = 0
+    </update>
 </mapper>

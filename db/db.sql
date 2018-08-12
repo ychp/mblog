@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `sky_article` (
   `author` varchar(256) DEFAULT NULL COMMENT '作者',
   `visible` tinyint(1) NOT NULL COMMENT '是否可见，0.不可见，1.可见',
   `deleted` tinyint(1) NOT NULL COMMENT '是否删除，0.未删除，1.已删除',
+  `publish_at` datetime NOT NULL COMMENT '发布时间',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)

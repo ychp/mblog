@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(description = "文章")
 @RestController
-@RequestMapping("/api/blog")
-public class Blogs {
+@RequestMapping("/api/article")
+public class Articles {
 
     @Autowired
     private ArticleReadService articleReadService;
@@ -40,6 +40,7 @@ public class Blogs {
     @ApiOperation("文章分页接口")
     @GetMapping("paging")
     public Paging<ArticleBaseInfoVO> paging(ArticleCriteria criteria) {
+        criteria.setVisible(true);
         return articleReadService.paging(criteria);
     }
 
