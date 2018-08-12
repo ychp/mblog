@@ -38,6 +38,14 @@ public class ArticleDetail implements Serializable {
     private Long articleId;
 
     /**
+     * 是否为markdown
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("是否为markdown")
+    private Boolean isMarkdown;
+
+    /**
      * 内容
      */
     @Getter

@@ -10,6 +10,7 @@
         <result column="title" property="title"/>
         <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
+        <result column="image" property="image"/>
         <result column="synopsis" property="synopsis"/>
         <result column="user_id" property="userId"/>
         <result column="author" property="author"/>
@@ -30,11 +31,11 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `title`, `category_id`, `category_name`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `publish_at`, `created_at`, `updated_at`
+        `title`, `category_id`, `category_name`, `image`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `publish_at`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{title}, #{categoryId}, #{categoryName}, #{synopsis}, #{userId}, #{author}, #{visible}, #{deleted}, now(), now(), now()
+         #{title}, #{categoryId}, #{categoryName}, #{image}, #{synopsis}, #{userId}, #{author}, #{visible}, #{deleted}, now(), now(), now()
     </sql>
 
     <sql id="criteria">
@@ -57,6 +58,7 @@
             <if test="title != null">`title` = #{title},</if>
             <if test="categoryId != null">`category_id` = #{categoryId},</if>
             <if test="categoryName != null">`category_name` = #{categoryName},</if>
+            <if test="image != null">`image` = #{image},</if>
             <if test="synopsis != null">`synopsis` = #{synopsis},</if>
             <if test="visible != null">`visible` = #{visible},</if>
             `publish_at` = now(), `updated_at` = now()

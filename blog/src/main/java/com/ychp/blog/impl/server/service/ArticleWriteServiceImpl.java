@@ -11,7 +11,6 @@ import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.exception.ResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,17 +33,17 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 	private ArticleManager articleManager;
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
 	public Long create(ArticleCreateRequest request) {
 		try {
 			return articleManager.create(request.getArticle(), request.getDetail(), request.getLabels());
+		} catch (ResponseException e) {
+			throw e;
 		} catch (Exception e) {
-			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
+			throw new ResponseException("article.create.fail", e.getMessage(), e.getCause());
 		}
 	}
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
 	public Boolean update(ArticleUpdateRequest request) {
 		try {
 			List<ArticleLabel> existLabels = articleLabelRepository.findByArticleId(request.getArticle().getId());
@@ -53,6 +52,8 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 					.filter(label -> !labelIds.contains(label.getId())).collect(Collectors.toList());
 
 			return articleManager.update(request.getArticle(), request.getDetail(), labels);
+		} catch (ResponseException e) {
+			throw e;
 		} catch (Exception e) {
 			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
 		}

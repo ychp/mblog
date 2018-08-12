@@ -8,6 +8,7 @@
     <resultMap id="ArticleDetailMap" type="ArticleDetail">
         <id column="id" property="id"/>
         <result column="article_id" property="articleId"/>
+        <result column="is_markdown" property="isMarkdown"/>
         <result column="content" property="content"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
@@ -23,27 +24,23 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `article_id`, `content`, `created_at`, `updated_at` 
+        `article_id`, `is_markdown`, `content`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{articleId}, #{content}, now(), now()
+         #{articleId}, #{isMarkdown}, #{content}, now(), now()
     </sql>
 
     <sql id="criteria">
         <where>
             <if test="id != null">AND `id` = #{id}</if>
             <if test="articleId != null">AND `article_id` = #{articleId}</if>
-            <if test="content != null">AND `content` = #{content}</if>
-            <if test="createdAt != null">AND `created_at` = #{createdAt}</if>
-            <if test="updatedAt != null">AND `updated_at` = #{updatedAt}</if>
-            
+
         </where>
     </sql>
 
     <sql id="update_criteria">
         <set>
-            <if test="articleId != null">`article_id` = #{articleId},</if>
             <if test="content != null">`content` = #{content},</if>
             
             updated_at = now()

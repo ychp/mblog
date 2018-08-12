@@ -54,6 +54,14 @@ public class Article implements Serializable {
     private String categoryName;
 
     /**
+     * 预览图
+     */
+    @Getter
+    @Setter
+    @ApiModelProperty("预览图")
+    private String image;
+
+    /**
      * 简介
      */
     @Getter

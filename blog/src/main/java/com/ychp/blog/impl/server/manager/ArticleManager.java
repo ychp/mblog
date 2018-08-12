@@ -34,6 +34,7 @@ public class ArticleManager {
 	@Transactional(rollbackFor = Exception.class)
 	public Long create(Article article, ArticleDetail detail,
 	                   List<ArticleLabel> labels) {
+		article.setDeleted(false);
 		Boolean result = articleRepository.create(article);
 		if (!result) {
 			throw new ResponseException("article.create.fail");

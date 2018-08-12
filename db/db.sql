@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `sky_article` (
   `title` varchar(1024) NOT NULL COMMENT '标题',
   `category_id` bigint(20) NOT NULL COMMENT '类目ID',
   `category_name` varchar(256) NOT NULL COMMENT '类目名称',
+  `image` varchar(256) DEFAULT NULL COMMENT '预览图链接',
   `synopsis` varchar(256) DEFAULT NULL COMMENT '简介',
   `user_id` bigint(20) DEFAULT NULL COMMENT '作者Id',
   `author` varchar(256) DEFAULT NULL COMMENT '作者',
@@ -111,6 +112,7 @@ DROP TABLE IF EXISTS `sky_article_detail`;
 CREATE TABLE IF NOT EXISTS `sky_article_detail` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
+  `is_markdown` tinyint(1) NOT NULL COMMENT '是否为markdown内容',
   `content` text COMMENT '内容',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
