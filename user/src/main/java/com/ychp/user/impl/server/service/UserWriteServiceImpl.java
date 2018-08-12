@@ -25,6 +25,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 	@Override
 	public Long create(User user) {
 		try {
+			user.setStatus(1);
 			userRepository.create(user);
 			return user.getId();
 		} catch (Exception e) {
