@@ -1,26 +1,28 @@
-package com.ychp.mblog.web.async.user;
+package com.ychp.mblog.web.async.user.listener;
 
+import com.ychp.async.annontation.AsyncBean;
+import com.ychp.async.annontation.AsyncSubscriber;
 import com.ychp.common.model.SkyUser;
+import com.ychp.mblog.web.async.user.UserLoginEvent;
 import com.ychp.user.model.UserLoginLog;
 import com.ychp.user.service.UserLoginLogWriteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
 /**
  * @author yingchengpeng
  * @date 2018/8/9
  */
 @Slf4j
-@Component
+@AsyncBean
 public class LoginLogAsync {
 
 	@Autowired
 	private UserLoginLogWriteService userLoginLogWriteService;
 
-	@Async
-	public void log(SkyUser skyUser) {
+	@AsyncSubscriber
+	public void log(UserLoginEvent userLoginEvent) {
+		SkyUser skyUser = userLoginEvent.getSkyUser();
 		if(skyUser == null) {
 			return;
 		}

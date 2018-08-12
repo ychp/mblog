@@ -22,6 +22,7 @@
         <module>blog-api</module>
         <module>blog</module>
         <module>file</module>
+        <module>async</module>
     </modules>
 
     <properties>

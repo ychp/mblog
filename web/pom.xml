@@ -38,6 +38,12 @@
 
         <dependency>
             <groupId>com.ychp</groupId>
+            <artifactId>async</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ychp</groupId>
             <artifactId>web-tools</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

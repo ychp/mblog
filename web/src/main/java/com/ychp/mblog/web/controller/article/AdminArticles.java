@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.blog;
+package com.ychp.mblog.web.controller.article;
 
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.request.ArticleCreateRequest;

@@ -1,5 +1,6 @@
-package com.ychp.mblog.web.controller.blog;
+package com.ychp.mblog.web.controller.article;
 
+import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
@@ -9,7 +10,7 @@ import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.LikeLogReadService;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.ip.component.IPServer;
-import com.ychp.mblog.web.async.blog.BlogVisitAsync;
+import com.ychp.mblog.web.async.article.ArticleVisitEvent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,7 +35,7 @@ public class Articles {
     private ArticleReadService articleReadService;
 
     @Autowired
-    private BlogVisitAsync blogVisitAsync;
+    private AsyncPublisher publisher;
 
     @Autowired
     private IPServer ipServer;
@@ -49,7 +50,7 @@ public class Articles {
         String ip = ipServer.getIp(request);
         LikeLog likeLog = likeLogReadService.findByAimAndIp(id, LikeLogTypeEnum.ARTICLE.getValue(), ip);
         detailVO.setHasLiked(likeLog != null);
-        blogVisitAsync.visit(id);
+        publisher.post(new ArticleVisitEvent(id));
         return detailVO;
     }
 

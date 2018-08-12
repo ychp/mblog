@@ -1,5 +1,6 @@
 package com.ychp.mblog.web.controller.log;
 
+import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.LikeLogReadService;
 import com.ychp.blog.service.LikeLogWriteService;
@@ -7,7 +8,8 @@ import com.ychp.common.exception.ResponseException;
 import com.ychp.ip.component.IPServer;
 import com.ychp.ip.enums.IPAPIType;
 import com.ychp.ip.model.IpAddress;
-import com.ychp.mblog.web.async.log.LikeAsync;
+import com.ychp.mblog.web.async.log.DislikeEvent;
+import com.ychp.mblog.web.async.log.LikeEvent;
 import com.ychp.mblog.web.controller.bean.request.log.LikeLogRequest;
 import com.ychp.request.model.UserAgent;
 import com.ychp.request.util.RequestUtils;
@@ -55,7 +57,7 @@ public class LikeLogs {
 	private IPServer ipServer;
 
 	@Autowired
-	private LikeAsync likeAsync;
+	private AsyncPublisher publisher;
 
 	@ApiOperation(value = "点赞接口", httpMethod = "POST")
 	@PostMapping
@@ -88,7 +90,7 @@ public class LikeLogs {
 		}
 
 		likeLogWriteService.create(log);
-		likeAsync.increase(likeLogRequest.getAimId(), likeLogRequest.getType());
+		publisher.post(new LikeEvent(likeLogRequest.getAimId(), likeLogRequest.getType()));
 	}
 
 	private LikeLog makeLikeLog(LikeLogRequest likeLogRequest, String ip) {
@@ -132,6 +134,6 @@ public class LikeLogs {
 		}
 
 		likeLogWriteService.delete(exist.getId());
-		likeAsync.decrease(likeLogRequest.getAimId(), likeLogRequest.getType());
+		publisher.post(new DislikeEvent(likeLogRequest.getAimId(), likeLogRequest.getType()));
 	}
 }

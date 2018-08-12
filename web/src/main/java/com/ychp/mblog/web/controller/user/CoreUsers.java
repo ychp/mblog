@@ -1,14 +1,15 @@
 package com.ychp.mblog.web.controller.user;
 
-import com.ychp.mblog.web.async.user.LoginLogAsync;
-import com.ychp.mblog.web.constant.SessionConstants;
-import com.ychp.mblog.web.util.SkyUserMaker;
+import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
+import com.ychp.mblog.web.async.user.UserLoginEvent;
+import com.ychp.mblog.web.constant.SessionConstants;
+import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
@@ -48,7 +49,7 @@ public class CoreUsers {
     private IPServer ipServer;
 
     @Autowired
-    private LoginLogAsync loginLogAsync;
+    private AsyncPublisher publisher;
 
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("{id}")
@@ -69,7 +70,7 @@ public class CoreUsers {
         SkyUser skyUser = SkyUserMaker.make(user);
         skyUser.setIp(ipServer.getIp(request));
 
-        loginLogAsync.log(skyUser);
+        publisher.post(new UserLoginEvent(skyUser));
         return skyUser;
     }
 

@@ -1,11 +1,12 @@
-package com.ychp.mblog.web.controller.blog;
+package com.ychp.mblog.web.controller.article;
 
+import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.CategoryCriteria;
 import com.ychp.blog.model.Category;
 import com.ychp.blog.service.CategoryReadService;
 import com.ychp.blog.service.CategoryWriteService;
 import com.ychp.common.model.paging.Paging;
-import com.ychp.mblog.web.async.blog.CategoryUpdateAsync;
+import com.ychp.mblog.web.async.article.CategoryUpdateEvent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,7 +29,7 @@ public class AdminCategories {
     private CategoryWriteService categoryWriteService;
 
     @Autowired
-    private CategoryUpdateAsync categoryUpdateAsync;
+    private AsyncPublisher publisher;
 
     @ApiOperation(value = "类目创建接口", httpMethod = "POST")
     @PostMapping
@@ -43,7 +44,7 @@ public class AdminCategories {
         category.setId(id);
         category.setName(name);
         Boolean result = categoryWriteService.update(category);
-        categoryUpdateAsync.syncName(id, name);
+        publisher.post(new CategoryUpdateEvent(id, name));
         return result;
     }
 

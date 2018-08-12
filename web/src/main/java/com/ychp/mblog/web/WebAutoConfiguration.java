@@ -1,5 +1,8 @@
 package com.ychp.mblog.web;
 
+import com.ychp.async.publisher.AsyncPublisher;
+import com.ychp.async.subscriber.Dispatcher;
+import com.ychp.async.subscriber.SubscriberRegistry;
 import com.ychp.blog.impl.BlogAutoConfiguration;
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.file.cos.CosAutoConfiguration;
@@ -25,6 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @Import({IPServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
+        AsyncAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
         BlogAutoConfiguration.class})
@@ -60,5 +64,20 @@ public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public CaptchaGenerator captchaGenerator() {
         return new CaptchaGenerator();
+    }
+
+    @Bean
+    public SubscriberRegistry subscriberRegistry() {
+        return new SubscriberRegistry();
+    }
+
+    @Bean
+    public Dispatcher dispatcher(SubscriberRegistry subscriberRegistry) {
+        return new Dispatcher(subscriberRegistry);
+    }
+
+    @Bean
+    public AsyncPublisher asyncPublisher() {
+        return new AsyncPublisher();
     }
 }
