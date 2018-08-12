@@ -1,6 +1,6 @@
 package com.ychp.mblog.web.async.blog;
 
-import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
+import com.ychp.blog.service.ArticleWriteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 public class BlogVisitAsync {
 
 	@Autowired
-	private ArticleSummaryRepository articleSummaryRepository;
+	private ArticleWriteService articleWriteService;
 
 	@Async
 	public void visit(Long id) {
-		articleSummaryRepository.increasePopular(id);
+		articleWriteService.increasePopular(id);
 	}
 
 }

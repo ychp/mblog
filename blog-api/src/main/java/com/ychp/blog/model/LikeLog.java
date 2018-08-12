@@ -1,5 +1,6 @@
 package com.ychp.blog.model;
 
+import com.ychp.blog.enums.LikeLogTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,7 @@ public class LikeLog implements Serializable {
 
     /**
      * 类型:1.文章,2.说说,3.照片
+     * @see LikeLogTypeEnum
      */
     @Getter
     @Setter

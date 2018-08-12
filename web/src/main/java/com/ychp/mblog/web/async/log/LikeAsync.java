@@ -1,6 +1,6 @@
 package com.ychp.mblog.web.async.log;
 
-import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
+import com.ychp.blog.service.ArticleWriteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class LikeAsync {
 
 	@Autowired
-	private ArticleSummaryRepository articleSummaryRepository;
+	private ArticleWriteService articleWriteService;
 
 	@Async
 	public void increase(Long aimId, Integer type) {
 		switch (type) {
 			case 1:
-				articleSummaryRepository.increaseLike(aimId);
+				articleWriteService.increaseLike(aimId);
 				break;
 			case 2:
 			case 3:
@@ -33,7 +33,7 @@ public class LikeAsync {
 	public void decrease(Long aimId, Integer type) {
 		switch (type) {
 			case 1:
-				articleSummaryRepository.decreaseLike(aimId);
+				articleWriteService.decreaseLike(aimId);
 				break;
 			case 2:
 			case 3:

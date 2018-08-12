@@ -1,6 +1,7 @@
 package com.ychp.user.impl.server.service;
 
 import com.ychp.common.exception.ResponseException;
+import com.ychp.user.enums.UserTypeEnum;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;
 import com.ychp.user.model.User;
@@ -25,7 +26,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 	@Override
 	public Long create(User user) {
 		try {
-			user.setStatus(1);
+			user.setStatus(UserTypeEnum.NORMAL.getValue());
 			userRepository.create(user);
 			return user.getId();
 		} catch (Exception e) {

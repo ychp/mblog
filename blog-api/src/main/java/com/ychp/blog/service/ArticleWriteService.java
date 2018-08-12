@@ -37,4 +37,25 @@ public interface ArticleWriteService {
      * @return 操作结果
      */
     Boolean deleteLabel(Long id, Long labelId);
+
+    /**
+     * 累计浏览次数
+     * @param id 文章ID
+     * @return 操作结果
+     */
+    Boolean increasePopular(Long id);
+
+    /**
+     * 累计点赞次数
+     * @param id 文章ID
+     * @return 操作结果
+     */
+    Boolean increaseLike(Long id);
+
+    /**
+     * 扣减点赞次数
+     * @param id 文章ID
+     * @return 操作结果
+     */
+    Boolean decreaseLike(Long id);
 }
