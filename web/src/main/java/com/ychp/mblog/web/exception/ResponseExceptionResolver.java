@@ -1,6 +1,7 @@
 package com.ychp.mblog.web.exception;
 
 import com.google.common.base.Throwables;
+import com.google.common.collect.Maps;
 import com.ychp.common.exception.ResponseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class ResponseExceptionResolver {
     public ResponseEntity<String> OPErrorHandler(ResponseException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
-        Map<String, String[]> parameterMap = request.getParameterMap();
+        Map<String, String[]> parameterMap = Maps.newHashMap();
+        parameterMap.putAll(request.getParameterMap());
         log.error("request uri[{}] by params = {} fail, case {}", uri, parameterMap, Throwables.getStackTraceAsString(se));
         log.debug("ResponseException happened, locale={}, cause={}", locale, Throwables.getStackTraceAsString(se));
         String message = se.getErrorCode();
