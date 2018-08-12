@@ -70,6 +70,11 @@ public class ArticleCriteria extends PagingCriteria {
 
     @Getter
     @Setter
+    @ApiModelProperty("发布时间")
+    private Date publishAt;
+
+    @Getter
+    @Setter
     @ApiModelProperty("发布开始时间")
     private Date publishAtStart;
 
@@ -81,6 +86,15 @@ public class ArticleCriteria extends PagingCriteria {
     @Override
     protected void formatDate() {
         super.formatDate();
-        publishAtEnd = new DateTime(publishAtEnd).plusDays(1).withTimeAtStartOfDay().minusMillis(1).toDate();
+
+        if(publishAtEnd != null) {
+            publishAtEnd = new DateTime(publishAtEnd).plusDays(1).withTimeAtStartOfDay().minusMillis(1).toDate();
+        }
+
+        if(publishAt != null) {
+            publishAtStart = publishAt;
+            publishAtEnd = new DateTime(publishAt).plusDays(1).withTimeAtStartOfDay().minusMillis(1).toDate();
+
+        }
     }
 }
