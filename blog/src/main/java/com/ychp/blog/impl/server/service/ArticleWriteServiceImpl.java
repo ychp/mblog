@@ -2,10 +2,13 @@ package com.ychp.blog.impl.server.service;
 
 import com.ychp.blog.bean.request.ArticleCreateRequest;
 import com.ychp.blog.bean.request.ArticleUpdateRequest;
+import com.ychp.blog.impl.server.converter.ArticleConverter;
 import com.ychp.blog.impl.server.manager.ArticleManager;
 import com.ychp.blog.impl.server.repository.ArticleLabelRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
+import com.ychp.blog.model.Article;
+import com.ychp.blog.model.ArticleDetail;
 import com.ychp.blog.model.ArticleLabel;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.exception.ResponseException;
@@ -35,7 +38,10 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 	@Override
 	public Long create(ArticleCreateRequest request) {
 		try {
-			return articleManager.create(request.getArticle(), request.getDetail(), request.getLabels());
+			Article article = request.getArticle();
+			ArticleDetail detail = request.getDetail();
+			ArticleConverter.parse(article, detail);
+			return articleManager.create(article, detail, request.getLabels());
 		} catch (ResponseException e) {
 			throw e;
 		} catch (Exception e) {
