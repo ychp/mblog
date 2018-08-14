@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `sky_article` (
   `category_id` bigint(20) NOT NULL COMMENT '类目ID',
   `category_name` varchar(256) NOT NULL COMMENT '类目名称',
   `image` varchar(256) DEFAULT NULL COMMENT '预览图链接',
-  `synopsis` varchar(256) DEFAULT NULL COMMENT '简介',
+  `synopsis` varchar(512) DEFAULT NULL COMMENT '简介',
   `user_id` bigint(20) DEFAULT NULL COMMENT '作者Id',
   `author` varchar(256) DEFAULT NULL COMMENT '作者',
   `visible` tinyint(1) NOT NULL COMMENT '是否可见，0.不可见，1.可见',
