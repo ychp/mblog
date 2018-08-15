@@ -83,6 +83,14 @@ public class IPServer {
             log.error("fail to get ip address, case {}", Throwables.getStackTraceAsString(e));
             return null;
         }
+
+        if(result == null) {
+            result = new IpAddress();
+            result.setProvince("未知");
+            result.setCity("未知");
+            result.setCountry("未知");
+        }
+
         if(StringUtils.isEmpty(result.getProvince())){
             result.setProvince(result.getCountry());
         }
@@ -137,7 +145,8 @@ public class IPServer {
                 result.setCity(ipAddress.getData().getCity());
                 result.setCountry(ipAddress.getData().getCountry());
                 result.setIsp(ipAddress.getData().getIsp());
-            }else{
+                log.info("ipAddress : {}", ipAddress);
+            } else {
                 log.info("ipAddress : {}", ipAddress);
             }
         }
