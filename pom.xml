@@ -25,6 +25,7 @@
         <module>async</module>
         <module>markdown</module>
         <module>cache</module>
+        <module>session</module>
     </modules>
 
     <properties>

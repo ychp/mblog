@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan({"com.ychp.mblog.web", "com.ychp.redis"})
+@ComponentScan({"com.ychp.mblog.web", "com.ychp.redis", "com.ychp.cache"})
 @Import({IPServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
         UserApiAutoConfig.class,
