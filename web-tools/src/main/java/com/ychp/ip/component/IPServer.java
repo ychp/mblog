@@ -99,6 +99,10 @@ public class IPServer {
     private IpAddress baiduIpAddress(String ip, String apiKey) throws IOException {
         IpAddress result = new IpAddress();
         String str = get(BAIDU_IP_API_URL + ip, true, apiKey);
+        if(StringUtils.isEmpty(str)) {
+            log.warn("fail to get ip address by ip = {}", ip);
+            return null;
+        }
         BaiduIpAddress ipAddress = objectMapper.readValue(str, BaiduIpAddress.class);
         if(ipAddress != null  && ipAddress.getErrNum() == 0) {
             result.setSuccess(true);
@@ -121,6 +125,10 @@ public class IPServer {
     private IpAddress taobaoIpAddress(String ip) throws IOException {
         IpAddress result = new IpAddress();
         String str = get(TAOBAO_IP_API_URL + ip, false, null);
+        if(StringUtils.isEmpty(str)) {
+            log.warn("fail to get ip address by ip = {}", ip);
+            return null;
+        }
         TaobaoIpAddress ipAddress = objectMapper.readValue(str, TaobaoIpAddress.class);
         if(ipAddress != null  && ipAddress.getCode()==0) {
             result.setSuccess(true);
@@ -142,6 +150,10 @@ public class IPServer {
     private IpAddress sinaIpAddress(String ip) throws IOException {
         IpAddress result = new IpAddress();
         String str = get(SINA_IP_API_URL + ip, false, null);
+        if(StringUtils.isEmpty(str)) {
+            log.warn("fail to get ip address by ip = {}", ip);
+            return null;
+        }
         SinaIpAddress ipAddress = objectMapper.readValue(str, SinaIpAddress.class);
         if(ipAddress != null  && ipAddress.getRet()==1) {
             result.setSuccess(true);
@@ -177,7 +189,7 @@ public class IPServer {
             reader.close();
             str = sbf.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("fail to request by {}", requestUrl, Throwables.getStackTraceAsString(e));
         }
         return str;
     }
