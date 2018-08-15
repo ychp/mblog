@@ -1,8 +1,8 @@
-package com.ychp.redis.cache.aop;
+package com.ychp.cache.aop;
 
-import com.ychp.redis.cache.annontation.DataInvalidCache;
-import com.ychp.redis.cache.manager.CacheManager;
-import com.ychp.redis.cache.utils.CacheAdviceUtils;
+import com.ychp.cache.annontation.DataInvalidCache;
+import com.ychp.cache.manager.CacheManager;
+import com.ychp.cache.utils.CacheAdviceUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,7 +24,7 @@ public class CacheInvalidAdvice {
 	@Autowired
 	private CacheManager cacheManager;
 
-	@Pointcut(value = "@annotation(com.ychp.redis.cache.annontation.DataInvalidCache)")
+	@Pointcut(value = "@annotation(com.ychp.cache.annontation.DataInvalidCache)")
 	public void pointCut() {
 	}
 

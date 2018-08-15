@@ -1,4 +1,4 @@
-package com.ychp.redis.cache.annontation;
+package com.ychp.cache.annontation;
 
 import java.lang.annotation.*;
 

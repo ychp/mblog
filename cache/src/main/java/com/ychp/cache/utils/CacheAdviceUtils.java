@@ -1,4 +1,4 @@
-package com.ychp.redis.cache.utils;
+package com.ychp.cache.utils;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.google.common.collect.Maps;

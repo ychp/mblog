@@ -1,4 +1,4 @@
-package com.ychp.redis.cache.manager;
+package com.ychp.cache.manager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

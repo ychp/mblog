@@ -1,7 +1,7 @@
 package com.ychp.user.impl.server.service;
 
 import com.ychp.common.exception.ResponseException;
-import com.ychp.redis.cache.annontation.DataInvalidCache;
+import com.ychp.cache.annontation.DataInvalidCache;
 import com.ychp.user.enums.UserTypeEnum;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;

@@ -10,7 +10,7 @@ import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.async.user.UserLoginEvent;
 import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.util.SkyUserMaker;
-import com.ychp.redis.cache.annontation.DataCache;
+import com.ychp.cache.annontation.DataCache;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;

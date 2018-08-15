@@ -11,7 +11,7 @@ import com.ychp.blog.service.LikeLogReadService;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.async.article.ArticleVisitEvent;
-import com.ychp.redis.cache.annontation.DataCache;
+import com.ychp.cache.annontation.DataCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

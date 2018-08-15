@@ -1,6 +1,6 @@
 package com.ychp.mblog.web.controller.friend.link;
 
-import com.ychp.redis.cache.annontation.DataCache;
+import com.ychp.cache.annontation.DataCache;
 import com.ychp.user.model.FriendLink;
 import com.ychp.user.service.FriendLinkReadService;
 import io.swagger.annotations.Api;

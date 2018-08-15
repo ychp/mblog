@@ -1,4 +1,4 @@
-package com.ychp.redis.cache.exception;
+package com.ychp.cache.exception;
 
 /**
  * @author yingchengpeng

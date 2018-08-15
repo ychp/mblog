@@ -2,7 +2,7 @@ package com.ychp.mblog.web.exception;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.Maps;
-import com.ychp.redis.cache.exception.CacheException;
+import com.ychp.cache.exception.CacheException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

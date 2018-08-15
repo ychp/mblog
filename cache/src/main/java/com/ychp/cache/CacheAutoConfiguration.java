@@ -1,9 +1,9 @@
-package com.ychp.redis.cache;
+package com.ychp.cache;
 
-import com.ychp.redis.cache.aop.CacheAdvice;
-import com.ychp.redis.cache.aop.CacheInvalidAdvice;
-import com.ychp.redis.cache.manager.CacheManager;
-import com.ychp.redis.cache.properties.CacheProperties;
+import com.ychp.cache.aop.CacheAdvice;
+import com.ychp.cache.aop.CacheInvalidAdvice;
+import com.ychp.cache.manager.CacheManager;
+import com.ychp.cache.properties.CacheProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnProperty(name = "cache.type", havingValue = "redis")
 @EnableConfigurationProperties(CacheProperties.class)
-public class RedisCacheAutoConfiguration {
+public class CacheAutoConfiguration {
 
 	@Bean
 	public CacheManager cacheManager() {

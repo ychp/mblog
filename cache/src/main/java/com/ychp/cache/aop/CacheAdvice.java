@@ -1,9 +1,9 @@
-package com.ychp.redis.cache.aop;
+package com.ychp.cache.aop;
 
-import com.ychp.redis.cache.annontation.DataCache;
-import com.ychp.redis.cache.exception.CacheException;
-import com.ychp.redis.cache.manager.CacheManager;
-import com.ychp.redis.cache.utils.CacheAdviceUtils;
+import com.ychp.cache.annontation.DataCache;
+import com.ychp.cache.exception.CacheException;
+import com.ychp.cache.manager.CacheManager;
+import com.ychp.cache.utils.CacheAdviceUtils;
 import lombok.NoArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -27,7 +27,7 @@ public class CacheAdvice {
 	@Autowired
 	private CacheManager cacheManager;
 
-	@Pointcut(value = "@annotation(com.ychp.redis.cache.annontation.DataCache)")
+	@Pointcut(value = "@annotation(com.ychp.cache.annontation.DataCache)")
 	public void pointCut() {
 	}
 

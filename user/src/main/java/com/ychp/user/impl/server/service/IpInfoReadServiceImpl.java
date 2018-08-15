@@ -1,7 +1,7 @@
 package com.ychp.user.impl.server.service;
 
 import com.ychp.common.exception.ResponseException;
-import com.ychp.redis.cache.annontation.DataCache;
+import com.ychp.cache.annontation.DataCache;
 import com.ychp.user.impl.server.repository.IpInfoRepository;
 import com.ychp.user.model.IpInfo;
 import com.ychp.user.service.IpInfoReadService;

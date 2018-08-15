@@ -18,12 +18,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.ychp</groupId>
-            <artifactId>redis</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>${swagger.version}</version>

@@ -10,7 +10,7 @@ import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.SessionContextUtils;
-import com.ychp.redis.cache.annontation.DataInvalidCache;
+import com.ychp.cache.annontation.DataInvalidCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

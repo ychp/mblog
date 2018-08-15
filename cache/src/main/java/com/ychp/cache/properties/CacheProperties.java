@@ -1,4 +1,4 @@
-package com.ychp.redis.cache.properties;
+package com.ychp.cache.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

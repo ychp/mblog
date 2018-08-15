@@ -24,6 +24,7 @@
         <module>file</module>
         <module>async</module>
         <module>markdown</module>
+        <module>cache</module>
     </modules>
 
     <properties>

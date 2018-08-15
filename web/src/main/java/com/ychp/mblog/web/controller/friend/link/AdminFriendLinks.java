@@ -1,7 +1,7 @@
 package com.ychp.mblog.web.controller.friend.link;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.redis.cache.annontation.DataInvalidCache;
+import com.ychp.cache.annontation.DataInvalidCache;
 import com.ychp.user.bean.query.FriendLinkCriteria;
 import com.ychp.user.model.FriendLink;
 import com.ychp.user.service.FriendLinkReadService;
