@@ -6,16 +6,6 @@ server:
 spring:
   application:
     name: web
-  redis:
-    host: ${REDIS_HOST:127.0.0.1}
-    port: ${REDIS_PORT:6379}
-    password: ${REDIS_AUTH:anywhere}
-    pool:
-      max-active: 300
-      max-idle: 100
-      max-wait: 1000
-    database: 4
-    timeout: 100000
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:blog-api}?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: ${MYSQL_NAME:root}
@@ -39,3 +29,16 @@ file:
     appId: ${COS_APP_ID:}
     bucketName: ${COS_BUCKET_NAME:}
     region: ${COS_REGION:}
+
+redis:
+  host: ${REDIS_HOST:127.0.0.1}
+  port: ${REDIS_PORT:6379}
+  password: ${REDIS_AUTH:anywhere}
+  pool:
+    max-active: 300
+    max-idle: 100
+    max-wait: 1000
+  database: 0
+  timeout: 100000
+
+cache.type: redis
