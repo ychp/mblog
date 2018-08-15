@@ -19,9 +19,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2017-08-27
  */
 @Slf4j
 @ControllerAdvice

@@ -1,5 +1,6 @@
 package com.ychp.mblog.web.controller.friend.link;
 
+import com.ychp.redis.cache.annontation.DataCache;
 import com.ychp.user.model.FriendLink;
 import com.ychp.user.service.FriendLinkReadService;
 import io.swagger.annotations.Api;
@@ -25,6 +26,7 @@ public class FriendLinks {
 
 	@ApiOperation("友情链接接口")
 	@GetMapping("visible")
+	@DataCache("friend-links")
 	public List<FriendLink> listVisible() {
 		return friendLinkReadService.listVisible();
 	}

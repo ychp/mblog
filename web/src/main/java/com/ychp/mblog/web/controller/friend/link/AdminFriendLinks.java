@@ -1,6 +1,7 @@
 package com.ychp.mblog.web.controller.friend.link;
 
 import com.ychp.common.model.paging.Paging;
+import com.ychp.redis.cache.annontation.DataInvalidCache;
 import com.ychp.user.bean.query.FriendLinkCriteria;
 import com.ychp.user.model.FriendLink;
 import com.ychp.user.service.FriendLinkReadService;
@@ -27,12 +28,14 @@ public class AdminFriendLinks {
 
 	@ApiOperation(value = "友情链接创建接口", httpMethod = "POST")
 	@PostMapping
+	@DataInvalidCache("friend-links")
 	public Long create(@RequestBody FriendLink friendLink) {
 		return friendLinkWriteService.create(friendLink);
 	}
 
 	@ApiOperation(value = "友情链接更新接口", httpMethod = "PUT")
 	@PutMapping
+	@DataInvalidCache("friend-links")
 	public Boolean update(@RequestBody FriendLink friendLink) {
 		return friendLinkWriteService.update(friendLink);
 	}

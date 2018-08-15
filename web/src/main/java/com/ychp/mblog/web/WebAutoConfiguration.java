@@ -13,6 +13,7 @@ import com.ychp.user.UserApiAutoConfig;
 import com.ychp.user.impl.UserAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -26,9 +27,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
+@ComponentScan({"com.ychp.mblog.web", "com.ychp.redis"})
 @Import({IPServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
-        AsyncAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
         BlogAutoConfiguration.class})

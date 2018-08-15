@@ -5,9 +5,8 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.util.Pool;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 16/7/25
+ * @author yingchengpeng
+ * @date 2018-08-14
  */
 public class JedisTemplate {
 
