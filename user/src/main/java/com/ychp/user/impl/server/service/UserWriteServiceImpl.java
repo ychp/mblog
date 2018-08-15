@@ -1,6 +1,7 @@
 package com.ychp.user.impl.server.service;
 
 import com.ychp.common.exception.ResponseException;
+import com.ychp.redis.cache.annontation.DataInvalidCache;
 import com.ychp.user.enums.UserTypeEnum;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;
@@ -35,6 +36,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 	}
 
 	@Override
+	@DataInvalidCache("user:{{user.id}}")
 	public Boolean update(User user) {
 		try {
 			return userRepository.update(user);
@@ -44,6 +46,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 	}
 
 	@Override
+	@DataInvalidCache("user:{{profile.userId}}")
 	public Boolean saveProfile(UserProfile profile) {
 		try {
 			UserProfile exist = userProfileRepository.findByUserId(profile.getUserId());

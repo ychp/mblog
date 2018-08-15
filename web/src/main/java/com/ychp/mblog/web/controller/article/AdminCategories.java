@@ -7,6 +7,8 @@ import com.ychp.blog.service.CategoryReadService;
 import com.ychp.blog.service.CategoryWriteService;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.mblog.web.async.article.CategoryUpdateEvent;
+import com.ychp.redis.cache.annontation.DataCache;
+import com.ychp.redis.cache.annontation.DataInvalidCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,12 +35,14 @@ public class AdminCategories {
 
     @ApiOperation(value = "类目创建接口", httpMethod = "POST")
     @PostMapping
+    @DataInvalidCache("article:categories")
     public Long create(@RequestBody Category category) {
         return categoryWriteService.create(category);
     }
 
     @ApiOperation(value = "类目更新接口", httpMethod = "PUT")
     @PutMapping
+    @DataInvalidCache("article:categories")
     public Boolean update(@ApiParam(example = "1") Long id, String name) {
         Category category = new Category();
         category.setId(id);

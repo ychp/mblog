@@ -1,9 +1,9 @@
 package com.ychp.user.service;
 
-import com.ychp.user.bean.response.UserVO;
-import com.ychp.user.bean.query.UserCriteria;
-import com.ychp.user.model.User;
 import com.ychp.common.model.paging.Paging;
+import com.ychp.user.bean.query.UserCriteria;
+import com.ychp.user.bean.response.UserVO;
+import com.ychp.user.model.User;
 
 /**
  * @author yingchengpeng

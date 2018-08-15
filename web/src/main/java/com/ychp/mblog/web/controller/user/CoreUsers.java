@@ -11,7 +11,6 @@ import com.ychp.mblog.web.async.user.UserLoginEvent;
 import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.redis.cache.annontation.DataCache;
-import com.ychp.redis.cache.annontation.DataInvalidCache;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
@@ -62,7 +61,6 @@ public class CoreUsers {
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("login")
-    @DataInvalidCache("user:{{return.id}}")
     public SkyUser login(@ApiParam("用户名") @RequestParam String name,
                       @ApiParam("密码") @RequestParam String password,
                       @ApiParam("验证码TODO") @RequestParam(required = false) String captcha,

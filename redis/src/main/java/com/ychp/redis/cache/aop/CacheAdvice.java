@@ -62,7 +62,9 @@ public class CacheAdvice {
 	}
 
 	private void saveCache(Object returnObject, String key, int expireTime) {
-
+		if(returnObject == null) {
+			return;
+		}
 		cacheManager.save(key, returnObject, expireTime);
 	}
 }

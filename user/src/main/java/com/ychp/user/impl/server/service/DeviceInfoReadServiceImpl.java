@@ -1,6 +1,7 @@
 package com.ychp.user.impl.server.service;
 
 import com.ychp.common.exception.ResponseException;
+import com.ychp.redis.cache.annontation.DataCache;
 import com.ychp.user.impl.server.repository.DeviceInfoRepository;
 import com.ychp.user.model.DeviceInfo;
 import com.ychp.user.service.DeviceInfoReadService;
@@ -21,6 +22,7 @@ public class DeviceInfoReadServiceImpl implements DeviceInfoReadService {
     private DeviceInfoRepository deviceInfoRepository;
 
     @Override
+    @DataCache("device-info:{{deviceInfo.os}}-{{deviceInfo.browser}}-{{deviceInfo.browserVersion}}-{{deviceInfo.device}}")
     public DeviceInfo findByUniqueInfo(DeviceInfo deviceInfo) {
         try {
             return deviceInfoRepository.findByUniqueInfo(deviceInfo);

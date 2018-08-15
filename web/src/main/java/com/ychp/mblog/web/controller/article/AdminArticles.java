@@ -10,6 +10,7 @@ import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.SessionContextUtils;
+import com.ychp.redis.cache.annontation.DataInvalidCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -48,6 +49,7 @@ public class AdminArticles {
 
     @ApiOperation(value = "文章编辑接口", httpMethod = "PUT")
     @PutMapping
+    @DataInvalidCache("article:{{request.article.id}}")
     public Boolean update(@RequestBody ArticleUpdateRequest request) {
         return articleWriteService.update(request);
     }
@@ -60,12 +62,14 @@ public class AdminArticles {
 
     @ApiOperation(value = "删除文章标签", httpMethod = "DELETE")
     @DeleteMapping("label")
+    @DataInvalidCache("article:{{articleId}}")
     public Boolean deleteLabel(@ApiParam(example = "1") Long articleId, @ApiParam(example = "1") Long labelId) {
         return articleWriteService.deleteLabel(articleId, labelId);
     }
 
     @ApiOperation(value = "删除文章", httpMethod = "DELETE")
     @DeleteMapping
+    @DataInvalidCache("article:{{id}}")
     public Boolean delete(@ApiParam(example = "1") Long id) {
         return articleWriteService.delete(id);
     }

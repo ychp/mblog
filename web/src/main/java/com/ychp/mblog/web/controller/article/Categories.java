@@ -2,6 +2,7 @@ package com.ychp.mblog.web.controller.article;
 
 import com.ychp.blog.model.Category;
 import com.ychp.blog.service.CategoryReadService;
+import com.ychp.redis.cache.annontation.DataCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class Categories {
 
     @ApiOperation("类目")
     @GetMapping("list")
+    @DataCache("article:categories")
     public List<Category> listAll() {
         return categoryReadService.listAll();
     }

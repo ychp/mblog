@@ -1,5 +1,6 @@
 package com.ychp.user.service;
 
+import com.ychp.redis.cache.annontation.DataCache;
 import com.ychp.user.model.IpInfo;
 
 import java.util.List;
