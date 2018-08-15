@@ -38,7 +38,7 @@ redis:
     max-active: 300
     max-idle: 100
     max-wait: 1000
-  database: 0
+  database: 1
   timeout: 100000
 
 cache.type: redis
