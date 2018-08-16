@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * @author yingchengpeng
@@ -44,6 +45,10 @@ public class SkySessionFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
+		if (servletRequest instanceof SkyHttpServletRequestWrapper) {
+			filterChain.doFilter(servletRequest, servletResponse);
+			return;
+		}
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
@@ -52,7 +57,7 @@ public class SkySessionFilter implements Filter {
 		sessionRequest.setCookieDomain(cookieDomain);
 		sessionRequest.setCookieMaxAge(cookieMaxAge);
 		sessionRequest.setMaxInactiveInterval(maxInactiveInterval);
-
+		log.error("set default:" + TimeZone.getDefault());
 		filterChain.doFilter(sessionRequest, response);
 
 		SkySession skySession = (SkySession) sessionRequest.getSession();
