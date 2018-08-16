@@ -19,6 +19,9 @@ public class CookieUtils {
 
 	public static Cookie get(HttpServletRequest request, String name) {
 		Cookie[] cookies = request.getCookies();
+		if(cookies == null) {
+			return null;
+		}
 		for (Cookie cookie : cookies) {
 			if(Objects.equals(cookie.getName(), name)) {
 				return cookie;
@@ -43,6 +46,9 @@ public class CookieUtils {
 
 	public static void refresh(HttpServletRequest request, String name, int maxAge) {
 		Cookie[] cookies = request.getCookies();
+		if(cookies == null) {
+			return;
+		}
 		for (Cookie cookie : cookies) {
 			if(Objects.equals(cookie.getName(), name)) {
 				cookie.setMaxAge(maxAge);
