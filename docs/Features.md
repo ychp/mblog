@@ -284,8 +284,6 @@ CREATE TABLE IF NOT EXISTS `sky_user` (
   `nick_name` varchar(256) DEFAULT NULL COMMENT '昵称',
   `mobile` varchar(32) DEFAULT NULL COMMENT '手机号码',
   `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
-  `home_page` varchar(256) DEFAULT NULL COMMENT '主页',
-  `avatar` varchar(256) DEFAULT NULL COMMENT '头像',
   `password` varchar(64) NOT NULL COMMENT '密码',
   `salt` varchar(64) NOT NULL COMMENT '秘钥',
   `status` tinyint(1) NOT NULL COMMENT '状态',
@@ -304,12 +302,36 @@ CREATE TABLE IF NOT EXISTS `sky_user_profile` (
   `user_id` bigint(20) NOT NULL,
   `home_page` varchar(256) DEFAULT NULL COMMENT '主页',
   `avatar` varchar(256) DEFAULT NULL COMMENT '头像',
+  `gender` varchar(8) DEFAULT NULL COMMENT '性别：male,female',
+  `real_name` varchar(256) DEFAULT NULL COMMENT '真实姓名',
   `birth` date DEFAULT NULL COMMENT '出生日期',
+  `country_id` int(9) DEFAULT NULL COMMENT '国家ID',
+  `province_id` int(9) DEFAULT NULL COMMENT '省份ID',
+  `city_id` int(9) DEFAULT NULL COMMENT '城市ID',
+  `country` varchar(256) DEFAULT NULL COMMENT '国家',
+  `province` varchar(256) DEFAULT NULL COMMENT '省份',
+  `city` varchar(256) DEFAULT NULL COMMENT '城市',
+  `synopsis` varchar(1024) DEFAULT NULL COMMENT '简介',
+  `profile` varchar(512) DEFAULT NULL COMMENT '职业',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_profile_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户信息表';
+
+DROP TABLE IF EXISTS `sky_address`;
+
+CREATE TABLE IF NOT EXISTS `sky_address` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` bigint(20) DEFAULT NULL COMMENT '父级ID',
+  `name` varchar(64) DEFAULT NULL COMMENT '名称',
+  `level` int(11) DEFAULT NULL COMMENT '级别',
+  `pinyin` varchar(128) DEFAULT NULL COMMENT '拼音',
+  `english_name` varchar(128) DEFAULT NULL COMMENT '英文名',
+  `unicode_code` varchar(256) DEFAULT NULL COMMENT 'ASCII码',
+  PRIMARY KEY (`id`),
+  KEY `idx_address_pid` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '地址树表';
 
 DROP TABLE IF EXISTS `sky_user_login_log`;
 
@@ -317,8 +339,8 @@ CREATE TABLE IF NOT EXISTS `sky_user_login_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `ip` varchar(256) NOT NULL COMMENT 'ip地址',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `login_at` datetime NOT NULL,
+  `logout_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_login_log_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户登录信息表';
@@ -351,10 +373,13 @@ CREATE TABLE IF NOT EXISTS `sky_article` (
   `title` varchar(1024) NOT NULL COMMENT '标题',
   `category_id` bigint(20) NOT NULL COMMENT '类目ID',
   `category_name` varchar(256) NOT NULL COMMENT '类目名称',
-  `synopsis` varchar(256) DEFAULT NULL COMMENT '简介',
+  `image` varchar(256) DEFAULT NULL COMMENT '预览图链接',
+  `synopsis` varchar(512) DEFAULT NULL COMMENT '简介',
   `user_id` bigint(20) DEFAULT NULL COMMENT '作者Id',
   `author` varchar(256) DEFAULT NULL COMMENT '作者',
   `visible` tinyint(1) NOT NULL COMMENT '是否可见，0.不可见，1.可见',
+  `deleted` tinyint(1) NOT NULL COMMENT '是否删除，0.未删除，1.已删除',
+  `publish_at` datetime NOT NULL COMMENT '发布时间',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -365,6 +390,7 @@ DROP TABLE IF EXISTS `sky_article_detail`;
 CREATE TABLE IF NOT EXISTS `sky_article_detail` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
+  `is_markdown` tinyint(1) NOT NULL COMMENT '是否为markdown内容',
   `content` text COMMENT '内容',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -418,6 +444,7 @@ DROP TABLE IF EXISTS `sky_ip_info`;
 CREATE TABLE IF NOT EXISTS `sky_ip_info` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ip` varchar(32) DEFAULT NULL COMMENT 'ip地址',
+  `country` varchar(128) DEFAULT NULL COMMENT '国家',
   `province` varchar(128) DEFAULT NULL COMMENT '省份',
   `city` varchar(128) DEFAULT NULL COMMENT '城市',
   `created_at` datetime DEFAULT NULL,
@@ -466,6 +493,5 @@ CREATE TABLE IF NOT EXISTS `sky_like_log` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='点赞记录表';
-
 ```
     
