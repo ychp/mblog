@@ -42,3 +42,17 @@ redis:
   timeout: 100000
 
 cache.type: redis
+
+session:
+  cookie-domain: yingchengpeng.com
+  cookie-max-age: 1800
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_AUTH:anywhere}
+    pool:
+      max-active: 300
+      max-idle: 100
+      max-wait: 1000
+    database: 1
+    timeout: 100000

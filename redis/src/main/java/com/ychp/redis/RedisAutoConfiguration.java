@@ -3,10 +3,10 @@ package com.ychp.redis;
 import com.ychp.redis.dao.JedisTemplate;
 import com.ychp.redis.properties.RedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -26,6 +26,7 @@ public class RedisAutoConfiguration {
     private RedisProperties redisProperties;
 
     @Bean
+    @ConditionalOnMissingBean(JedisPoolConfig.class)
     public JedisPoolConfig getJedisPoolConfig(){
         JedisPoolConfig config = new JedisPoolConfig();
         if(!StringUtils.isEmpty(redisProperties.getPool().getMaxActive())) {
@@ -44,6 +45,7 @@ public class RedisAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(JedisPool.class)
     public JedisPool getJedisPool(JedisPoolConfig jedisPoolConfig){
         Integer port = StringUtils.isEmpty(redisProperties.getPort()) ? 6379 : redisProperties.getPort();
         Integer timeOut = StringUtils.isEmpty(redisProperties.getTimeout()) ? 1000 : redisProperties.getTimeout();
@@ -54,6 +56,7 @@ public class RedisAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(JedisTemplate.class)
     public JedisTemplate getJedisTemplate(Pool<Jedis> jedisPool){
         Integer database = StringUtils.isEmpty(redisProperties.getDatabase()) ? 0 : redisProperties.getDatabase();
         return new JedisTemplate(jedisPool, database);

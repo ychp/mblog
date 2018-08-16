@@ -8,7 +8,6 @@ import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.file.cos.CosAutoConfiguration;
 import com.ychp.ip.IPServiceAutoConfiguration;
 import com.ychp.mblog.web.interceptors.SessionInterceptor;
-import com.ychp.mblog.web.session.SessionManager;
 import com.ychp.user.UserApiAutoConfig;
 import com.ychp.user.impl.UserAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +26,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan({"com.ychp.mblog.web", "com.ychp.redis", "com.ychp.cache"})
+@ComponentScan({
+        "com.ychp.mblog.web",
+        "com.ychp.redis",
+        "com.ychp.cache",
+        "com.ychp.session"})
 @Import({IPServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
         BlogAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
-
-    @Bean
-    public SessionManager sessionManager() {
-        return new SessionManager();
-    }
 
     @Bean
     public SessionInterceptor sessionInterceptor() {
