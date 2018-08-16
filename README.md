@@ -23,3 +23,9 @@ ORM模块：集成mybatis，支持spring-boot以及代码生成
 
 ## 5、msg
 消息服务模块：集成各种消息服务，目前仅有邮件服务
+
+## 6、cache
+缓存服务模块：目前仅支持redis缓存
+
+## 7、session
+session模块，支持分布式session，应用启动时必须前后端一级域名一致
