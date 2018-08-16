@@ -57,7 +57,6 @@ public class SkySessionFilter implements Filter {
 		sessionRequest.setCookieDomain(cookieDomain);
 		sessionRequest.setCookieMaxAge(cookieMaxAge);
 		sessionRequest.setMaxInactiveInterval(maxInactiveInterval);
-		log.error("set default:" + TimeZone.getDefault());
 		filterChain.doFilter(sessionRequest, response);
 
 		SkySession skySession = (SkySession) sessionRequest.getSession();
