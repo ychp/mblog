@@ -26,6 +26,7 @@
         <module>markdown</module>
         <module>cache</module>
         <module>session</module>
+        <module>elaticsearch</module>
     </modules>
 
     <properties>
