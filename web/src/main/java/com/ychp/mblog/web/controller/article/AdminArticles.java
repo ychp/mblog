@@ -42,9 +42,9 @@ public class AdminArticles {
     }
 
     @ApiOperation("文章详情接口")
-    @GetMapping("{id}/detail")
+    @GetMapping("{id}/for-edit")
     public ArticleDetailVO detail(@ApiParam(example = "1") @PathVariable Long id) {
-        return articleReadService.findDetailById(id);
+        return articleReadService.findEditById(id);
     }
 
     @ApiOperation(value = "文章编辑接口", httpMethod = "PUT")

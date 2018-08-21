@@ -8,10 +8,11 @@ import com.ychp.blog.enums.LikeLogTypeEnum;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.LikeLogReadService;
+import com.ychp.cache.annontation.DataCache;
 import com.ychp.common.model.paging.Paging;
+import com.ychp.common.model.paging.PagingCriteria;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.async.article.ArticleVisitEvent;
-import com.ychp.cache.annontation.DataCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -61,6 +62,12 @@ public class Articles {
     public Paging<ArticleBaseInfoVO> paging(ArticleCriteria criteria) {
         criteria.setVisible(true);
         return articleReadService.paging(criteria);
+    }
+
+    @ApiOperation("文章日期分页接口")
+    @GetMapping("paging-publish-date")
+    public Paging<String> paging(PagingCriteria criteria) {
+        return articleReadService.pagingPublishDates(criteria);
     }
 
 }

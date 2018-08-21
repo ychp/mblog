@@ -13,6 +13,8 @@ import com.ychp.blog.model.ArticleSummary;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.paging.Paging;
+import com.ychp.common.model.paging.PagingCriteria;
+import com.ychp.markdown.wrapper.MarkdownWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,15 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 
 	@Override
 	public ArticleDetailVO findDetailById(Long id) {
+		ArticleDetailVO detailVO = findEditById(id);
+		if(detailVO.getDetail().getIsMarkdown()) {
+			detailVO.getDetail().setContent(MarkdownWrapper.parse(detailVO.getDetail().getContent()));
+		}
+		return detailVO;
+	}
+
+	@Override
+	public ArticleDetailVO findEditById(Long id) {
 		ArticleDetailVO detailVO = new ArticleDetailVO();
 		Article article;
 		try {
@@ -106,5 +117,14 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 			result.add(new ArticleBaseInfoVO(article, summaryByArticleId.get(article.getId())));
 		}
 		return new Paging<>(articlePaging.getTotal(), result);
+	}
+
+	@Override
+	public Paging<String> pagingPublishDates(PagingCriteria criteria) {
+		try {
+			return articleRepository.pagingPublishDate(criteria.toMap());
+		} catch (Exception e) {
+			throw new ResponseException("article.publishAt.paging.fail", e.getMessage(), e.getCause());
+		}
 	}
 }

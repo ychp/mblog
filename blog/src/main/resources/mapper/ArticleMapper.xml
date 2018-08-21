@@ -123,4 +123,24 @@
         SET `category_name` = #{categoryName}, `updated_at` = now()
         WHERE `category_id` = #{categoryId} AND `deleted` = 0
     </update>
+
+    <!-- 计数 -->
+    <select id="countPublishDate" parameterType="map" resultType="long">
+        SELECT COUNT(DISTINCT DATE_FORMAT(`publish_at`,'%Y-%m-%d'))
+        FROM
+        <include refid="tb"/>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="pagingPublishDate" parameterType="map" resultType="string">
+        SELECT `publish_date`
+        FROM (
+            SELECT
+              DISTINCT DATE_FORMAT(`publish_at`,'%Y-%m-%d') as `publish_date`
+            FROM
+            <include refid="tb"/>
+            GROUP BY  `publish_date`
+        ) AS tmp
+        ORDER BY `publish_date` DESC LIMIT #{offset}, #{limit}
+    </select>
 </mapper>
