@@ -6,6 +6,8 @@ import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
 
+import java.util.List;
+
 /**
 * @author yingchengpeng
 * @date: 2018/08/10
@@ -42,5 +44,13 @@ public interface ArticleReadService {
      * @return 日期数据
      */
     Paging<String> pagingPublishDates(PagingCriteria criteria);
+
+    /**
+     * 获取浏览数最高的几篇文章
+     *
+     * @param size 数量
+     * @return 分页结果
+     */
+    List<ArticleBaseInfoVO> popular(Integer size);
 
 }

@@ -68,9 +68,9 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 	@Override
 	public Boolean delete(Long id) {
 		try {
-			return articleRepository.delete(id);
+			return articleManager.delete(id);
 		} catch (Exception e) {
-			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
+			throw new ResponseException("article.delete.fail", e.getMessage(), e.getCause());
 		}
 	}
 

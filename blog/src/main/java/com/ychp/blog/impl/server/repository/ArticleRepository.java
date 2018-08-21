@@ -32,4 +32,5 @@ public class ArticleRepository extends BaseRepository<Article, Long> {
 		List<String> datas = getSqlSession().selectList(sqlId("pagingPublishDate"), params);
 		return new Paging<>(total, datas);
 	}
+
 }

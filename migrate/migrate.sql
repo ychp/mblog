@@ -19,8 +19,8 @@ insert blog_new.sky_article_detail(`article_id`, `is_markdown`, `content`, `crea
 select `id`, 0 as `is_markdown`, `content`, `created_at`, `updated_at` from blog.blogs;
 
 -- 文章数据统计
-insert blog_new.sky_article_summary(`article_id`, `popular`, `like`, `favorite`, `comments`, `created_at`, `updated_at`)
-select `id`, `popular`, `like`, 0 as `favorite`, `comments`, `created_at`, `updated_at` from blog.blogs;
+insert blog_new.sky_article_summary(`article_id`, `popular`, `like`, `favorite`, `comments`, `is_valid`, `created_at`, `updated_at`)
+select `id`, `popular`, `like`, 0 as `favorite`, `comments`, 1 AS `is_valid`, `created_at`, `updated_at` from blog.blogs;
 
 -- ip地址信息
 INSERT INTO blog_new.`sky_ip_info` (`ip`, `country`, `province`, `city`, `created_at`, `updated_at`)

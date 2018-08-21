@@ -18,6 +18,7 @@ import com.ychp.markdown.wrapper.MarkdownWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -126,5 +127,39 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 		} catch (Exception e) {
 			throw new ResponseException("article.publishAt.paging.fail", e.getMessage(), e.getCause());
 		}
+	}
+
+	@Override
+	public List<ArticleBaseInfoVO> popular(Integer size) {
+		List<ArticleSummary> summaries;
+		try {
+			summaries = articleSummaryRepository.popular(size);
+		} catch (Exception e) {
+			throw new ResponseException("article.summary.popular.fail", e.getMessage(), e.getCause());
+		}
+
+		if(summaries.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<Long> articleIds = summaries.stream().map(ArticleSummary::getArticleId).collect(Collectors.toList());
+
+		List<Article> articles;
+
+		try {
+			articles = articleRepository.findByIds(articleIds);
+		} catch (Exception e) {
+			throw new ResponseException("article.find.fail", e.getMessage(), e.getCause());
+		}
+
+		Map<Long, ArticleSummary> summaryByArticleId = summaries.stream()
+				.collect(Collectors.toMap(ArticleSummary::getArticleId, articleSummary -> articleSummary));
+
+		List<ArticleBaseInfoVO> result = Lists.newArrayListWithCapacity(articles.size());
+
+		for (Article article : articles) {
+			result.add(new ArticleBaseInfoVO(article, summaryByArticleId.get(article.getId())));
+		}
+		return result;
 	}
 }

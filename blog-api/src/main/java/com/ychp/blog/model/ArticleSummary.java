@@ -16,7 +16,7 @@ import java.util.Date;
 */
 @ApiModel(description = "文章数据汇总")
 @ToString
-@EqualsAndHashCode(of = {  "articleId", "popular", "like", "favorite", "comments", })
+@EqualsAndHashCode(of = {  "articleId", "popular", "like", "favorite", "comments", "isValid", })
 public class ArticleSummary implements Serializable {
 
     private static final long serialVersionUID = 5345893833254732669L;
@@ -76,6 +76,11 @@ public class ArticleSummary implements Serializable {
     @Setter
     @ApiModelProperty(value = "评论数量", example = "0")
     private Long comments;
+
+    @Getter
+    @Setter
+    @ApiModelProperty("是否有效")
+    private Boolean isValid;
 
     @Getter
     @Setter

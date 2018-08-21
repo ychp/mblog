@@ -65,12 +65,21 @@
         </set>
     </sql>
 
-
     <select id="findById" parameterType="long" resultMap="ArticleMap">
         SELECT
             <include refid="cols_all"/>
         FROM <include refid="tb"/>
         WHERE `id` = #{id} LIMIT 1
+    </select>
+
+    <select id="findByIds" parameterType="list" resultMap="ArticleMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM <include refid="tb"/>
+        WHERE `id` IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 
     <select id="list" parameterType="map" resultMap="ArticleMap">
@@ -112,11 +121,11 @@
         ORDER BY `id` DESC LIMIT #{offset}, #{limit}
     </select>
 
-    <delete id="delete" parameterType="long">
+    <update id="delete" parameterType="long">
         UPDATE <include refid="tb"/>
-        SET `deleted` = 1 AND `updated_at` = now()
+        SET `deleted` = 1, `updated_at` = now()
         where `id` = #{id}
-    </delete>
+    </update>
 
     <update id="updateCategoryName" parameterType="map">
         UPDATE <include refid="tb"/>
@@ -143,4 +152,5 @@
         ) AS tmp
         ORDER BY `publish_date` DESC LIMIT #{offset}, #{limit}
     </select>
+
 </mapper>

@@ -56,6 +56,7 @@ public class ArticleManager {
 
 		ArticleSummary summary = ArticleSummary.empty();
 		summary.setArticleId(article.getId());
+		summary.setIsValid(article.getVisible() && article.getDeleted());
 		result = articleSummaryRepository.create(summary);
 		if (!result) {
 			throw new ResponseException("article.summary.create.fail");
@@ -82,6 +83,27 @@ public class ArticleManager {
 			if (!result) {
 				throw new ResponseException("article.label.create.fail");
 			}
+		}
+
+		Article newArticle = articleRepository.findById(article.getId());
+		result = articleSummaryRepository.updateValid(article.getId(),
+				newArticle.getVisible() && newArticle.getDeleted());
+		if (!result) {
+			throw new ResponseException("article.summary.refresh.fail");
+		}
+		return Boolean.TRUE;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public Boolean delete(Long articleId) {
+		Boolean result = articleRepository.delete(articleId);
+		if (!result) {
+			throw new ResponseException("article.delete.fail");
+		}
+
+		result = articleSummaryRepository.updateValid(articleId, false);
+		if (!result) {
+			throw new ResponseException("article.summary.refresh.fail");
 		}
 		return Boolean.TRUE;
 	}

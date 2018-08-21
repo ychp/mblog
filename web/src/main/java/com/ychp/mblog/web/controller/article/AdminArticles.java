@@ -70,7 +70,7 @@ public class AdminArticles {
     @ApiOperation(value = "删除文章", httpMethod = "DELETE")
     @DeleteMapping
     @DataInvalidCache("article:{{id}}")
-    public Boolean delete(@ApiParam(example = "1") Long id) {
+    public Boolean delete(@ApiParam(example = "1") @RequestParam Long id) {
         return articleWriteService.delete(id);
     }
 

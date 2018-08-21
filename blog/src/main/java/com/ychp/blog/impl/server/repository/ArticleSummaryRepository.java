@@ -1,5 +1,7 @@
 package com.ychp.blog.impl.server.repository;
 
+import com.google.common.collect.ImmutableMap;
+import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleSummary;
 import com.ychp.mybatis.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
@@ -31,5 +33,14 @@ public class ArticleSummaryRepository extends BaseRepository<ArticleSummary, Lon
 
 	public Boolean decreaseLike(Long articleId) {
 		return getSqlSession().update(sqlId("decreaseLike"), articleId) == 1;
+	}
+
+	public Boolean updateValid(Long articleId, Boolean isValid) {
+		return getSqlSession().update(sqlId("updateValid"),
+				ImmutableMap.of("articleId", articleId, "isValid", isValid)) == 1;
+	}
+
+	public List<ArticleSummary> popular(Integer size) {
+		return getSqlSession().selectList(sqlId("popular"), size);
 	}
 }
