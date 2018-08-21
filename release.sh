@@ -57,6 +57,19 @@ else
     echo '-e REDIS_PORT='${redis_port}' \' >> ~/blog.sh
     echo '-e REDIS_AUTH='${redis_password}' \' >> ~/blog.sh
 
+    echo "请输入es链接:"
+    read es_host
+
+    echo "请输入es端口:"
+    read es_port
+
+    echo "请输入es集群名称:"
+    read es_cluster_name
+
+    echo '-e ES_HOST='${es_host}' \' >> ~/blog.sh
+    echo '-e ES_PORT='${es_port}' \' >> ~/blog.sh
+    echo '-e ES_CLUSTER_NAME='${es_cluster_name}' \' >> ~/blog.sh
+
     echo "请输入对象存储服务类型:"
     read file_type
     echo '-e FILE_TYPE='${file_type}' \' >> ~/blog.sh

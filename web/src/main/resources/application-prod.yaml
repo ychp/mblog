@@ -56,3 +56,9 @@ session:
       max-wait: 1000
     database: 1
     timeout: 100000
+
+es:
+  host: ${ES_HOST:127.0.0.1}
+  port: ${ES_PORT:9300}
+  cluster-name: ${ES_CLUSTER_NAME:ychp}
+  timeout: 10
