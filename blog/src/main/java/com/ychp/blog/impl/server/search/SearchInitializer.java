@@ -26,9 +26,8 @@ public class SearchInitializer {
 	private ObjectMapper objectMapper;
 
 	public void initIndices() throws IOException {
-		File file = ResourceUtils.getFile("classpath*:search/article.json");
-		FileInputStream fis = new FileInputStream(file);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("search/article.json")));
 
 		StringBuilder stringBuffer = new StringBuilder();
 		String tmp = reader.readLine();
