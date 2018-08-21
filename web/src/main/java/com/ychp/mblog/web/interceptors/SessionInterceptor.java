@@ -60,19 +60,25 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     @Override
                     public List<String> load(String s) throws Exception {
                         return Lists.newArrayList(
+                                "/api/address/.*",
+                                "/api/article/.*",
+                                "/api/category/.*",
+                                "/api/label/.*",
+                                "/api/friend-link/visible",
+                                "/api/see-log",
+                                "/api/like-log/.*",
+                                "/api/file/.*",
                                 "/api/user/captcha",
                                 "/api/user/register",
                                 "/api/user/login",
+                                "/api/search/.*",
                                 "/api/v2/api-docs",
                                 "/v2/api-docs",
                                 "/swagger.*",
-                                "/api/address/.*",
+                                "/webjars.*",
                                 "/error",
                                 "/csrf",
-                                "/index",
-                                "/api/friend-link/visible",
-                                "/api/see-log",
-                                "/api/file/.*");
+                                "/index");
                     }
                 });
 

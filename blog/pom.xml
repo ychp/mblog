@@ -32,6 +32,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.ychp</groupId>
+            <artifactId>elaticsearch</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>

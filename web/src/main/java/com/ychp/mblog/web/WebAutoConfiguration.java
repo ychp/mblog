@@ -4,10 +4,14 @@ import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.async.subscriber.Dispatcher;
 import com.ychp.async.subscriber.SubscriberRegistry;
 import com.ychp.blog.impl.BlogAutoConfiguration;
+import com.ychp.cache.CacheAutoConfiguration;
 import com.ychp.common.captcha.CaptchaGenerator;
+import com.ychp.es.EsAutoconfiguration;
 import com.ychp.file.cos.CosAutoConfiguration;
 import com.ychp.ip.IPServiceAutoConfiguration;
 import com.ychp.mblog.web.interceptors.SessionInterceptor;
+import com.ychp.redis.RedisAutoConfiguration;
+import com.ychp.session.SkySessionAutoConfiguration;
 import com.ychp.user.UserApiAutoConfig;
 import com.ychp.user.impl.UserAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,15 +29,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author yingchengpeng
  * @date 2018-08-09
  */
+@ComponentScan
 @EnableWebMvc
+@EnableScheduling
 @Configuration
-@ComponentScan({
-        "com.ychp.mblog.web",
-        "com.ychp.redis",
-        "com.ychp.cache",
-        "com.ychp.session"})
 @Import({IPServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
+        RedisAutoConfiguration.class,
+        CacheAutoConfiguration.class,
+        SkySessionAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
         BlogAutoConfiguration.class})

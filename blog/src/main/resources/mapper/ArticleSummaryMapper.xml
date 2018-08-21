@@ -66,6 +66,16 @@
         WHERE `article_id` = #{articleId}
     </select>
 
+    <select id="findByArticleIds" parameterType="list" resultMap="ArticleSummaryMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM <include refid="tb"/>
+        WHERE `article_id` IN
+        <foreach collection="list" item="articleId" open="(" separator="," close=")">
+            #{articleId}
+        </foreach>
+    </select>
+
     <update id="increasePopular" parameterType="long">
         UPDATE <include refid="tb"/>
         SET `popular` = `popular` + 1, `updated_at` = now()

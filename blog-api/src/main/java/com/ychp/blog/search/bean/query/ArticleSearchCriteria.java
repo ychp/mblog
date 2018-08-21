@@ -1,4 +1,4 @@
-package com.ychp.blog.bean.query;
+package com.ychp.blog.search.bean.query;
 
 import com.ychp.common.model.paging.PagingCriteria;
 import com.ychp.common.util.DateUtils;
@@ -16,27 +16,18 @@ import java.util.Map;
  * @date: 2018/08/10
  */
 @ApiModel(description = "查询类型")
-@ToString
-public class ArticleCriteria extends PagingCriteria {
+@ToString(callSuper = true)
+public class ArticleSearchCriteria extends PagingCriteria {
 
     private static final long serialVersionUID = 4888887277023945934L;
 
     /**
-     * 主键
+     * 关键词
      */
     @Getter
     @Setter
-    @ApiModelProperty(value = "主键", example = "1")
-    private Long id;
-
-
-    /**
-     * 标题
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("标题")
-    private String title;
+    @ApiModelProperty("关键词")
+    private String keyword;
 
     /**
      * 类目ID
@@ -62,14 +53,6 @@ public class ArticleCriteria extends PagingCriteria {
     @ApiModelProperty("作者")
     private String author;
 
-    /**
-     * 是否可见
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("是否可见")
-    private Boolean visible;
-
     @Getter
     @Setter
     @ApiModelProperty("发布时间")
@@ -89,7 +72,7 @@ public class ArticleCriteria extends PagingCriteria {
     public Map<String, Object> toMap() {
         Map<String, Object> map = super.toMap();
         if(!StringUtils.isEmpty(publishAtEnd)) {
-            map.put("publishAtEnd", DateUtils.parse2EndDate(publishAtEnd));
+             map.put("publishAtEnd", DateUtils.parse2EndDate(publishAtEnd));
         }
 
         if(!StringUtils.isEmpty(publishAtStart)) {
