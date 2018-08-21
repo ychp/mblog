@@ -44,6 +44,8 @@ public class IPServer {
 
     private static final String UNKNOWN_IP = "unknown";
 
+    private static final String LOCAL_IP = "127.0.0.1";
+
     public String getIp(HttpServletRequest request){
         String ip = request.getHeader("x-forwarded-for");
         if(ip == null || ip.length() == 0 || UNKNOWN_IP.equalsIgnoreCase(ip)) {
@@ -55,7 +57,22 @@ public class IPServer {
         if(ip == null || ip.length() == 0 || UNKNOWN_IP.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        return ip;
+
+        return getFinalIp(ip);
+    }
+
+    public String getFinalIp(String originIp) {
+        if(!originIp.contains(",")) {
+            return originIp;
+        }
+        String[] ips = originIp.split(",");
+        for(String ip : ips) {
+            if(!LOCAL_IP.equals(ip.trim())) {
+                return ip.trim();
+            }
+        }
+
+        return LOCAL_IP;
     }
 
     public String getHost(HttpServletRequest request){
