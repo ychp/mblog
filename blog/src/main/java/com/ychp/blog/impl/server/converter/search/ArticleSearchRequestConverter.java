@@ -5,11 +5,9 @@ import com.ychp.blog.impl.server.constant.ArticleSearchConstants;
 import com.ychp.blog.search.bean.query.ArticleSearchCriteria;
 import com.ychp.common.util.DateUtils;
 import com.ychp.es.bean.request.QueryRequest;
-import com.ychp.es.model.Aggregation;
-import com.ychp.es.model.Filter;
-import com.ychp.es.model.Highlighter;
-import com.ychp.es.model.Term;
+import com.ychp.es.model.*;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.search.sort.SortOrder;
 
 import java.util.List;
 
@@ -28,6 +26,7 @@ public class ArticleSearchRequestConverter {
 		fillFilters(request, criteria);
 		fillHighLighters(request);
 		fillAggregations(request);
+		fillSorters(request, criteria);
 
 		request.setPageNo(criteria.getPageNo());
 		request.setPageSize(criteria.getPageSize());
@@ -90,5 +89,15 @@ public class ArticleSearchRequestConverter {
 		aggregations.add(new Aggregation("categories", "categoryId", 100));
 		aggregations.add(new Aggregation("publishAt", "publishDate", 100));
 		request.setAggregations(aggregations);
+	}
+
+
+	private static void fillSorters(QueryRequest request, ArticleSearchCriteria criteria) {
+		List<Sorter> sorters = Lists.newArrayList();
+		if(!StringUtils.isEmpty(criteria.getKeyword())) {
+			sorters.add(new Sorter("_score", SortOrder.DESC));
+		}
+		sorters.add(new Sorter("publishAt", SortOrder.DESC));
+		request.setSorters(sorters);
 	}
 }

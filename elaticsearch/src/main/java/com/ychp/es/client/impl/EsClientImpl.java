@@ -5,10 +5,7 @@ import com.ychp.es.bean.request.IndexDocRequest;
 import com.ychp.es.bean.request.IndexTypeRequest;
 import com.ychp.es.bean.request.QueryRequest;
 import com.ychp.es.client.EsClient;
-import com.ychp.es.model.Aggregation;
-import com.ychp.es.model.Filter;
-import com.ychp.es.model.Highlighter;
-import com.ychp.es.model.Term;
+import com.ychp.es.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
@@ -133,7 +130,12 @@ public class EsClientImpl implements EsClient {
 			for (Aggregation aggregation : request.getAggregations()) {
 				builder = builder.addAggregation(AggregationBuilders.terms(aggregation.getName())
 						.field(aggregation.getField()).size(aggregation.getSize()));
+			}
+		}
 
+		if(request.getSorters() != null) {
+			for (Sorter sorter : request.getSorters()) {
+				builder = builder.addSort(sorter.getName(), sorter.getOrder());
 			}
 		}
 

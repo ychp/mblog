@@ -1,10 +1,7 @@
 package com.ychp.es.bean.request;
 
 import com.google.common.base.MoreObjects;
-import com.ychp.es.model.Aggregation;
-import com.ychp.es.model.Filter;
-import com.ychp.es.model.Highlighter;
-import com.ychp.es.model.Term;
+import com.ychp.es.model.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +54,10 @@ public class QueryRequest extends BaseRequest {
 	@Getter
 	@Setter
 	private List<Aggregation> aggregations;
+
+	@Getter
+	@Setter
+	private List<Sorter> sorters;
 
 	/**
 	 * 分页号, 从1开始
