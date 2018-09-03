@@ -77,17 +77,6 @@ CREATE TABLE IF NOT EXISTS `sky_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '分类表';
 
-DROP TABLE IF EXISTS `sky_label`;
-
-CREATE TABLE IF NOT EXISTS `sky_label` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL COMMENT '名称',
-  `visible` tinyint(1) NOT NULL COMMENT '是否可见，0.不可见，1.可见',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '标签表';
-
 DROP TABLE IF EXISTS `sky_article`;
 
 CREATE TABLE IF NOT EXISTS `sky_article` (
@@ -134,19 +123,6 @@ CREATE TABLE IF NOT EXISTS `sky_article_summary` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_article_summary_article_id` (`article_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '文章数据统计表';
-
-DROP TABLE IF EXISTS `sky_article_label`;
-
-CREATE TABLE IF NOT EXISTS `sky_article_label` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `article_id` bigint(20) NOT NULL COMMENT '文章ID',
-  `label_id` bigint(20) NOT NULL COMMENT '标签ID',
-  `label_name` varchar(256) NOT NULL COMMENT '标签',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_article_label_article_id` (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '文章数据统计表';
 
 DROP TABLE IF EXISTS `sky_friend_link`;
