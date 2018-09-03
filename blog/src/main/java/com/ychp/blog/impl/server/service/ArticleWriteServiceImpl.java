@@ -8,9 +8,11 @@ import com.ychp.blog.impl.server.manager.ArticleManager;
 import com.ychp.blog.impl.server.repository.ArticleLabelRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
+import com.ychp.blog.impl.server.repository.CategoryRepository;
 import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleDetail;
 import com.ychp.blog.model.ArticleLabel;
+import com.ychp.blog.model.Category;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.exception.ResponseException;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +36,18 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 	private ArticleLabelRepository articleLabelRepository;
 	@Autowired
 	private ArticleSummaryRepository articleSummaryRepository;
-
 	@Autowired
 	private ArticleManager articleManager;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public Long create(ArticleCreateRequest request) {
 		try {
 			Article article = request.getArticle();
+			Long categoryId = article.getCategoryId();
+			Category category = categoryRepository.findById(categoryId);
+			article.setCategoryName(category.getName());
 			ArticleDetail detail = request.getDetail();
 			ArticleConverter.parse(article, detail);
 			return articleManager.create(article, detail, request.getLabels());
