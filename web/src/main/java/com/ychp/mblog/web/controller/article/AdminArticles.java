@@ -7,10 +7,10 @@ import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.ArticleWriteService;
+import com.ychp.cache.annontation.DataInvalidCache;
 import com.ychp.common.model.SkyUser;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.SessionContextUtils;
-import com.ychp.cache.annontation.DataInvalidCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -58,13 +58,6 @@ public class AdminArticles {
     @GetMapping("paging")
     public Paging<ArticleBaseInfoVO> paging(ArticleCriteria criteria) {
         return articleReadService.paging(criteria);
-    }
-
-    @ApiOperation(value = "删除文章标签", httpMethod = "DELETE")
-    @DeleteMapping("label")
-    @DataInvalidCache("article:{{articleId}}")
-    public Boolean deleteLabel(@ApiParam(example = "1") Long articleId, @ApiParam(example = "1") Long labelId) {
-        return articleWriteService.deleteLabel(articleId, labelId);
     }
 
     @ApiOperation(value = "删除文章", httpMethod = "DELETE")

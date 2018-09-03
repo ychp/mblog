@@ -2,14 +2,12 @@ package com.ychp.blog.bean.response;
 
 import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleDetail;
-import com.ychp.blog.model.ArticleLabel;
 import com.ychp.blog.model.ArticleSummary;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author yingchengpeng
@@ -25,9 +23,6 @@ public class ArticleDetailVO implements Serializable {
 
 	@ApiModelProperty("文章内容数据")
 	private ArticleDetail detail;
-
-	@ApiModelProperty("文章标签数据")
-	private List<ArticleLabel> labels;
 
 	@ApiModelProperty("文章数据汇总")
 	private ArticleSummary summary;

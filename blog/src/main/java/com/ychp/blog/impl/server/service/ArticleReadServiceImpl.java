@@ -5,7 +5,6 @@ import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.impl.server.repository.ArticleDetailRepository;
-import com.ychp.blog.impl.server.repository.ArticleLabelRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
 import com.ychp.blog.model.Article;
@@ -34,8 +33,6 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 	private ArticleRepository articleRepository;
 	@Autowired
 	private ArticleDetailRepository articleDetailRepository;
-	@Autowired
-	private ArticleLabelRepository articleLabelRepository;
 	@Autowired
 	private ArticleSummaryRepository articleSummaryRepository;
 
@@ -68,12 +65,6 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 			detailVO.setDetail(articleDetailRepository.findByArticleId(id));
 		} catch (Exception e) {
 			throw new ResponseException("article.detail.find.fail", e.getMessage(), e.getCause());
-		}
-
-		try {
-			detailVO.setLabels(articleLabelRepository.findByArticleId(id));
-		} catch (Exception e) {
-			throw new ResponseException("article.labels.find.fail", e.getMessage(), e.getCause());
 		}
 
 		try {

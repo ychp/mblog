@@ -2,13 +2,11 @@ package com.ychp.blog.bean.request;
 
 import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleDetail;
-import com.ychp.blog.model.ArticleLabel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author yingchengpeng
@@ -24,8 +22,5 @@ public class ArticleUpdateRequest implements Serializable {
 
 	@ApiModelProperty("文章内容数据")
 	private ArticleDetail detail;
-
-	@ApiModelProperty("文章标签数据")
-	private List<ArticleLabel> labels;
 
 }

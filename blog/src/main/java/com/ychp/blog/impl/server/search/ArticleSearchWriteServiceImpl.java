@@ -7,11 +7,9 @@ import com.google.common.collect.Maps;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.impl.server.constant.ArticleSearchConstants;
 import com.ychp.blog.impl.server.repository.ArticleDetailRepository;
-import com.ychp.blog.impl.server.repository.ArticleLabelRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleDetail;
-import com.ychp.blog.model.ArticleLabel;
 import com.ychp.blog.search.ArticleSearchWriteService;
 import com.ychp.blog.search.bean.request.IndexArticle;
 import com.ychp.common.model.paging.Paging;
@@ -26,10 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 /**
  * @author yingchengpeng
@@ -42,7 +38,6 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 	private final SearchInitializer searchInitializer;
 	private final ArticleRepository articleRepository;
 	private final ArticleDetailRepository articleDetailRepository;
-	private final ArticleLabelRepository articleLabelRepository;
 	private final EsClient esClient;
 	private final ObjectMapper objectMapper;
 
@@ -50,12 +45,10 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 	public ArticleSearchWriteServiceImpl(SearchInitializer searchInitializer,
 	                                     ArticleRepository articleRepository,
 	                                     ArticleDetailRepository articleDetailRepository,
-	                                     ArticleLabelRepository articleLabelRepository,
 	                                     EsClient esClient, ObjectMapper objectMapper) {
 		this.searchInitializer = searchInitializer;
 		this.articleRepository = articleRepository;
 		this.articleDetailRepository = articleDetailRepository;
-		this.articleLabelRepository = articleLabelRepository;
 		this.esClient = esClient;
 		this.objectMapper = objectMapper;
 	}
@@ -89,15 +82,6 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		}
 
 		IndexArticle indexArticle = new IndexArticle(article, articleDetail);
-
-		List<ArticleLabel> labels;
-		try {
-			labels = articleLabelRepository.findByArticleId(articleId);
-		} catch (Exception e) {
-			log.error("fail to find article labels by {}, case {}", articleId, Throwables.getStackTraceAsString(e));
-			return;
-		}
-		indexArticle.setLabelIds(labels.stream().map(ArticleLabel::getLabelId).collect(Collectors.toList()));
 
 		IndexDocRequest request = new IndexDocRequest();
 		request.setIndex(ArticleSearchConstants.SEARCH_INDEX);

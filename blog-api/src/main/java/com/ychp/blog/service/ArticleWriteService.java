@@ -30,13 +30,6 @@ public interface ArticleWriteService {
      */
     Boolean delete(Long id);
 
-    /**
-     * 删除对应文章中对应的标签
-     * @param id 文章ID
-     * @param labelId 标签Id
-     * @return 操作结果
-     */
-    Boolean deleteLabel(Long id, Long labelId);
 
     /**
      * 累计浏览次数
