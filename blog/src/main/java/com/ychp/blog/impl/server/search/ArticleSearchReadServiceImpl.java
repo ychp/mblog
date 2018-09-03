@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.ychp.blog.impl.server.converter.search.ArticleSearchRequestConverter;
 import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
-import com.ychp.blog.impl.server.repository.LabelRepository;
 import com.ychp.blog.model.ArticleSummary;
-import com.ychp.blog.model.Label;
 import com.ychp.blog.search.ArticleSearchReadService;
 import com.ychp.blog.search.bean.query.ArticleSearchCriteria;
 import com.ychp.blog.search.bean.response.ArticleSearchVO;
@@ -39,14 +37,8 @@ public class ArticleSearchReadServiceImpl implements ArticleSearchReadService {
 
 	@Autowired
 	private EsClient esClient;
-
 	@Autowired
 	private ObjectMapper objectMapper;
-
-	@Autowired
-	private LabelRepository labelRepository;
-
-
 	@Autowired
 	private ArticleSummaryRepository articleSummaryRepository;
 
@@ -80,9 +72,6 @@ public class ArticleSearchReadServiceImpl implements ArticleSearchReadService {
 			datas.add(articleSearchVO);
 		}
 
-		List<Label> labels = labelRepository.findByIds(labelIds);
-		Map<Long, Label> labelById = labels.stream().collect(Collectors.toMap(Label::getId, label -> label));
-
 		List<Long> articleIds = datas.stream().map(ArticleSearchVO::getId).collect(Collectors.toList());
 		List<ArticleSummary> summaries;
 		try {
@@ -95,12 +84,6 @@ public class ArticleSearchReadServiceImpl implements ArticleSearchReadService {
 
 
 		for(ArticleSearchVO articleSearch : datas) {
-			List<Label> articleLabels = Lists.newArrayList();
-			if(!CollectionUtils.isEmpty(articleSearch.getLabelIds())) {
-				articleLabels.addAll(articleSearch.getLabelIds().stream()
-						.map(labelById::get).collect(Collectors.toList()));
-			}
-			articleSearch.setLabels(articleLabels);
 			articleSearch.setSummary(summaryByArticleId.get(articleSearch.getId()));
 		}
 
