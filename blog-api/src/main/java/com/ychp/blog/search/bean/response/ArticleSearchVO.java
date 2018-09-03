@@ -1,7 +1,6 @@
 package com.ychp.blog.search.bean.response;
 
 import com.ychp.blog.model.ArticleSummary;
-import com.ychp.blog.model.Label;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -91,11 +90,6 @@ public class ArticleSearchVO implements Serializable {
 	@Setter
 	@ApiModelProperty("发布时间")
 	private Date publishAt;
-
-	@Getter
-	@Setter
-	@ApiModelProperty("文章标签数据")
-	private List<Label> labels;
 
 	@Getter
 	@Setter

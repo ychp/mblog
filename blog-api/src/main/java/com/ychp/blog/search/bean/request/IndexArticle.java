@@ -10,7 +10,6 @@ import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author yingchengpeng
@@ -74,11 +73,6 @@ public class IndexArticle implements Serializable {
 	@Setter
 	@ApiModelProperty("发布日期")
 	private String publishDate;
-
-	@Getter
-	@Setter
-	@ApiModelProperty("标签")
-	private List<Long> labelIds;
 
 	public IndexArticle(Article article, ArticleDetail articleDetail) {
 		this.id = article.getId().toString();
