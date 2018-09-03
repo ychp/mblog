@@ -58,14 +58,18 @@ public class UserReadServiceImpl implements UserReadService {
     public User login(String name, String password) {
         try {
             User user = userRepository.findByName(name);
+            if(user == null) {
+                throw new ResponseException("user.login.fail");
+            }
             if(Encryption.checkPassword(password, user.getSalt(), user.getPassword())) {
                 return user;
             }
+            return null;
+        } catch (ResponseException e) {
+            throw e;
         } catch (Exception e) {
             throw new ResponseException("user.login.fail", e.getMessage(), e.getCause());
         }
-
-        throw new ResponseException("user.login.fail");
     }
 
     @Override

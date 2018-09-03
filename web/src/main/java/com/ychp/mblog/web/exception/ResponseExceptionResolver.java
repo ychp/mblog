@@ -35,18 +35,23 @@ public class ResponseExceptionResolver {
 
     @ResponseBody
     @ExceptionHandler(value = ResponseException.class)
-    public ResponseEntity<String> OPErrorHandler(ResponseException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<String> OPErrorHandler(ResponseException se,
+                                                 HttpServletRequest request,
+                                                 HttpServletResponse response) throws IOException {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = Maps.newHashMap();
         parameterMap.putAll(request.getParameterMap());
-        log.error("request uri[{}] by params = {} fail, case {}", uri, parameterMap, Throwables.getStackTraceAsString(se));
-        log.debug("ResponseException happened, locale={}, cause={}", locale, Throwables.getStackTraceAsString(se));
+        log.error("request uri[{}] by params = {} fail, error = {}, case {}",
+                uri, parameterMap, se.getErrorCode(), Throwables.getStackTraceAsString(se));
+        log.debug("ResponseException happened, locale = {}, cause = {}",
+                locale, Throwables.getStackTraceAsString(se));
         String message = se.getErrorCode();
         try {
             message = messageSource.getMessage(se.getErrorCode(), null, se.getErrorCode(), locale);
         } catch (Exception e) {
-            log.error("get message fail by code = {}, case {}", se.getErrorCode(), Throwables.getStackTraceAsString(e));
+            log.error("get message fail by code = {}, case {}",
+                    se.getErrorCode(), Throwables.getStackTraceAsString(e));
         }
         return new ResponseEntity<>(message, HttpStatus.valueOf(se.getStatus()));
     }

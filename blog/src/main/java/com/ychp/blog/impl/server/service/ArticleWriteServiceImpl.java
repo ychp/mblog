@@ -1,5 +1,6 @@
 package com.ychp.blog.impl.server.service;
 
+import com.google.common.base.Throwables;
 import com.ychp.blog.bean.request.ArticleCreateRequest;
 import com.ychp.blog.bean.request.ArticleUpdateRequest;
 import com.ychp.blog.impl.server.converter.ArticleConverter;
@@ -12,6 +13,7 @@ import com.ychp.blog.model.ArticleDetail;
 import com.ychp.blog.model.ArticleLabel;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.exception.ResponseException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
  * @author yingchengpeng
  * @date 2018/8/10
  */
+@Slf4j
 @Service
 public class ArticleWriteServiceImpl implements ArticleWriteService {
 
@@ -45,6 +48,7 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 		} catch (ResponseException e) {
 			throw e;
 		} catch (Exception e) {
+			log.error("fail to create article = {}, case {}", request, Throwables.getStackTraceAsString(e));
 			throw new ResponseException("article.create.fail", e.getMessage(), e.getCause());
 		}
 	}
@@ -61,7 +65,8 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 		} catch (ResponseException e) {
 			throw e;
 		} catch (Exception e) {
-			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
+			log.error("fail to update article = {}, case {}", request, Throwables.getStackTraceAsString(e));
+			throw new ResponseException("article.update.fail", e.getMessage(), e.getCause());
 		}
 	}
 
@@ -70,6 +75,7 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 		try {
 			return articleManager.delete(id);
 		} catch (Exception e) {
+			log.error("fail to delete article = {}, case {}", id, Throwables.getStackTraceAsString(e));
 			throw new ResponseException("article.delete.fail", e.getMessage(), e.getCause());
 		}
 	}

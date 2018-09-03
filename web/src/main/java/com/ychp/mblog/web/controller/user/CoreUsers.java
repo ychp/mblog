@@ -1,6 +1,7 @@
 package com.ychp.mblog.web.controller.user;
 
 import com.ychp.async.publisher.AsyncPublisher;
+import com.ychp.cache.annontation.DataCache;
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
@@ -8,9 +9,9 @@ import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.async.user.UserLoginEvent;
+import com.ychp.mblog.web.component.user.LoginChecker;
 import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.util.SkyUserMaker;
-import com.ychp.cache.annontation.DataCache;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
@@ -52,6 +53,9 @@ public class CoreUsers {
     @Autowired
     private AsyncPublisher publisher;
 
+    @Autowired
+    private LoginChecker loginChecker;
+
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("{id}")
     @DataCache("user:{{id}}")
@@ -65,7 +69,18 @@ public class CoreUsers {
                       @ApiParam("密码") @RequestParam String password,
                       @ApiParam("验证码TODO") @RequestParam(required = false) String captcha,
                       HttpServletRequest request) {
+        if(loginChecker.needCheckCaptcha(name)
+                && loginChecker.checkCaptcha(request.getSession(), captcha)) {
+            throw new ResponseException("captcha.mismatch");
+        }
+
         User user = userReadService.login(name, password);
+
+        if(user == null) {
+            loginChecker.incrErrorTimes(name);
+            throw new ResponseException("user.login.fail");
+        }
+
         HttpSession session = request.getSession();
         session.setAttribute("userId", user.getId());
 
