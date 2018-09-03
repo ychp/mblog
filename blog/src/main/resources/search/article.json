@@ -41,9 +41,6 @@
       "publishDate": {
         "type": "date",
         "format": "yyyy-MM-dd"
-      },
-      "labelIds": {
-        "type": "long"
       }
     }
   }
