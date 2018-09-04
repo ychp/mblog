@@ -26,7 +26,7 @@ import java.util.List;
  * @author yingchengpeng
  * @date 2018-08-10
  */
-@Api(description = "文章")
+@Api(description = "文章-针对所有用户")
 @RestController
 @RequestMapping("/api/article")
 public class Articles {
@@ -68,7 +68,7 @@ public class Articles {
         return articleReadService.pagingPublishDates(criteria);
     }
 
-    @ApiOperation("文章分页接口")
+    @ApiOperation("热门文章接口")
     @GetMapping("popular")
     public List<ArticleBaseInfoVO> popular(@RequestParam(defaultValue = "6") Integer size) {
         return articleReadService.popular(size);

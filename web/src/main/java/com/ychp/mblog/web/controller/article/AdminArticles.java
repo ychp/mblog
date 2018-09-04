@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yingchengpeng
  * @date 2018-08-10
  */
-@Api(description = "文章")
+@Api(description = "文章管理-用于管理")
 @RestController
 @RequestMapping("/api/admin/article")
 public class AdminArticles {
