@@ -43,7 +43,7 @@ public class BlogerCategories {
         return createWithUser(category);
     }
 
-    @DataInvalidCache("article:categories:${category.userId}")
+    @DataInvalidCache("article:categories:{{category.userId}}")
     private Long createWithUser(Category category) {
         return categoryWriteService.create(category);
     }
@@ -54,7 +54,7 @@ public class BlogerCategories {
        return updateByUser(id, name, SessionContextUtils.getUserId());
     }
 
-    @DataInvalidCache("article:categories:${userId")
+    @DataInvalidCache("article:categories:{{userId}}")
     private Boolean updateByUser(Long id, String name, Long userId) {
         Category category = new Category();
         category.setId(id);
@@ -76,7 +76,7 @@ public class BlogerCategories {
         return findByUserId(SessionContextUtils.getUserId());
     }
 
-    @DataCache("article:categories:${userId}")
+    @DataCache("article:categories:{{userId}}")
     private List<Category> findByUserId(Long userId) {
         CategoryCriteria criteria = new CategoryCriteria();
         criteria.setUserId(userId);

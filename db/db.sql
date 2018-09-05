@@ -150,7 +150,8 @@ CREATE TABLE IF NOT EXISTS `sky_ip_info` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_ip_info_ip` (`ip`)
+  KEY `idx_ip_info_ip` (`ip`),
+  UNIQUE KEY `uq_ip_info_ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ip信息表';
 
 DROP TABLE IF EXISTS `sky_device_info`;
