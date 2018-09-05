@@ -34,4 +34,10 @@ public interface CategoryReadService {
      */
     List<Category> listAll();
 
+    /**
+     * 获取用户所有类目
+     * @return 用户类目
+     */
+    List<Category> list(CategoryCriteria criteria);
+
 }

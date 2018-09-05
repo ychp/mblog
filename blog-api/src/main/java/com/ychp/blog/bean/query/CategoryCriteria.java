@@ -16,18 +16,17 @@ import lombok.Setter;
 public class CategoryCriteria extends PagingCriteria {
 
     private static final long serialVersionUID = 7346127129736911979L;
-    /**
-     * 主键
-     */
+
     @Getter
     @Setter
     @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
+    @Getter
+    @Setter
+    @ApiModelProperty(value = "用户ID", example = "1")
+    private Long userId;
 
-    /**
-     * 名称
-     */
     @Getter
     @Setter
     @ApiModelProperty("名称")

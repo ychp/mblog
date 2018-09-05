@@ -71,6 +71,7 @@ DROP TABLE IF EXISTS `sky_category`;
 
 CREATE TABLE IF NOT EXISTS `sky_category` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `name` varchar(256) NOT NULL COMMENT '名称',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,

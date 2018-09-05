@@ -20,4 +20,5 @@ public class EncryptionTest {
         password = Encryption.decrypt3DES(password, salt);
         System.out.println("origin_password:" + password);
     }
+
 }

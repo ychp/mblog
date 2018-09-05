@@ -20,17 +20,17 @@ import java.util.Date;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 2884451715066153633L;
-    /**
-     * 主键
-     */
+
     @Getter
     @Setter
     @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
-    /**
-     * 名称
-     */
+    @Getter
+    @Setter
+    @ApiModelProperty(value = "用户ID", example = "1")
+    private Long userId;
+
     @Getter
     @Setter
     @ApiModelProperty("名称")

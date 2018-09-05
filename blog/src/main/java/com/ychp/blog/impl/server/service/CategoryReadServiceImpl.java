@@ -54,4 +54,13 @@ public class CategoryReadServiceImpl implements CategoryReadService {
         }
     }
 
+    @Override
+    public List<Category> list(CategoryCriteria criteria) {
+        try {
+            return categoryRepository.list(criteria.toMap());
+        } catch (Exception e) {
+            throw new ResponseException("category.list.fail", e.getMessage(), e.getCause());
+        }
+    }
+
 }
