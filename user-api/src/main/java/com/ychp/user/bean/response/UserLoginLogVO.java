@@ -56,9 +56,11 @@ public class UserLoginLogVO implements Serializable {
 
 	@Getter
 	@Setter
-	private Date createdAt;
+	@ApiModelProperty("登录时间")
+	private Date loginAt;
 
 	@Getter
 	@Setter
-	private Date updatedAt;
+	@ApiModelProperty("注销时间")
+	private Date logoutAt;
 }
