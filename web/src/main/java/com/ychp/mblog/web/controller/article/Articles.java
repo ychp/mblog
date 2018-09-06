@@ -8,7 +8,6 @@ import com.ychp.blog.enums.LikeLogTypeEnum;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.LikeLogReadService;
-import com.ychp.cache.annontation.DataCache;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
 import com.ychp.ip.component.IPServer;
@@ -45,7 +44,7 @@ public class Articles {
 
     @ApiOperation("文章详情接口")
     @GetMapping("{id}/detail")
-    @DataCache("article:{{id}}")
+//    @DataCache("article:{{id}}")
     public ArticleDetailVO detail(@ApiParam(example = "1") @PathVariable Long id, HttpServletRequest request) {
         ArticleDetailVO detailVO = articleReadService.findDetailById(id);
         String ip = ipServer.getIp(request);

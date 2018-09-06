@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class SearchInitializer {
 
-	@Autowired
+	@Autowired(required = false)
 	private EsClient client;
 
 	@Autowired
