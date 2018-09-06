@@ -45,6 +45,7 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 			ArticleConverter.parse(article, detail);
 			return articleManager.create(article, detail);
 		} catch (ResponseException e) {
+			log.error("fail to create article = {}, case {}", request, Throwables.getStackTraceAsString(e));
 			throw e;
 		} catch (Exception e) {
 			log.error("fail to create article = {}, case {}", request, Throwables.getStackTraceAsString(e));
@@ -57,6 +58,7 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 		try {
 			return articleManager.update(request.getArticle(), request.getDetail());
 		} catch (ResponseException e) {
+			log.error("fail to update article = {}, case {}", request, Throwables.getStackTraceAsString(e));
 			throw e;
 		} catch (Exception e) {
 			log.error("fail to update article = {}, case {}", request, Throwables.getStackTraceAsString(e));
