@@ -43,7 +43,7 @@ public class Articles {
     private LikeLogReadService likeLogReadService;
 
     @ApiOperation("文章详情接口")
-    @GetMapping("{id}/detail")
+    @GetMapping("{id}/findDetail")
 //    @DataCache("article:{{id}}")
     public ArticleDetailVO detail(@ApiParam(example = "1") @PathVariable Long id, HttpServletRequest request) {
         ArticleDetailVO detailVO = articleReadService.findDetailById(id);

@@ -33,7 +33,7 @@ public class AdminUsers {
     private UserLoginLogReadService userLoginLogReadService;
 
     @ApiOperation("用户详情接口")
-    @GetMapping("{id}/detail")
+    @GetMapping("{id}/findDetail")
     public UserVO detail(@ApiParam(example = "1") @PathVariable Long id) {
         return userReadService.findDetailById(id);
     }

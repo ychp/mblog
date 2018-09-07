@@ -2,6 +2,7 @@ package com.ychp.cache.aop;
 
 import com.ychp.cache.annontation.DataCache;
 import com.ychp.cache.exception.CacheException;
+import com.ychp.cache.ext.DataExtService;
 import com.ychp.redis.manager.RedisManager;
 import com.ychp.cache.utils.CacheAdviceUtils;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class CacheAdvice {
 	@Autowired
 	private RedisManager redisManager;
 
+	@Autowired
+	private DataExtService dataExtService;
+
 	@Pointcut(value = "@annotation(com.ychp.cache.annontation.DataCache)")
 	public void pointCut() {
 	}
@@ -37,6 +41,7 @@ public class CacheAdvice {
 		DataCache dataCache = method.getAnnotation(DataCache.class);
 
 		Map<String, Object> datas = CacheAdviceUtils.getRequestDatas(joinPoint);
+		dataExtService.fillExtInfo(datas);
 		String key = CacheAdviceUtils.getCacheKey(dataCache.value(), datas);
 
 		if(StringUtils.isEmpty(key)) {

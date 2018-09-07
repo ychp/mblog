@@ -1,6 +1,7 @@
 package com.ychp.cache.aop;
 
 import com.ychp.cache.annontation.DataInvalidCache;
+import com.ychp.cache.ext.DataExtService;
 import com.ychp.redis.manager.RedisManager;
 import com.ychp.cache.utils.CacheAdviceUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,6 +25,9 @@ public class CacheInvalidAdvice {
 	@Autowired
 	private RedisManager redisManager;
 
+	@Autowired
+	private DataExtService dataExtService;
+
 	@Pointcut(value = "@annotation(com.ychp.cache.annontation.DataInvalidCache)")
 	public void pointCut() {
 	}
@@ -36,6 +40,7 @@ public class CacheInvalidAdvice {
 		DataInvalidCache dataInvalidCache = method.getAnnotation(DataInvalidCache.class);
 
 		Map<String, Object> datas = CacheAdviceUtils.getRequestDatas(joinPoint);
+		dataExtService.fillExtInfo(datas);
 		datas.put("return", returnObject);
 		String key = CacheAdviceUtils.getCacheKey(dataInvalidCache.value(), datas);
 

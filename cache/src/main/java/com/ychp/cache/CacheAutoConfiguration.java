@@ -2,8 +2,11 @@ package com.ychp.cache;
 
 import com.ychp.cache.aop.CacheAdvice;
 import com.ychp.cache.aop.CacheInvalidAdvice;
+import com.ychp.cache.ext.DataExtService;
+import com.ychp.cache.ext.impl.DefaultDataExtServiceImpl;
 import com.ychp.redis.manager.RedisManager;
 import com.ychp.cache.properties.CacheProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -33,4 +36,9 @@ public class CacheAutoConfiguration {
 		return new CacheInvalidAdvice();
 	}
 
+	@Bean
+	@ConditionalOnMissingBean(DataExtService.class)
+	public DataExtService dataExtService() {
+		return new DefaultDataExtServiceImpl();
+	}
 }

@@ -5,10 +5,11 @@ import com.ychp.async.subscriber.Dispatcher;
 import com.ychp.async.subscriber.SubscriberRegistry;
 import com.ychp.blog.impl.BlogAutoConfiguration;
 import com.ychp.cache.CacheAutoConfiguration;
+import com.ychp.cache.ext.DataExtService;
 import com.ychp.common.captcha.CaptchaGenerator;
-import com.ychp.es.EsAutoconfiguration;
 import com.ychp.file.cos.CosAutoConfiguration;
 import com.ychp.ip.IPServiceAutoConfiguration;
+import com.ychp.mblog.web.cache.impl.BlogDataExtService;
 import com.ychp.mblog.web.interceptors.SessionInterceptor;
 import com.ychp.redis.RedisAutoConfiguration;
 import com.ychp.session.SkySessionAutoConfiguration;
@@ -83,5 +84,10 @@ public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public AsyncPublisher asyncPublisher() {
         return new AsyncPublisher();
+    }
+
+    @Bean
+    public DataExtService dataExtService() {
+        return new BlogDataExtService();
     }
 }
