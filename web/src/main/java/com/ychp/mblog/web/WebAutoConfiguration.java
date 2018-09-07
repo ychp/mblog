@@ -3,6 +3,7 @@ package com.ychp.mblog.web;
 import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.async.subscriber.Dispatcher;
 import com.ychp.async.subscriber.SubscriberRegistry;
+import com.ychp.blog.BlogApiAutoConfig;
 import com.ychp.blog.impl.BlogAutoConfiguration;
 import com.ychp.cache.CacheAutoConfiguration;
 import com.ychp.cache.ext.DataExtService;
@@ -41,6 +42,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
         SkySessionAutoConfiguration.class,
         UserApiAutoConfig.class,
         UserAutoConfiguration.class,
+        BlogApiAutoConfig.class,
         BlogAutoConfiguration.class})
 public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 

@@ -6,13 +6,10 @@ import com.ychp.blog.service.LikeLogReadService;
 import com.ychp.blog.service.LikeLogWriteService;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.ip.component.IPServer;
-import com.ychp.ip.enums.IPAPIType;
-import com.ychp.ip.model.IpAddress;
 import com.ychp.mblog.web.async.log.DislikeEvent;
 import com.ychp.mblog.web.async.log.LikeEvent;
+import com.ychp.mblog.web.controller.bean.LogConverter;
 import com.ychp.mblog.web.controller.bean.request.log.LikeLogRequest;
-import com.ychp.request.model.UserAgent;
-import com.ychp.request.util.RequestUtils;
 import com.ychp.user.model.DeviceInfo;
 import com.ychp.user.model.IpInfo;
 import com.ychp.user.service.DeviceInfoReadService;
@@ -57,6 +54,9 @@ public class LikeLogs {
 	private IPServer ipServer;
 
 	@Autowired
+	private LogConverter logConverter;
+
+	@Autowired
 	private AsyncPublisher publisher;
 
 	@ApiOperation(value = "点赞接口", httpMethod = "POST")
@@ -76,11 +76,11 @@ public class LikeLogs {
 		IpInfo ipInfo = ipInfoReadService.findByIp(ip);
 
 		if(ipInfo == null) {
-			ipInfo = makeIpInfo(ip);
+			ipInfo = logConverter.getIpInfo(ip);
 			ipInfoWriteService.create(ipInfo);
 		}
 
-		DeviceInfo deviceInfo = makeDeviceInfo(request);
+		DeviceInfo deviceInfo = logConverter.getDeviceInfo(request);
 
 		DeviceInfo existDevice = deviceInfoReadService.findByUniqueInfo(deviceInfo);
 		if(existDevice != null) {
@@ -99,26 +99,6 @@ public class LikeLogs {
 		log.setAimId(likeLogRequest.getAimId());
 		log.setType(likeLogRequest.getType());
 		return log;
-	}
-
-	private IpInfo makeIpInfo(String ip) {
-		IpInfo ipInfo = new IpInfo();
-		IpAddress ipAddress = ipServer.getIpAddress(ip, IPAPIType.TAOBAO.value());
-		ipInfo.setIp(ip);
-		ipInfo.setCountry(ipAddress.getCountry());
-		ipInfo.setProvince(ipAddress.getProvince());
-		ipInfo.setCity(ipAddress.getCity());
-		return ipInfo;
-	}
-
-	private DeviceInfo makeDeviceInfo(HttpServletRequest request) {
-		DeviceInfo deviceInfo = new DeviceInfo();
-		UserAgent userAgent = RequestUtils.getUaInfo(request);
-		deviceInfo.setOs(userAgent.getSystem());
-		deviceInfo.setBrowser(userAgent.getBrowser());
-		deviceInfo.setBrowserVersion(userAgent.getBrowserVersion());
-		deviceInfo.setDevice(userAgent.getDevice());
-		return deviceInfo;
 	}
 
 	@ApiOperation(value = "取消点赞", httpMethod = "DELETE")

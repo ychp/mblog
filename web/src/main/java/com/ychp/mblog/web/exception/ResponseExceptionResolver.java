@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author yingchengpeng
@@ -41,10 +42,13 @@ public class ResponseExceptionResolver {
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = Maps.newHashMap();
         parameterMap.putAll(request.getParameterMap());
-        log.error("request uri[{}] by params = {} fail, error = {}, case {}",
-                uri, parameterMap, se.getErrorCode(), Throwables.getStackTraceAsString(se));
-        log.debug("ResponseException happened, locale = {}, cause = {}",
-                locale, Throwables.getStackTraceAsString(se));
+        Integer status = se.getStatus();
+        if (!Objects.equals(status, 401)){
+            log.error("request uri[{}] by params = {} fail, error = {}, case {}",
+                        uri, parameterMap, se.getErrorCode(), Throwables.getStackTraceAsString(se));
+            log.debug("ResponseException happened, locale = {}, cause = {}",
+                    locale, Throwables.getStackTraceAsString(se));
+        }
         String message = se.getErrorCode();
         try {
             message = messageSource.getMessage(se.getErrorCode(), null, se.getErrorCode(), locale);

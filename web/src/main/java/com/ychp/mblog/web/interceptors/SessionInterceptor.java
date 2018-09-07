@@ -11,6 +11,7 @@ import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserReadService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @author yingchengpeng
  * @date 2018-08-08
  */
+@Slf4j
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired

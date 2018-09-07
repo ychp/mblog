@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yingchengpeng
  * @date 2018/8/11
  */
-@Api(description = "访问记录")
+@Api(description = "浏览记录")
 @RestController
 @RequestMapping("/api/admin/see-log")
 public class AdminSeeLogs {
@@ -23,7 +23,7 @@ public class AdminSeeLogs {
 	@Autowired
 	private SeeLogReadService seeLogReadService;
 
-	@ApiOperation("访问记录分页接口")
+	@ApiOperation("浏览记录分页接口")
 	@GetMapping("paging")
 	public Paging<SeeLogVO> paging(SeeLogCriteria criteria) {
 		return seeLogReadService.paging(criteria);

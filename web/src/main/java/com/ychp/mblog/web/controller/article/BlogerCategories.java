@@ -40,22 +40,13 @@ public class BlogerCategories {
     @PostMapping
     public Long create(@RequestBody Category category) {
         category.setUserId(SessionContextUtils.getUserId());
-        return createWithUser(category);
-    }
-
-    @DataInvalidCache("article:categories:{{category.userId}}")
-    private Long createWithUser(Category category) {
-        return categoryWriteService.create(category);
+        return  categoryWriteService.create(category);
     }
 
     @ApiOperation(value = "类目更新接口", httpMethod = "PUT")
     @PutMapping
+    @DataInvalidCache("article:categories:{{currentUser.id}}")
     public Boolean update(@ApiParam(example = "1") Long id, String name) {
-       return updateByUser(id, name, SessionContextUtils.getUserId());
-    }
-
-    @DataInvalidCache("article:categories:{{userId}}")
-    private Boolean updateByUser(Long id, String name, Long userId) {
         Category category = new Category();
         category.setId(id);
         category.setName(name);
@@ -72,14 +63,10 @@ public class BlogerCategories {
 
     @ApiOperation("类目")
     @GetMapping("find-by-user")
+    @DataCache("article:categories:{{currentUser.id}}")
     public List<Category> userCategories() {
-        return findByUserId(SessionContextUtils.getUserId());
-    }
-
-    @DataCache("article:categories:{{userId}}")
-    private List<Category> findByUserId(Long userId) {
         CategoryCriteria criteria = new CategoryCriteria();
-        criteria.setUserId(userId);
+        criteria.setUserId(SessionContextUtils.getUserId());
         return categoryReadService.list(criteria);
     }
 }

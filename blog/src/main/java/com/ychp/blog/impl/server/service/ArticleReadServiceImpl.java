@@ -1,5 +1,6 @@
 package com.ychp.blog.impl.server.service;
 
+import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
@@ -14,6 +15,7 @@ import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
 import com.ychp.markdown.wrapper.MarkdownWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  * @author yingchengpeng
  * @date 2018/8/10
  */
+@Slf4j
 @Service
 public class ArticleReadServiceImpl implements ArticleReadService {
 
@@ -38,20 +41,12 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 
 	@Override
 	public ArticleDetailVO findDetailById(Long id) {
-		ArticleDetailVO detailVO = findEditById(id);
-		if(detailVO.getDetail().getIsMarkdown()) {
-			detailVO.getDetail().setContent(MarkdownWrapper.parse(detailVO.getDetail().getContent()));
-		}
-		return detailVO;
-	}
-
-	@Override
-	public ArticleDetailVO findEditById(Long id) {
 		ArticleDetailVO detailVO = new ArticleDetailVO();
 		Article article;
 		try {
 			article = articleRepository.findById(id);
 		} catch (Exception e) {
+			log.error("fail to find article by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
 			throw new ResponseException("article.find.fail", e.getMessage(), e.getCause());
 		}
 
@@ -64,12 +59,54 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 		try {
 			detailVO.setDetail(articleDetailRepository.findByArticleId(id));
 		} catch (Exception e) {
+			log.error("fail to find article detail by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
+			throw new ResponseException("article.detail.find.fail", e.getMessage(), e.getCause());
+		}
+
+		if(detailVO.getDetail().getIsMarkdown()) {
+			detailVO.getDetail().setContent(MarkdownWrapper.parse(detailVO.getDetail().getContent()));
+		}
+		return detailVO;
+	}
+
+	@Override
+	public ArticleSummary findSummaryById(Long id) {
+		try {
+			return articleSummaryRepository.findByArticleId(id);
+		} catch (Exception e) {
+			log.error("fail to find article summary by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
+			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public ArticleDetailVO findEditById(Long id) {
+		ArticleDetailVO detailVO = new ArticleDetailVO();
+		Article article;
+		try {
+			article = articleRepository.findById(id);
+		} catch (Exception e) {
+			log.error("fail to find article by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
+			throw new ResponseException("article.find.fail", e.getMessage(), e.getCause());
+		}
+
+		if(article == null) {
+			throw new ResponseException("article.not.exist");
+		}
+
+		detailVO.setArticle(article);
+
+		try {
+			detailVO.setDetail(articleDetailRepository.findByArticleId(id));
+		} catch (Exception e) {
+			log.error("fail to find article detail by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
 			throw new ResponseException("article.detail.find.fail", e.getMessage(), e.getCause());
 		}
 
 		try {
 			detailVO.setSummary(articleSummaryRepository.findByArticleId(id));
 		} catch (Exception e) {
+			log.error("fail to find article summary by articleId = {}, case {}", id, Throwables.getStackTraceAsString(e));
 			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
 		}
 		return detailVO;

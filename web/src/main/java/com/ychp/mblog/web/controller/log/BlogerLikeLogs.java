@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
  */
 @Api(description = "点赞记录")
 @RestController
-@RequestMapping("/api/admin/like-log")
-public class AdminLikeLogs {
+@RequestMapping("/api/bloger/like-log")
+public class BlogerLikeLogs {
 
 	@Autowired
 	private LikeLogReadService likeLogReadService;

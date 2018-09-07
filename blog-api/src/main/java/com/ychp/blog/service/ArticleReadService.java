@@ -3,6 +3,7 @@ package com.ychp.blog.service;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.bean.query.ArticleCriteria;
+import com.ychp.blog.model.ArticleSummary;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
 
@@ -21,6 +22,14 @@ public interface ArticleReadService {
      * @return 查询结果
      */
     ArticleDetailVO findDetailById(Long id);
+
+    /**
+     * 根据id查询统计数据
+     *
+     * @param id 主键id
+     * @return 查询结果
+     */
+    ArticleSummary findSummaryById(Long id);
 
     /**
      * 根据id查询需要编辑的详情数据

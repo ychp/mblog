@@ -14,7 +14,13 @@
         <dependency>
             <groupId>com.ychp</groupId>
             <artifactId>common</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ychp</groupId>
+            <artifactId>cache</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

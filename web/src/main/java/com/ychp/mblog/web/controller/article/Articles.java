@@ -4,7 +4,9 @@ import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
+import com.ychp.blog.cache.ArticleCacher;
 import com.ychp.blog.enums.LikeLogTypeEnum;
+import com.ychp.blog.model.ArticleSummary;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.LikeLogReadService;
@@ -42,11 +44,15 @@ public class Articles {
     @Autowired
     private LikeLogReadService likeLogReadService;
 
+    @Autowired
+    private ArticleCacher articleCacher;
+
     @ApiOperation("文章详情接口")
-    @GetMapping("{id}/findDetail")
-//    @DataCache("article:{{id}}")
+    @GetMapping("{id}/detail")
     public ArticleDetailVO detail(@ApiParam(example = "1") @PathVariable Long id, HttpServletRequest request) {
-        ArticleDetailVO detailVO = articleReadService.findDetailById(id);
+        ArticleDetailVO detailVO = articleCacher.findDetail(id);
+        ArticleSummary summary = articleReadService.findSummaryById(id);
+        detailVO.setSummary(summary);
         String ip = ipServer.getIp(request);
         LikeLog likeLog = likeLogReadService.findByAimAndIp(id, LikeLogTypeEnum.ARTICLE.getValue(), ip);
         detailVO.setHasLiked(likeLog != null);
