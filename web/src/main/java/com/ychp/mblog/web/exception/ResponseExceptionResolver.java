@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public class ResponseExceptionResolver {
     @ExceptionHandler(value = ResponseException.class)
     public ResponseEntity<String> OPErrorHandler(ResponseException se,
                                                  HttpServletRequest request,
-                                                 HttpServletResponse response) throws IOException {
+                                                 HttpServletResponse response) {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = Maps.newHashMap();

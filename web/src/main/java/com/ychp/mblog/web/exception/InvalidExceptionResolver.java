@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -33,7 +32,9 @@ public class InvalidExceptionResolver {
 
     @ResponseBody
     @ExceptionHandler(value = InvalidException.class)
-    public ResponseEntity<String> OPErrorHandler(InvalidException se, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<String> OPErrorHandler(InvalidException se,
+                                                 HttpServletRequest request,
+                                                 HttpServletResponse response) {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         log.error("request uri[{}] by error {} = {} fail, case {}", uri, se.getParamKey(), se.getParam(), Throwables.getStackTraceAsString(se));
