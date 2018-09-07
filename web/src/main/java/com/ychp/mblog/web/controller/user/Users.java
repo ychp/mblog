@@ -3,6 +3,7 @@ package com.ychp.mblog.web.controller.user;
 import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
+import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
@@ -11,11 +12,14 @@ import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.controller.bean.request.user.UserProfileRequest;
 import com.ychp.mblog.web.controller.bean.request.user.UserRegisterRequest;
 import com.ychp.mblog.web.util.SkyUserMaker;
+import com.ychp.user.bean.query.UserLoginLogCriteria;
+import com.ychp.user.bean.response.UserLoginLogVO;
 import com.ychp.user.bean.response.UserVO;
 import com.ychp.user.cache.AddressCacher;
 import com.ychp.user.model.Address;
 import com.ychp.user.model.User;
 import com.ychp.user.model.UserProfile;
+import com.ychp.user.service.UserLoginLogReadService;
 import com.ychp.user.service.UserReadService;
 import com.ychp.user.service.UserWriteService;
 import io.swagger.annotations.Api;
@@ -52,6 +56,9 @@ public class Users {
 
     @Autowired
     private AsyncPublisher publisher;
+
+    @Autowired
+    private UserLoginLogReadService userLoginLogReadService;
 
     @ApiOperation(value = "注册", httpMethod = "POST")
     @PostMapping("register")
@@ -177,5 +184,11 @@ public class Users {
         return profile;
     }
 
+    @ApiOperation("用户登录日志分页接口")
+    @GetMapping("login-log/paging")
+    public Paging<UserLoginLogVO> pagingLoginLog(UserLoginLogCriteria criteria) {
+        criteria.setUserId(SessionContextUtils.getUserId());
+        return userLoginLogReadService.paging(criteria);
+    }
 
 }
