@@ -1,8 +1,8 @@
 package com.ychp.user.impl.server.service;
 
-import com.ychp.common.exception.ResponseException;
 import com.ychp.cache.annontation.DataInvalidCache;
-import com.ychp.user.enums.UserTypeEnum;
+import com.ychp.common.exception.ResponseException;
+import com.ychp.user.enums.UserStatusEnum;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;
 import com.ychp.user.model.User;
@@ -27,7 +27,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 	@Override
 	public Long create(User user) {
 		try {
-			user.setStatus(UserTypeEnum.NORMAL.getValue());
+			user.setStatus(UserStatusEnum.NORMAL.getValue());
 			userRepository.create(user);
 			return user.getId();
 		} catch (Exception e) {

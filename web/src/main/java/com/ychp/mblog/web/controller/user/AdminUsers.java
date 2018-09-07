@@ -1,21 +1,20 @@
 package com.ychp.mblog.web.controller.user;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.user.bean.response.UserLoginLogVO;
-import com.ychp.user.bean.response.UserVO;
 import com.ychp.user.bean.query.UserCriteria;
 import com.ychp.user.bean.query.UserLoginLogCriteria;
+import com.ychp.user.bean.response.UserLoginLogVO;
+import com.ychp.user.bean.response.UserVO;
+import com.ychp.user.enums.UserStatusEnum;
 import com.ychp.user.model.User;
 import com.ychp.user.service.UserLoginLogReadService;
 import com.ychp.user.service.UserReadService;
+import com.ychp.user.service.UserWriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author yingchengpeng
@@ -30,10 +29,13 @@ public class AdminUsers {
     private UserReadService userReadService;
 
     @Autowired
+    private UserWriteService userWriteService;
+
+    @Autowired
     private UserLoginLogReadService userLoginLogReadService;
 
     @ApiOperation("用户详情接口")
-    @GetMapping("{id}/findDetail")
+    @GetMapping("{id}/detail")
     public UserVO detail(@ApiParam(example = "1") @PathVariable Long id) {
         return userReadService.findDetailById(id);
     }
@@ -49,4 +51,23 @@ public class AdminUsers {
     public Paging<UserLoginLogVO> pagingLoginLog(UserLoginLogCriteria criteria) {
         return userLoginLogReadService.paging(criteria);
     }
+
+    @ApiOperation("冻结用户")
+    @PutMapping("{id}/frozen")
+    public Boolean frozen(@PathVariable("id")Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setStatus(UserStatusEnum.FROZEN.getValue());
+        return userWriteService.update(user);
+    }
+
+    @ApiOperation("解冻用户")
+    @PutMapping("{id}/frozen")
+    public Boolean unfrozen(@PathVariable("id")Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setStatus(UserStatusEnum.NORMAL.getValue());
+        return userWriteService.update(user);
+    }
+
 }

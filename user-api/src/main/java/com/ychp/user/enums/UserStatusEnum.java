@@ -8,19 +8,19 @@ import java.util.Objects;
  * @author yingchengpeng
  * @date 2018/8/12
  */
-public enum UserTypeEnum {
+public enum UserStatusEnum {
 	NORMAL(1),
 	FROZEN(-1);
 
-	UserTypeEnum(int value) {
+	UserStatusEnum(int value) {
 		this.value = value;
 	}
 
 	@Getter
 	private int value;
 
-	public static UserTypeEnum fromValue(int value) {
-		for (UserTypeEnum item : values()) {
+	public static UserStatusEnum fromValue(int value) {
+		for (UserStatusEnum item : values()) {
 			if(Objects.equals(item.getValue(), value)) {
 				return item;
 			}

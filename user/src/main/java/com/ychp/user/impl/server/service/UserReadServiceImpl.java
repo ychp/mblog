@@ -6,6 +6,7 @@ import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.Encryption;
 import com.ychp.user.bean.query.UserCriteria;
 import com.ychp.user.bean.response.UserVO;
+import com.ychp.user.enums.UserStatusEnum;
 import com.ychp.user.impl.server.converter.UserConverter;
 import com.ychp.user.impl.server.repository.UserProfileRepository;
 import com.ychp.user.impl.server.repository.UserRepository;
@@ -14,6 +15,8 @@ import com.ychp.user.model.UserProfile;
 import com.ychp.user.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * @author yingchengpeng
@@ -61,6 +64,11 @@ public class UserReadServiceImpl implements UserReadService {
             if(user == null) {
                 throw new ResponseException("user.login.fail");
             }
+
+            if(!Objects.equals(user.getStatus(), UserStatusEnum.NORMAL.getValue())) {
+                throw new ResponseException("user.has.frozen");
+            }
+
             if(Encryption.checkPassword(password, user.getSalt(), user.getPassword())) {
                 return user;
             }
