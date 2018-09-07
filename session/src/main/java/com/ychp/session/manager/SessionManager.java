@@ -1,10 +1,9 @@
 package com.ychp.session.manager;
 
-import com.ychp.redis.dao.JedisTemplate;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.ychp.redis.manager.RedisManager;
 import com.ychp.session.constant.SessionConstants;
-import com.ychp.session.utils.SerializableUtils;
 
-import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
@@ -13,34 +12,29 @@ import java.util.Map;
  */
 public class SessionManager {
 
-	private final JedisTemplate jedisTemplate;
+	private final RedisManager redisManager;
 
-	public SessionManager(JedisTemplate jedisTemplate) {
-		this.jedisTemplate = jedisTemplate;
+	public SessionManager(RedisManager redisManager) {
+		this.redisManager = redisManager;
 	}
 
 	public void save(String id, Map<String, Object> attributes, int expireTime) {
-		byte[] keyBytes = getKeyBytes(id);
-		byte[] valueBytes = SerializableUtils.serialize(attributes);
-		jedisTemplate.excute(jedis -> jedis.setex(keyBytes, expireTime, valueBytes));
+		redisManager.save(getKey(id), attributes, expireTime);
 	}
 
 	public Map<String, Object> get(String id) {
-		byte[] keyBytes = getKeyBytes(id);
-		byte[] valueBytes = jedisTemplate.excute(jedis -> jedis.get(keyBytes));
-		return (Map<String, Object>) SerializableUtils.deserialize(valueBytes);
+		return redisManager.get(getKey(id), new TypeReference<Map<String, Object>>(){});
 	}
 
 	public void refresh(String id, int expireTime) {
-		byte[] keyBytes = getKeyBytes(id);
-		jedisTemplate.excute(jedis -> jedis.expire(keyBytes, expireTime));
+		redisManager.refresh(getKey(id), expireTime);
 	}
 
 	public void remove(String id) {
-		byte[] keyBytes = getKeyBytes(id);
-		jedisTemplate.excute(jedis -> jedis.del(keyBytes));
+		redisManager.invalid(getKey(id));
 	}
-	private byte[] getKeyBytes(String id) {
-		return (SessionConstants.SESSION_PRE + id).getBytes(Charset.forName("UTF-8"));
+
+	private String getKey(String id) {
+		return SessionConstants.SESSION_PRE + id;
 	}
 }

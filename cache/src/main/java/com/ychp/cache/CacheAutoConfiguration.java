@@ -2,7 +2,7 @@ package com.ychp.cache;
 
 import com.ychp.cache.aop.CacheAdvice;
 import com.ychp.cache.aop.CacheInvalidAdvice;
-import com.ychp.cache.manager.CacheManager;
+import com.ychp.redis.manager.RedisManager;
 import com.ychp.cache.properties.CacheProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 public class CacheAutoConfiguration {
 
 	@Bean
-	public CacheManager cacheManager() {
-		return new CacheManager();
+	public RedisManager cacheManager() {
+		return new RedisManager();
 	}
 
 	@Bean

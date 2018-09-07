@@ -2,7 +2,7 @@ package com.ychp.cache.aop;
 
 import com.ychp.cache.annontation.DataCache;
 import com.ychp.cache.exception.CacheException;
-import com.ychp.cache.manager.CacheManager;
+import com.ychp.redis.manager.RedisManager;
 import com.ychp.cache.utils.CacheAdviceUtils;
 import lombok.NoArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class CacheAdvice {
 
 	@Autowired
-	private CacheManager cacheManager;
+	private RedisManager redisManager;
 
 	@Pointcut(value = "@annotation(com.ychp.cache.annontation.DataCache)")
 	public void pointCut() {
@@ -58,13 +58,13 @@ public class CacheAdvice {
 
 	private Object getCacheData(String key, Method method) {
 		Class<?> clazz = method.getReturnType();
-		return cacheManager.get(key, clazz);
+		return redisManager.get(key, clazz);
 	}
 
 	private void saveCache(Object returnObject, String key, int expireTime) {
 		if(returnObject == null) {
 			return;
 		}
-		cacheManager.save(key, returnObject, expireTime);
+		redisManager.save(key, returnObject, expireTime);
 	}
 }

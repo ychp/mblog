@@ -1,6 +1,7 @@
-package com.ychp.cache.manager;
+package com.ychp.redis.manager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
 import com.ychp.redis.dao.JedisTemplate;
@@ -15,7 +16,7 @@ import java.io.IOException;
  * @date 2018/8/14
  */
 @Slf4j
-public class CacheManager {
+public class RedisManager {
 
 	@Autowired
 	private JedisTemplate jedisTemplate;
@@ -57,6 +58,16 @@ public class CacheManager {
 		return null;
 	}
 
+	public <T> T get(String key, TypeReference type) {
+		String json = getJson(key);
+		try {
+			return form2Object(json, type);
+		} catch (IOException e) {
+			log.error("fail to parse to json by {}, case {}", json, Throwables.getStackTraceAsString(e));
+		}
+		return null;
+	}
+
 	public String getJson(String key) {
 		return jedisTemplate.excute(jedis -> jedis.get(key));
 	}
@@ -70,6 +81,13 @@ public class CacheManager {
 			return null;
 		}
 		return objectMapper.readValue(json, clazz);
+	}
+
+	private <T> T form2Object(String json, TypeReference type) throws IOException {
+		if(StringUtils.isEmpty(json)) {
+			return null;
+		}
+		return objectMapper.readValue(json, type);
 	}
 
 }

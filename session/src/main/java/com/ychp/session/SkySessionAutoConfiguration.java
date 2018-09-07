@@ -2,7 +2,7 @@ package com.ychp.session;
 
 import com.google.common.collect.Lists;
 import com.ychp.redis.RedisAutoConfiguration;
-import com.ychp.redis.dao.JedisTemplate;
+import com.ychp.redis.manager.RedisManager;
 import com.ychp.session.impl.SkySessionFilter;
 import com.ychp.session.manager.SessionManager;
 import com.ychp.session.properties.SessionProperties;
@@ -26,11 +26,11 @@ public class SkySessionAutoConfiguration {
 	private SessionProperties sessionProperties;
 
 	@Autowired
-	private JedisTemplate jedisTemplate;
+	private RedisManager redisManager;
 
 	@Bean
 	public SessionManager sessionManager() {
-		return new SessionManager(jedisTemplate);
+		return new SessionManager(redisManager);
 	}
 
 	@Bean
