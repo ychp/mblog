@@ -59,4 +59,12 @@ public interface ArticleWriteService {
      * @return 操作结果
      */
     Boolean updateCategoryName(Long categoryId, String categoryName);
+
+    /**
+     * 更新状态
+     * @param id id
+     * @param status 状态
+     * @return 操作结果
+     */
+    Boolean updateStatus(Long id, Integer status);
 }

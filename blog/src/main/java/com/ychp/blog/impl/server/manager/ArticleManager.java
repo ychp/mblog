@@ -1,5 +1,6 @@
 package com.ychp.blog.impl.server.manager;
 
+import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.impl.server.repository.ArticleDetailRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.impl.server.repository.ArticleSummaryRepository;
@@ -10,6 +11,9 @@ import com.ychp.common.exception.ResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author yingchengpeng
@@ -27,7 +31,9 @@ public class ArticleManager {
 
 	@Transactional(rollbackFor = Exception.class)
 	public Long create(Article article, ArticleDetail detail) {
-		article.setDeleted(false);
+		if(article.getStatus() == null) {
+			article.setStatus(ArticleStatusEnum.PRIVATE.getValue());
+		}
 		Boolean result = articleRepository.create(article);
 		if (!result) {
 			throw new ResponseException("article.create.fail");
@@ -41,7 +47,8 @@ public class ArticleManager {
 
 		ArticleSummary summary = ArticleSummary.empty();
 		summary.setArticleId(article.getId());
-		summary.setIsValid(article.getVisible() && article.getDeleted());
+		summary.setIsValid(Objects.equals(article.getStatus(), ArticleStatusEnum.PRIVATE.getValue())
+				|| Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue()));
 		result = articleSummaryRepository.create(summary);
 		if (!result) {
 			throw new ResponseException("article.summary.create.fail");
@@ -51,6 +58,9 @@ public class ArticleManager {
 
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean update(Article article, ArticleDetail detail) {
+		if(article.getStatus() != null && Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue())) {
+			article.setPublishAt(new Date());
+		}
 		Boolean result = articleRepository.update(article);
 		if (!result) {
 			throw new ResponseException("article.update.fail");
@@ -64,7 +74,8 @@ public class ArticleManager {
 
 		Article newArticle = articleRepository.findById(article.getId());
 		result = articleSummaryRepository.updateValid(article.getId(),
-				newArticle.getVisible() && newArticle.getDeleted());
+				Objects.equals(newArticle.getStatus(), ArticleStatusEnum.PRIVATE.getValue())
+						|| Objects.equals(newArticle.getStatus(), ArticleStatusEnum.PUBLIC.getValue()));
 		if (!result) {
 			throw new ResponseException("article.summary.refresh.fail");
 		}
@@ -85,4 +96,25 @@ public class ArticleManager {
 		return Boolean.TRUE;
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public Boolean updateStatus(Long id, Integer status) {
+		Article article = new Article();
+		article.setId(id);
+		article.setStatus(status);
+		if(Objects.equals(status, ArticleStatusEnum.PUBLIC.getValue())) {
+			article.setPublishAt(new Date());
+		}
+		Boolean result = articleRepository.update(article);
+		if (!result) {
+			throw new ResponseException("article.update.fail");
+		}
+
+		result = articleSummaryRepository.updateValid(article.getId(),
+				Objects.equals(status, ArticleStatusEnum.PRIVATE.getValue())
+						|| Objects.equals(status, ArticleStatusEnum.PUBLIC.getValue()));
+		if (!result) {
+			throw new ResponseException("article.summary.refresh.fail");
+		}
+		return Boolean.TRUE;
+	}
 }

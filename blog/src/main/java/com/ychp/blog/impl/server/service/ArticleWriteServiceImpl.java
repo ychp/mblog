@@ -111,4 +111,9 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 			throw new ResponseException("article.update.category.fail", e.getMessage(), e.getCause());
 		}
 	}
+
+	@Override
+	public Boolean updateStatus(Long id, Integer status) {
+		return null;
+	}
 }

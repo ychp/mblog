@@ -5,6 +5,7 @@ import com.ychp.blog.bean.request.ArticleCreateRequest;
 import com.ychp.blog.bean.request.ArticleUpdateRequest;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
+import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.cache.annontation.DataInvalidCache;
@@ -68,4 +69,16 @@ public class BlogerArticles {
         return articleWriteService.delete(id);
     }
 
+
+    @ApiOperation("设置为私有")
+    @PutMapping("{id}/private")
+    public Boolean setPrivate(@PathVariable Long id) {
+        return articleWriteService.updateStatus(id, ArticleStatusEnum.PRIVATE.getValue());
+    }
+
+    @ApiOperation("设置为公开")
+    @PutMapping("{id}/public")
+    public Boolean setPublic(@PathVariable Long id) {
+        return articleWriteService.updateStatus(id, ArticleStatusEnum.PUBLIC.getValue());
+    }
 }

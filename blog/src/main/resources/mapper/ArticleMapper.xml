@@ -14,8 +14,7 @@
         <result column="synopsis" property="synopsis"/>
         <result column="user_id" property="userId"/>
         <result column="author" property="author"/>
-        <result column="visible" property="visible"/>
-        <result column="deleted" property="deleted"/>
+        <result column="status" property="status"/>
         <result column="publish_at" property="publishAt"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
@@ -31,11 +30,11 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `title`, `category_id`, `category_name`, `image`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `publish_at`, `created_at`, `updated_at`
+        `title`, `category_id`, `category_name`, `image`, `synopsis`, `user_id`, `author`, `status`, `publish_at`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{title}, #{categoryId}, #{categoryName}, #{image}, #{synopsis}, #{userId}, #{author}, #{visible}, #{deleted}, now(), now(), now()
+         #{title}, #{categoryId}, #{categoryName}, #{image}, #{synopsis}, #{userId}, #{author}, #{status}, now(), now(), now()
     </sql>
 
     <sql id="criteria">
@@ -46,10 +45,10 @@
             <if test="categoryName != null">AND `category_name` = #{categoryName}</if>
             <if test="userId != null">AND `user_id` = #{userId}</if>
             <if test="author != null">AND `author` = #{author}</if>
-            <if test="visible != null">AND `visible` = #{visible}</if>
+            <if test="status != null">AND `status` = #{status}</if>
             <if test="publishAtStart != null">AND `publish_at` &gt;= #{publishAtStart}</if>
             <if test="publishAtEnd != null">AND `publish_at` &lt;= #{publishAtEnd}</if>
-            AND `deleted` = 0
+            AND `status` != -99
         </where>
     </sql>
 
@@ -60,8 +59,9 @@
             <if test="categoryName != null">`category_name` = #{categoryName},</if>
             <if test="image != null">`image` = #{image},</if>
             <if test="synopsis != null">`synopsis` = #{synopsis},</if>
-            <if test="visible != null">`visible` = #{visible},</if>
-            `publish_at` = now(), `updated_at` = now()
+            <if test="status != null">`status` = #{status},</if>
+            <if test="publishAt != null">`publish_at` = #{publishAt},</if>
+            `updated_at` = now()
         </set>
     </sql>
 
@@ -123,14 +123,14 @@
 
     <update id="delete" parameterType="long">
         UPDATE <include refid="tb"/>
-        SET `deleted` = 1, `updated_at` = now()
+        SET `status` = -99, `updated_at` = now()
         where `id` = #{id}
     </update>
 
     <update id="updateCategoryName" parameterType="map">
         UPDATE <include refid="tb"/>
         SET `category_name` = #{categoryName}, `updated_at` = now()
-        WHERE `category_id` = #{categoryId} AND `deleted` = 0
+        WHERE `category_id` = #{categoryId} AND `status` != -99
     </update>
 
     <!-- 计数 -->

@@ -85,21 +85,10 @@ public class Article implements Serializable {
     @ApiModelProperty("作者")
     private String author;
 
-    /**
-     * 是否可见，0.不可见，1.可见
-     */
     @Getter
     @Setter
-    @ApiModelProperty("是否可见，0.不可见，1.可见")
-    private Boolean visible;
-
-    /**
-     * 是否删除，0.未删除，1.已删除
-     */
-    @Getter
-    @Setter
-    @ApiModelProperty("是否删除，0.未删除，1.已删除")
-    private Boolean deleted;
+    @ApiModelProperty("状态：0.私有，1.公开，-1.撤下，-99.删除")
+    private Integer status;
 
     @Getter
     @Setter

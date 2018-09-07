@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Maps;
 import com.ychp.blog.bean.query.ArticleCriteria;
+import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.impl.server.constant.ArticleSearchConstants;
 import com.ychp.blog.impl.server.repository.ArticleDetailRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
@@ -23,7 +24,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -135,13 +138,7 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		}
 
 		while (!articlePaging.isEmpty()) {
-			for(Article article : articlePaging.getDatas()) {
-				if(!article.getDeleted() && article.getVisible()) {
-					index(article);
-				} else {
-					remove(article.getId());
-				}
-			}
+			dump(articlePaging.getDatas());
 			try {
 				pageNo ++;
 				criteria.setPageNo(pageNo);
@@ -175,13 +172,7 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		}
 
 		while (!articlePaging.isEmpty()) {
-			for(Article article : articlePaging.getDatas()) {
-				if(!article.getDeleted() && article.getVisible()) {
-					index(article);
-				} else {
-					remove(article.getId());
-				}
-			}
+			dump(articlePaging.getDatas());
 			try {
 				pageNo ++;
 				criteria.setPageNo(pageNo);
@@ -191,6 +182,18 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 			} catch (Exception e) {
 				log.error("fail to paging article by {}, case {}", criteria, Throwables.getStackTraceAsString(e));
 				break;
+			}
+		}
+	}
+
+	private void dump(List<Article> articles) {
+		for(Article article : articles) {
+			Boolean invalid = Objects.equals(article.getStatus(), ArticleStatusEnum.PRIVATE.getValue())
+					|| Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue());
+			if(invalid) {
+				index(article);
+			} else {
+				remove(article.getId());
 			}
 		}
 	}

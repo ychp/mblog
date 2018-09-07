@@ -54,7 +54,7 @@ public class AdminUsers {
 
     @ApiOperation("冻结用户")
     @PutMapping("{id}/frozen")
-    public Boolean frozen(@PathVariable("id")Long id) {
+    public Boolean frozen(@PathVariable("id") Long id) {
         User user = new User();
         user.setId(id);
         user.setStatus(UserStatusEnum.FROZEN.getValue());
@@ -62,8 +62,8 @@ public class AdminUsers {
     }
 
     @ApiOperation("解冻用户")
-    @PutMapping("{id}/frozen")
-    public Boolean unfrozen(@PathVariable("id")Long id) {
+    @PutMapping("{id}/unfrozen")
+    public Boolean unfrozen(@PathVariable("id") Long id) {
         User user = new User();
         user.setId(id);
         user.setStatus(UserStatusEnum.NORMAL.getValue());
