@@ -17,6 +17,7 @@ import com.ychp.common.model.SkyUser;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.mblog.web.async.article.ArticleCommentEvent;
+import com.ychp.mblog.web.async.article.CommentDeleteEvent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -106,6 +107,9 @@ public class BlogerComments {
     @PutMapping(value = "{id}/show", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean show(@PathVariable("id")Long id){
         Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.SHOW.getValue());
+        if(!Objects.equals(comment.getOwnerId(), SessionContextUtils.getUserId())) {
+            throw new ResponseException("comment.not.belong.to.user");
+        }
         publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, true));
         return true;
     }
@@ -114,7 +118,22 @@ public class BlogerComments {
     @PutMapping(value = "{id}/hide", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean hide(@PathVariable("id") Long id){
         Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.HIDE.getValue());
+        if(!Objects.equals(comment.getOwnerId(), SessionContextUtils.getUserId())) {
+            throw new ResponseException("comment.not.belong.to.user");
+        }
         publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, false));
+        return true;
+    }
+
+    @ApiOperation("删除评价")
+    @PutMapping(value = "{id}/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean delete(@PathVariable("id") Long id){
+        Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.DELETED.getValue());
+        if(!Objects.equals(comment.getOwnerId(), SessionContextUtils.getUserId())) {
+            throw new ResponseException("comment.not.belong.to.user");
+        }
+        publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, false));
+        publisher.post(new CommentDeleteEvent(comment.getId()));
         return true;
     }
 
