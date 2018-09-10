@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * @date 2018-09-10
  */
 @Slf4j
-@Api("评价管理")
+@Api("博客主 - 评价管理")
 @RestController
 @RequestMapping("/api/bloger/comment")
 public class BlogerComments {
@@ -103,7 +103,7 @@ public class BlogerComments {
     }
 
     @ApiOperation("显示评价")
-    @PutMapping(value = "/show/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{id}/show", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean show(@PathVariable("id")Long id){
         Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.SHOW.getValue());
         publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, true));
@@ -111,7 +111,7 @@ public class BlogerComments {
     }
 
     @ApiOperation("隐藏评价")
-    @PutMapping(value = "/hide/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{id}/hide", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean hide(@PathVariable("id") Long id){
         Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.HIDE.getValue());
         publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, false));
@@ -130,9 +130,8 @@ public class BlogerComments {
         }
 
         comments = comments.stream().filter(comment ->
-                (Objects.equals(comment.getStatus(), CommentStatusEnum.SHOW.getValue())
+                Objects.equals(comment.getStatus(), CommentStatusEnum.SHOW.getValue())
                 || Objects.equals(comment.getReplier(), userId))
-                && !Objects.equals(comment.getStatus(), CommentStatusEnum.DELETED.getValue()))
                 .collect(Collectors.toList());
         return new CommentWithChildrenInfo(parent, comments);
     }

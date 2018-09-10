@@ -135,5 +135,6 @@
         <foreach collection="list" item="pid" open="(" separator="," close=")">
             #{pid}
         </foreach>
+        AND `status` != -1
     </select>
 </mapper>
