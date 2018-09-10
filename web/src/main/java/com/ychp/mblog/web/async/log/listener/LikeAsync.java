@@ -2,14 +2,14 @@ package com.ychp.mblog.web.async.log.listener;
 
 import com.ychp.async.annontation.AsyncBean;
 import com.ychp.async.annontation.AsyncSubscriber;
-import com.ychp.blog.enums.LikeLogTypeEnum;
+import com.ychp.blog.enums.AimTypeEnum;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.mblog.web.async.log.DislikeEvent;
 import com.ychp.mblog.web.async.log.LikeEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.ychp.blog.enums.LikeLogTypeEnum.fromValue;
+import static com.ychp.blog.enums.AimTypeEnum.fromValue;
 
 /**
  * @author yingchengpeng
@@ -24,7 +24,7 @@ public class LikeAsync {
 
 	@AsyncSubscriber
 	public void increase(LikeEvent likeEvent) {
-		LikeLogTypeEnum type = fromValue(likeEvent.getType());
+		AimTypeEnum type = fromValue(likeEvent.getType());
 		switch (type) {
 			case ARTICLE:
 				articleWriteService.increaseLike(likeEvent.getAimId());
@@ -37,7 +37,7 @@ public class LikeAsync {
 
 	@AsyncSubscriber
 	public void decrease(DislikeEvent dislikeEvent) {
-		LikeLogTypeEnum type = fromValue(dislikeEvent.getType());
+		AimTypeEnum type = fromValue(dislikeEvent.getType());
 		switch (type) {
 			case ARTICLE:
 				articleWriteService.decreaseLike(dislikeEvent.getAimId());

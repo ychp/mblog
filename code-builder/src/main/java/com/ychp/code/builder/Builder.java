@@ -28,18 +28,19 @@ public abstract class Builder {
         templateParamMap.put("currentDate", new Date());
         try {
             outPath = StringUtils.isEmpty(outPath) ? getDefaultOutPath(): outPath;
-            String content;
+            String context;
             String fileName;
 
             for(String template : templates){
                 if(StringUtils.isEmpty(template)){
                     continue;
                 }
-                content = buildFile(template, templateParamMap, isPath);
-                contents.add(content);
+                context = buildFile(template, templateParamMap, isPath);
+                context = context.replace("{ ", "{").replace(" }", "}");
+                contents.add(context);
                 if(isWriteToLocal) {
                     fileName = getFileName(template, baseName);
-                    new FileService().writeToLocal(outPath + File.separator + fileName, content);
+                    new FileService().writeToLocal(outPath + File.separator + fileName, context);
                 }
             }
         } catch (IOException e){

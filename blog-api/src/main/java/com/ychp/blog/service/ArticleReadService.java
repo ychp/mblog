@@ -70,4 +70,11 @@ public interface ArticleReadService {
      */
     List<Article> findByIds(List<Long> ids);
 
+    /**
+     * 根据id获取文章
+     * @param id id
+     * @return 文章集合
+     */
+    Article findById(Long id);
+
 }

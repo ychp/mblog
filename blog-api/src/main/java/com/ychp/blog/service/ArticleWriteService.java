@@ -67,4 +67,18 @@ public interface ArticleWriteService {
      * @return 操作结果
      */
     Boolean updateStatus(Long id, Integer status);
+
+    /**
+     * 累计评价次数
+     * @param id 文章ID
+     * @return 操作结果
+     */
+    Boolean increaseComment(Long id);
+
+    /**
+     * 扣减评价次数
+     * @param id 文章ID
+     * @return 操作结果
+     */
+    Boolean decreaseComment(Long id);
 }

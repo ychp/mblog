@@ -192,3 +192,24 @@ CREATE TABLE IF NOT EXISTS `sky_like_log` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='点赞记录表';
+
+DROP TABLE IF EXISTS `sky_comment`;
+
+CREATE TABLE IF NOT EXISTS `sky_comment` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `owner_id` bigint(20) DEFAULT NULL COMMENT '拥有者',
+  `pid` bigint(20) DEFAULT NULL COMMENT '父节点',
+  `level` int(2) DEFAULT NULL COMMENT '级别',
+  `type` int(2) DEFAULT NULL COMMENT '类型:1.文章,2.说说,3.照片',
+  `aim_id` bigint(20) DEFAULT NULL,
+  `replier` bigint(20) DEFAULT NULL COMMENT '回复者',
+  `replier_name` varchar(128) DEFAULT NULL COMMENT '回复者昵称',
+  `replier_avatar` varchar(256) DEFAULT NULL COMMENT '回复者头像',
+  `receiver` bigint(20) DEFAULT NULL COMMENT '接收者',
+  `receiver_name` varchar(128) DEFAULT NULL COMMENT '接收者昵称',
+  `content` text COMMENT '评论内容',
+  `status` int(2) DEFAULT NULL COMMENT '状态：0.隐藏，1.显示，-1.删除',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论';

@@ -20,17 +20,11 @@ import java.util.Date;
 public class {{modelName}} implements Serializable {
     private static final long serialVersionUID = -1L;
 
-    /**
-     * 主键
-     */
     @Getter
     @Setter
     @ApiModelProperty("主键")
     private {{primaryColumn.javaType}} {{primaryColumn.javaColumn}};
 {{#each columns}}
-    /**
-     * {{comment}}
-     */
     @Getter
     @Setter
     @ApiModelProperty("{{comment}}")

@@ -109,4 +109,16 @@
         WHERE `is_valid` = 1
         ORDER BY `popular` DESC limit #{size}
     </select>
+
+    <update id="increaseComment" parameterType="long">
+        UPDATE <include refid="tb"/>
+        SET `comments` = `comments` + 1, `updated_at` = now()
+        WHERE `article_id` = #{articleId}
+    </update>
+
+    <update id="decreaseComment" parameterType="long">
+        UPDATE <include refid="tb"/>
+        SET `comments` = `comments` - 1, `updated_at` = now()
+        WHERE `article_id` = #{articleId}
+    </update>
 </mapper>

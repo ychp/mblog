@@ -43,3 +43,7 @@ INSERT INTO blog_new.`sky_see_log` (`id`, `ip`, `device_id`, `url`, `uri`, `crea
 select sl.`id`, `ip`, di.`id`, `url`, `uri`, sl.`created_at`, sl.`updated_at`
 from blog.see_logs sl left join blog_new.`sky_device_info` di
 on sl.os = di.os and sl.browser = di.browser and sl.browser_version = di.browser_version and sl.device = di.device;
+
+-- 评价记录
+INSERT INTO `blog_new`.`sky_comment` (`id`, `owner_id`, `pid`, `level`, `type`, `aim_id`, `replier`, `replier_name`, `replier_avatar`, `receiver`, `receiver_name`, `content`, `status`, `created_at`, `updated_at`)
+select `id`, 1 as `owner_id`, `pid`, `level`, `type`, `aim_id`, `replyer`, `replyer_name`, `replyer_header`, `receiver`, `receiver_name`, `content`, `status`, `created_at`, `updated_at` from `blog`.`comments`;

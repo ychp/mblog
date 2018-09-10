@@ -114,6 +114,31 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 
 	@Override
 	public Boolean updateStatus(Long id, Integer status) {
-		return null;
+		try {
+			Article article = new Article();
+			article.setId(id);
+			article.setStatus(status);
+			return articleRepository.update(article);
+		} catch (Exception e) {
+			throw new ResponseException("article.update.status.fail", e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public Boolean increaseComment(Long id) {
+		try {
+			return articleSummaryRepository.increaseComment(id);
+		} catch (Exception e) {
+			throw new ResponseException("article.summary.increase.comment.fail", e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
+	public Boolean decreaseComment(Long id) {
+		try {
+			return articleSummaryRepository.decreaseComment(id);
+		} catch (Exception e) {
+			throw new ResponseException("article.summary.decrease.comment.fail", e.getMessage(), e.getCause());
+		}
 	}
 }

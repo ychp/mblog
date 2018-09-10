@@ -5,7 +5,7 @@ import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.cache.ArticleCacher;
-import com.ychp.blog.enums.LikeLogTypeEnum;
+import com.ychp.blog.enums.AimTypeEnum;
 import com.ychp.blog.model.ArticleSummary;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.ArticleReadService;
@@ -54,7 +54,7 @@ public class Articles {
         ArticleSummary summary = articleReadService.findSummaryById(id);
         detailVO.setSummary(summary);
         String ip = ipServer.getIp(request);
-        LikeLog likeLog = likeLogReadService.findByAimAndIp(id, LikeLogTypeEnum.ARTICLE.getValue(), ip);
+        LikeLog likeLog = likeLogReadService.findByAimAndIp(id, AimTypeEnum.ARTICLE.getValue(), ip);
         detailVO.setHasLiked(likeLog != null);
         publisher.post(new ArticleVisitEvent(id));
         return detailVO;

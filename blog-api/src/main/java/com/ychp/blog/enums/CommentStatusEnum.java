@@ -6,15 +6,15 @@ import java.util.Objects;
 
 /**
  * @author yingchengpeng
- * @date 2018/8/12
+ * @date 2018/9/10
  */
-public enum LikeLogTypeEnum {
-	ARTICLE(1, "文章"),
-	TALK(2, "说说"),
-	PHOTO(3, "照片");
+public enum CommentStatusEnum {
+	HIDE(0, "隐藏"),
+	SHOW(1, "显示"),
+	DELETED(-1, "删除");
 
 
-	LikeLogTypeEnum(int value, String desc) {
+	CommentStatusEnum(int value, String desc) {
 		this.value = value;
 		this.desc = desc;
 	}
@@ -25,8 +25,8 @@ public enum LikeLogTypeEnum {
 	@Getter
 	private String desc;
 
-	public static LikeLogTypeEnum fromValue(int value) {
-		for (LikeLogTypeEnum item : values()) {
+	public static CommentStatusEnum fromValue(int value) {
+		for (CommentStatusEnum item : values()) {
 			if(Objects.equals(item.getValue(), value)) {
 				return item;
 			}

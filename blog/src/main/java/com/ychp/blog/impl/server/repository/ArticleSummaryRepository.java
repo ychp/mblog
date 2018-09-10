@@ -43,4 +43,13 @@ public class ArticleSummaryRepository extends BaseRepository<ArticleSummary, Lon
 	public List<ArticleSummary> popular(Integer size) {
 		return getSqlSession().selectList(sqlId("popular"), size);
 	}
+
+	public Boolean increaseComment(Long articleId) {
+		return getSqlSession().update(sqlId("increaseComment"), articleId) == 1;
+	}
+
+	public Boolean decreaseComment(Long articleId) {
+		return getSqlSession().update(sqlId("decreaseComment"), articleId) == 1;
+	}
+
 }

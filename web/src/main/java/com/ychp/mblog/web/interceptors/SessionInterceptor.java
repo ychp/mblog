@@ -64,6 +64,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                         return Lists.newArrayList(
                                 "/api/address/.*",
                                 "/api/article/.*",
+                                "/api/comment/.*",
                                 "/api/category/.*",
                                 "/api/label/.*",
                                 "/api/friend-link/visible",
