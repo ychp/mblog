@@ -14,6 +14,7 @@ import com.ychp.common.model.paging.Paging;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -95,7 +96,13 @@ public class CommentReadServiceImpl implements CommentReadService {
             List<Comment> oneLevel = paging.getDatas();
             List<Long> pids = oneLevel.stream().map(Comment::getId).collect(Collectors.toList());
             List<CommentWithChildrenInfo> result = Lists.newArrayList();
-            List<Comment> comments = commentRepository.findByPids(pids);
+            List<Comment> comments = Lists.newArrayList();
+
+            while (!CollectionUtils.isEmpty(pids)) {
+                List<Comment> tmpComment = commentRepository.findByPids(pids);
+                comments.addAll(tmpComment);
+                pids = tmpComment.stream().map(Comment::getId).collect(Collectors.toList());
+            }
 
             Map<Long,List<Comment>> commentsMap = Maps.newHashMap();
             List<Comment> commentList;
@@ -124,6 +131,25 @@ public class CommentReadServiceImpl implements CommentReadService {
             throw new ResponseException("comment.find.fail");
         }
 
+    }
+
+    @Override
+    public List<Comment> findByPid(Long pid) {
+        try {
+            List<Comment> comments = Lists.newArrayList();
+            List<Long> pids = Lists.newArrayList(pid);
+
+            while (!CollectionUtils.isEmpty(pids)) {
+                List<Comment> tmpComment = commentRepository.findByPids(pids);
+                comments.addAll(tmpComment);
+                pids = tmpComment.stream().map(Comment::getId).collect(Collectors.toList());
+            }
+
+            return comments;
+        } catch (Exception e){
+            log.error("find comment fail, pid = {}, error = {}", pid, Throwables.getStackTraceAsString(e));
+            throw new ResponseException("comment.find.fail");
+        }
     }
 
     @Override

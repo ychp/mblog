@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.CommentCriteria;
 import com.ychp.blog.bean.request.CommentRequest;
+import com.ychp.blog.bean.response.CommentWithChildrenInfo;
 import com.ychp.blog.enums.AimTypeEnum;
 import com.ychp.blog.enums.CommentStatusEnum;
 import com.ychp.blog.model.Article;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author yingchengpeng
@@ -113,6 +116,25 @@ public class BlogerComments {
         Comment comment = commentWriteService.updateStatus(id, CommentStatusEnum.HIDE.getValue());
         publisher.post(new ArticleCommentEvent(comment.getAimId(), comment.getPid()!= null, false));
         return true;
+    }
+
+    @ApiOperation("评价详情")
+    @GetMapping(value = "{id}/detail")
+    public CommentWithChildrenInfo detail(@PathVariable Long id){
+        Long userId = SessionContextUtils.getUserId();
+        Comment parent = commentReadService.findById(id);
+
+        List<Comment> comments = commentReadService.findByPid(id);
+        if(Objects.equals(parent.getOwnerId(), userId)) {
+            return new CommentWithChildrenInfo(parent, comments);
+        }
+
+        comments = comments.stream().filter(comment ->
+                (Objects.equals(comment.getStatus(), CommentStatusEnum.SHOW.getValue())
+                || Objects.equals(comment.getReplier(), userId))
+                && !Objects.equals(comment.getStatus(), CommentStatusEnum.DELETED.getValue()))
+                .collect(Collectors.toList());
+        return new CommentWithChildrenInfo(parent, comments);
     }
 
 }

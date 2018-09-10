@@ -36,6 +36,13 @@ public interface CommentReadService {
     Paging<CommentWithChildrenInfo> pagingCommentWithChildren(CommentCriteria criteria);
 
     /**
+     * 分页获取一个评论下的子节点
+     * @param pid 父节点id
+     * @return 评价数据
+     */
+    List<Comment> findByPid(Long pid);
+
+    /**
      * 分页获取一级评价
      * @param criteria 条件
      * @return 评价数据
