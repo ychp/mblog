@@ -215,7 +215,7 @@ public class CommentReadServiceImpl implements CommentReadService {
         if(children == null){
             return;
         }
-        children.sort((o1, o2) -> (int) (o2.getCreatedAt().getTime() - o1.getCreatedAt().getTime()));
+        children.sort((o1, o2) -> (int) (o1.getCreatedAt().getTime() - o2.getCreatedAt().getTime()));
     }
 
 }
