@@ -190,4 +190,13 @@ public class ArticleReadServiceImpl implements ArticleReadService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<Article> findByIds(List<Long> ids) {
+		try {
+			return articleRepository.findByIds(ids);
+		} catch (Exception e) {
+			throw new ResponseException("article.find.fail", e.getMessage(), e.getCause());
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package com.ychp.mblog.web.controller.bean.response.log;
 
+import com.ychp.blog.model.Article;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.user.model.DeviceInfo;
 import com.ychp.user.model.IpInfo;
@@ -21,6 +22,8 @@ public class LikeLogVO implements Serializable {
 	private static final long serialVersionUID = 5381667831309303712L;
 
 	private LikeLog log;
+
+	private Article article;
 
 	private IpInfo ipInfo;
 

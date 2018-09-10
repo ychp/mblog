@@ -68,7 +68,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                                 "/api/label/.*",
                                 "/api/friend-link/visible",
                                 "/api/see-log",
-                                "/api/like-log/.*",
                                 "/api/file/.*",
                                 "/api/user/captcha",
                                 "/api/user/register",

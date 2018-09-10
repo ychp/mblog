@@ -7,12 +7,11 @@
 <mapper namespace="LikeLog">
     <resultMap id="LikeLogMap" type="LikeLog">
         <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
         <result column="type" property="type"/>
         <result column="aim_id" property="aimId"/>
         <result column="ip" property="ip"/>
         <result column="device_id" property="deviceId"/>
-        <result column="url" property="url"/>
-        <result column="uri" property="uri"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
         
@@ -27,22 +26,20 @@
     </sql>
 
     <sql id="cols_exclude_id">
-        `type`, `aim_id`, `ip`, `device_id`, `url`, `uri`, `created_at`, `updated_at` 
+        `userId`, `type`, `aim_id`, `ip`, `device_id`, `created_at`, `updated_at`
     </sql>
 
     <sql id="vals">
-         #{type}, #{aimId}, #{ip}, #{deviceId}, #{url}, #{uri}, now(), now()
+         #{userId}, #{type}, #{aimId}, #{ip}, #{deviceId}, now(), now()
     </sql>
 
     <sql id="criteria">
         <where>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
             <if test="type != null">AND `type` = #{type}</if>
             <if test="aimId != null">AND `aim_id` = #{aimId}</if>
             <if test="ip != null">AND `ip` = #{ip}</if>
             <if test="deviceId != null">AND `device_id` = #{deviceId}</if>
-            <if test="url != null">AND `url` = #{url}</if>
-            <if test="uri != null">AND `uri` = #{uri}</if>
-
         </where>
     </sql>
 
@@ -89,6 +86,14 @@
         FROM
         <include refid="tb"/>
         WHERE `ip` = #{ip} AND `type` = #{type} AND `aim_id` = #{aimId}
+    </select>
+
+    <select id="findByAimAndUserId" parameterType="map" resultMap="LikeLogMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+        WHERE `user_id` = #{userId} AND `type` = #{type} AND `aim_id` = #{aimId}
     </select>
 
 </mapper>

@@ -16,4 +16,9 @@ public class LikeLogRepository extends BaseRepository<LikeLog, Long> {
 		return getSqlSession().selectOne(sqlId("findByAimAndIp"),
 				ImmutableMap.of("aimId", aimId, "type", type, "ip", ip));
 	}
+
+	public LikeLog findByAimAndUserId(Long aimId, Integer type, Long userId) {
+		return getSqlSession().selectOne(sqlId("findByAimAndUserId"),
+				ImmutableMap.of("aimId", aimId, "type", type, "userId", userId));
+	}
 }

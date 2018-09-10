@@ -11,8 +11,8 @@ insert blog_new.sky_user_profile(user_id,home_page,avatar,created_at,updated_at)
 select id,home_page,header,created_at,updated_at from blog.users;
 
 -- 文章
-insert blog_new.sky_article(`id`, `title`, `category_id`, `category_name`, `image`, `synopsis`, `user_id`, `author`, `visible`, `deleted`, `publish_at`, `created_at`, `updated_at`)
-select `id`, `title`, `category_id`, `category_name`, null as `image`, `synopsis`, `user_id`, `author`, 1 as `visible`, 0 as `deleted`, `created_at`, `created_at`, `updated_at` from blog.blogs;
+insert blog_new.sky_article(`id`, `title`, `category_id`, `category_name`, `image`, `synopsis`, `user_id`, `author`, `status`, `publish_at`, `created_at`, `updated_at`)
+select `id`, `title`, `category_id`, `category_name`, null as `image`, `synopsis`, `user_id`, `author`, 1 as `status`, `created_at`, `created_at`, `updated_at` from blog.blogs;
 
 -- 文章详情
 insert blog_new.sky_article_detail(`article_id`, `is_markdown`, `content`, `created_at`, `updated_at`)
@@ -33,8 +33,8 @@ select `os`, `browser`, `browser_version`, `device`, min(`created_at`), min(`upd
 from blog.see_logs where os is not null group by `os`, `browser`, `browser_version`, `device`;
 
 -- 点赞记录
-insert blog_new.sky_like_log(`id`, `type`, `aim_id`, `ip`, `device_id`, `url`, `uri`, `created_at`, `updated_at`)
-select ll.`id`, `type`, `aim_id`, `ip`, di.id, `url`, `uri`, ll.`created_at`, ll.`updated_at`
+insert blog_new.sky_like_log(`id`, `user_id`, `type`, `aim_id`, `ip`, `device_id`, `created_at`, `updated_at`)
+select ll.`id`, 1 as `user_id`, `type`, `aim_id`, `ip`, di.id, ll.`created_at`, ll.`updated_at`
 from blog.like_logs as ll left join blog_new.`sky_device_info` di
 on ll.os = di.os and ll.browser = di.browser and ll.browser_version = di.browser_version and ll.device = di.device;
 

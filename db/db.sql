@@ -183,12 +183,11 @@ DROP TABLE IF EXISTS `sky_like_log`;
 
 CREATE TABLE IF NOT EXISTS `sky_like_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
   `type` int(4) DEFAULT NULL COMMENT '类型:1.文章,2.说说,3.照片',
   `aim_id` bigint(20) DEFAULT NULL COMMENT '目标id',
   `ip` varchar(32) DEFAULT NULL COMMENT 'ip地址',
   `device_id` bigint(20) DEFAULT NULL COMMENT '设备id',
-  `url` varchar(256) DEFAULT NULL COMMENT '访问页面',
-  `uri` varchar(256) DEFAULT NULL COMMENT '请求',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

@@ -30,6 +30,15 @@ public class LikeLogReadServiceImpl implements LikeLogReadService {
     }
 
     @Override
+    public LikeLog findByAimAndUserId(Long aimId, Integer type, Long userId) {
+        try {
+            return likeLogRepository.findByAimAndUserId(aimId, type, userId);
+        } catch (Exception e) {
+            throw new ResponseException("like.log.find.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
     public Paging<LikeLog> paging(LikeLogCriteria criteria) {
         try {
             return likeLogRepository.paging(criteria.toMap());

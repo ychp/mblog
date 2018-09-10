@@ -3,6 +3,7 @@ package com.ychp.blog.service;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.bean.query.ArticleCriteria;
+import com.ychp.blog.model.Article;
 import com.ychp.blog.model.ArticleSummary;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
@@ -61,5 +62,12 @@ public interface ArticleReadService {
      * @return 分页结果
      */
     List<ArticleBaseInfoVO> popular(Integer size);
+
+    /**
+     * 根据id集合获取文章
+     * @param ids id集合
+     * @return 文章集合
+     */
+    List<Article> findByIds(List<Long> ids);
 
 }
