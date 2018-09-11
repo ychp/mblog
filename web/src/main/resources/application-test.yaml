@@ -64,5 +64,5 @@ es:
   timeout: 10
 
 search:
-  article-index: articles_dev
-  article-type: article_dev
+  article-index: dArticles
+  article-type: article
