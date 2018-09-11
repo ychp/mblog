@@ -158,6 +158,7 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		ArticleCriteria criteria = new ArticleCriteria();
 		criteria.setPageSize(20);
 		criteria.setPageNo(pageNo);
+
 		Map<String, Object> dateMap = Maps.newHashMap();
 		dateMap.put("publishAtStart", new DateTime().minusMinutes(deltaMin).toDate());
 		dateMap.put("publishAtEnd", new Date());
@@ -188,9 +189,7 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 
 	private void dump(List<Article> articles) {
 		for(Article article : articles) {
-			Boolean invalid = Objects.equals(article.getStatus(), ArticleStatusEnum.PRIVATE.getValue())
-					|| Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue());
-			if(invalid) {
+			if(Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue())) {
 				index(article);
 			} else {
 				remove(article.getId());

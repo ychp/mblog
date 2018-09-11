@@ -3,6 +3,7 @@ package com.ychp.blog.impl.server.service;
 import com.google.common.base.Throwables;
 import com.ychp.blog.bean.request.ArticleCreateRequest;
 import com.ychp.blog.bean.request.ArticleUpdateRequest;
+import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.impl.server.converter.ArticleConverter;
 import com.ychp.blog.impl.server.manager.ArticleManager;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
@@ -43,6 +44,9 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 			article.setCategoryName(category.getName());
 			ArticleDetail detail = request.getDetail();
 			ArticleConverter.parse(article, detail);
+			if(article.getStatus() == null) {
+				article.setStatus(ArticleStatusEnum.PRIVATE.getValue());
+			}
 			return articleManager.create(article, detail);
 		} catch (ResponseException e) {
 			log.error("fail to create article = {}, case {}", request, Throwables.getStackTraceAsString(e));
