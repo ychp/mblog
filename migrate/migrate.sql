@@ -34,7 +34,7 @@ from blog.see_logs where os is not null group by `os`, `browser`, `browser_versi
 
 -- 点赞记录
 insert blog_new.sky_like_log(`id`, `user_id`, `type`, `aim_id`, `ip`, `device_id`, `created_at`, `updated_at`)
-select ll.`id`, 1 as `user_id`, `type`, `aim_id`, `ip`, di.id, ll.`created_at`, ll.`updated_at`
+select ll.`id`, 2 as `user_id`, `type`, `aim_id`, `ip`, di.id, ll.`created_at`, ll.`updated_at`
 from blog.like_logs as ll left join blog_new.`sky_device_info` di
 on ll.os = di.os and ll.browser = di.browser and ll.browser_version = di.browser_version and ll.device = di.device;
 
@@ -46,4 +46,4 @@ on sl.os = di.os and sl.browser = di.browser and sl.browser_version = di.browser
 
 -- 评价记录
 INSERT INTO `blog_new`.`sky_comment` (`id`, `owner_id`, `pid`, `level`, `type`, `aim_id`, `replier`, `replier_name`, `replier_avatar`, `receiver`, `receiver_name`, `content`, `status`, `created_at`, `updated_at`)
-select `id`, 1 as `owner_id`, `pid`, `level`, `type`, `aim_id`, `replyer`, `replyer_name`, `replyer_header`, `receiver`, `receiver_name`, `content`, `status`, `created_at`, `updated_at` from `blog`.`comments`;
+select `id`, 2 as `owner_id`, `pid`, `level`, `type`, `aim_id`, `replyer`, `replyer_name`, `replyer_header`, `receiver`, `receiver_name`, `content`, `status`, `created_at`, `updated_at` from `blog`.`comments`;
