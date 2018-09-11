@@ -3,8 +3,6 @@ package com.ychp.mblog.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Profile({"dev", "test"})
 @EnableSwagger2
 @Configuration
-public class SwaggerConfiguration extends WebMvcConfigurationSupport {
+public class SwaggerConfiguration {
 
     @Bean
     public Docket createRestApi() {
@@ -43,15 +41,6 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
                 //描述
                 .description("API 描述")
                 .build();
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }
