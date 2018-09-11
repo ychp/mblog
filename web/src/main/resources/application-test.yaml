@@ -64,5 +64,5 @@ es:
   timeout: 10
 
 search:
-  article-index: dArticles
+  article-index: testarticles
   article-type: article
