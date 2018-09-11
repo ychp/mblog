@@ -24,7 +24,7 @@ import java.util.List;
 @ComponentScan
 @Configuration
 @EnableConfigurationProperties(EsProperties.class)
-public class EsAutoconfiguration {
+public class EsAutoConfiguration {
 
 	@Autowired
 	private EsProperties esProperties;

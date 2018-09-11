@@ -6,7 +6,6 @@ import com.google.common.base.Throwables;
 import com.google.common.collect.Maps;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.enums.ArticleStatusEnum;
-import com.ychp.blog.impl.server.constant.ArticleSearchConstants;
 import com.ychp.blog.impl.server.repository.ArticleDetailRepository;
 import com.ychp.blog.impl.server.repository.ArticleRepository;
 import com.ychp.blog.model.Article;
@@ -90,8 +89,8 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		IndexArticle indexArticle = new IndexArticle(article, articleDetail);
 
 		IndexDocRequest request = new IndexDocRequest();
-		request.setIndex(ArticleSearchConstants.SEARCH_INDEX);
-		request.setType(ArticleSearchConstants.SEARCH_TYPE);
+		request.setIndex(searchInitializer.getArticleIndex());
+		request.setType(searchInitializer.getArticleType());
 		request.setId(articleId.toString());
 		try {
 			request.setDocument(objectMapper.writeValueAsString(indexArticle));
@@ -111,8 +110,8 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 	@Override
 	public void remove(Long articleId) {
 		DocumentDeleteRequest request = new DocumentDeleteRequest();
-		request.setIndex(ArticleSearchConstants.SEARCH_INDEX);
-		request.setType(ArticleSearchConstants.SEARCH_TYPE);
+		request.setIndex(searchInitializer.getArticleIndex());
+		request.setType(searchInitializer.getArticleType());
 		request.setId(articleId.toString());
 
 		try {

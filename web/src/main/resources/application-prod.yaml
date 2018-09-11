@@ -62,3 +62,7 @@ es:
   port: ${ES_PORT:9300}
   cluster-name: ${ES_CLUSTER_NAME:ychp}
   timeout: 10
+
+search:
+  article-index: articles
+  article-type: article

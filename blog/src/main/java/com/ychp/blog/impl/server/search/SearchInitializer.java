@@ -1,14 +1,14 @@
 package com.ychp.blog.impl.server.search;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Throwables;
 import com.ychp.es.bean.request.IndexTypeRequest;
 import com.ychp.es.client.EsClient;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 /**
@@ -16,36 +16,51 @@ import java.util.Map;
  * @date 2018/8/17
  */
 @Slf4j
-@Component
 public class SearchInitializer {
 
-	@Autowired(required = false)
-	private EsClient client;
+	private final EsClient client;
 
-	@Autowired
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-	public void initIndices() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("search/article.json")));
+	@Getter
+	private final String articleIndex;
 
-		StringBuilder stringBuffer = new StringBuilder();
-		String tmp = reader.readLine();
-		while (tmp != null) {
-			stringBuffer.append(tmp);
-			tmp = reader.readLine();
-		}
+	@Getter
+	private final String articleType;
 
-		IndexTypeRequest request = new IndexTypeRequest();
-		request.setIndex("articles");
-		request.setType("article");
-		request.setMapping(stringBuffer.toString());
-		Boolean result = client.createType(request);
-		if(result) {
-			Map map = objectMapper.readValue(request.getMapping(), Map.class);
-			log.info("init type success, \n {}",
-					objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map));
+	public SearchInitializer(String articleIndex, String articleType, ObjectMapper objectMapper, EsClient client) {
+		this.articleIndex = articleIndex;
+		this.articleType = articleType;
+		this.objectMapper = objectMapper;
+		this.client = client;
+		this.initIndices();
+	}
 
+	public void initIndices() {
+		try {
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("search/article.json")));
+
+			StringBuilder stringBuffer = new StringBuilder();
+			String tmp = reader.readLine();
+			while (tmp != null) {
+				stringBuffer.append(tmp);
+				tmp = reader.readLine();
+			}
+
+			IndexTypeRequest request = new IndexTypeRequest();
+			request.setIndex(articleIndex);
+			request.setType(articleType);
+			request.setMapping(stringBuffer.toString());
+			Boolean result = client.createType(request);
+			if(result) {
+				Map map = objectMapper.readValue(request.getMapping(), Map.class);
+				log.info("init type success, \n {}",
+						objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map));
+
+			}
+		} catch (Exception e) {
+			log.error("fail to connect es, case {}", Throwables.getStackTraceAsString(e));
 		}
 	}
 

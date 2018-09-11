@@ -41,10 +41,14 @@ public class ArticleSearchReadServiceImpl implements ArticleSearchReadService {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private ArticleSummaryRepository articleSummaryRepository;
+	@Autowired
+	private SearchInitializer searchInitializer;
 
 	@Override
 	public SearchWithAggsVO search(ArticleSearchCriteria criteria) {
 		QueryRequest request = ArticleSearchRequestConverter.buildRequest(criteria);
+		request.setIndex(searchInitializer.getArticleIndex());
+		request.setType(searchInitializer.getArticleType());
 		SearchResponse response = esClient.query(request);
 
 		SearchWithAggsVO searchWithAggsVO = new SearchWithAggsVO();

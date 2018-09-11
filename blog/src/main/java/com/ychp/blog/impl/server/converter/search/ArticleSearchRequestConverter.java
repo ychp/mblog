@@ -1,7 +1,6 @@
 package com.ychp.blog.impl.server.converter.search;
 
 import com.google.common.collect.Lists;
-import com.ychp.blog.impl.server.constant.ArticleSearchConstants;
 import com.ychp.blog.search.bean.query.ArticleSearchCriteria;
 import com.ychp.common.util.DateUtils;
 import com.ychp.es.bean.request.QueryRequest;
@@ -19,8 +18,6 @@ public class ArticleSearchRequestConverter {
 
 	public static QueryRequest buildRequest(ArticleSearchCriteria criteria) {
 		QueryRequest request = new QueryRequest();
-		request.setIndex(ArticleSearchConstants.SEARCH_INDEX);
-		request.setType(ArticleSearchConstants.SEARCH_TYPE);
 
 		fillTerms(request, criteria);
 		fillFilters(request, criteria);
