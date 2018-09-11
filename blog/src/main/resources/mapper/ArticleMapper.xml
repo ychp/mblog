@@ -148,6 +148,9 @@
               DISTINCT DATE_FORMAT(`publish_at`,'%Y-%m-%d') as `publish_date`
             FROM
             <include refid="tb"/>
+            <where>
+                `status` = 1
+            </where>
             GROUP BY  `publish_date`
         ) AS tmp
         ORDER BY `publish_date` DESC LIMIT #{offset}, #{limit}

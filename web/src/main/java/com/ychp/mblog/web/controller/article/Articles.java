@@ -6,6 +6,7 @@ import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.bean.response.ArticleDetailVO;
 import com.ychp.blog.cache.ArticleCacher;
 import com.ychp.blog.enums.AimTypeEnum;
+import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.model.ArticleSummary;
 import com.ychp.blog.model.LikeLog;
 import com.ychp.blog.service.ArticleReadService;
@@ -63,7 +64,7 @@ public class Articles {
     @ApiOperation("文章分页接口")
     @GetMapping("paging")
     public Paging<ArticleBaseInfoVO> paging(ArticleCriteria criteria) {
-        criteria.setVisible(true);
+        criteria.setStatus(ArticleStatusEnum.PUBLIC.getValue());
         return articleReadService.paging(criteria);
     }
 
