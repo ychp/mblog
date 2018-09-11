@@ -66,8 +66,8 @@ else
     echo "请输入es集群名称:"
     read es_cluster_name
 
-    echo '-e ES_HOST='${es_host}' \' >> ~/blog.sh
-    echo '-e ES_PORT='${es_port}' \' >> ~/blog.sh
+    echo '-e ES_HOST='${es_host}' \' >> ~/blog-dev.sh
+    echo '-e ES_PORT='${es_port}' \' >> ~/blog-dev.sh
     echo '-e ES_CLUSTER_NAME='${es_cluster_name}' \' >> ~/blog-dev.sh
 
     echo "请输入对象存储服务类型:"
