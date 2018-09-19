@@ -9,9 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2018-09-11
  */
 @Data
 @NoArgsConstructor
@@ -21,6 +20,7 @@ public class Paging<T> implements Serializable {
     private static final long serialVersionUID = 6012920402624009621L;
 
     private Long total;
+
     private List<T> datas;
 
     public Boolean isEmpty() {

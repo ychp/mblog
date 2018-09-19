@@ -66,3 +66,13 @@ es:
 search:
   article-index: testarticles
   article-type: article
+
+mail:
+  smtp: smtp.qq.com
+  useSSL: true
+  port: 587
+  address: ychp@yingchengpeng.com
+  user: ychp@yingchengpeng.com
+  password: yvdtkyuuratwbdge
+  receiver: ychp0117@sina.com
+  isUsed: true

@@ -1,6 +1,6 @@
 -- 类目
-insert blog_new.sky_category(id,name,created_at,updated_at)
-select id,name,created_at,updated_at from blog.categories;
+insert blog_new.sky_category(id,user_id,name,created_at,updated_at)
+select id,2 as user_id,name,created_at,updated_at from blog.categories;
 
 -- 用户
 insert blog_new.sky_user(id,name,nick_name,mobile,email,password,salt,status,created_at,updated_at)
@@ -24,8 +24,9 @@ select `id`, `popular`, `like`, 0 as `favorite`, `comments`, 1 AS `is_valid`, `c
 
 -- ip地址信息
 INSERT INTO blog_new.`sky_ip_info` (`ip`, `country`, `province`, `city`, `created_at`, `updated_at`)
-select `ip`, case when `province` like '%市' or `province` like '%省' or `province` like '%区' then '中国' else `province` end, `province`, `city`, min(`created_at`), min(`updated_at`)
-from blog.see_logs group by `ip`, `province`, `city`;
+select `ip`, case when `province` like '%市' or `province` like '%省' or `province` like '%区' then '中国' else `province` end, `province`, `city`, `created_at`, `updated_at`
+from (select `ip`, min(`province`) as `province`, min(`city`) as `city`, min(`created_at`) as `created_at`, min(`updated_at`) as `updated_at`
+from blog.see_logs group by `ip`) tmp;
 
 -- 设备信息
 INSERT INTO blog_new.`sky_device_info` (`os`, `browser`, `browser_version`, `device`, `created_at`, `updated_at`)

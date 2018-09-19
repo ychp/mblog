@@ -7,9 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/28
+ * @author yingchengpeng
+ * @date 2017/8/28
  */
 @Data
 @ConfigurationProperties(prefix = EmailProperties.EMAIL_PREFIX)
