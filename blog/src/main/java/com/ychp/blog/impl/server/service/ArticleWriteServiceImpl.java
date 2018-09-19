@@ -45,7 +45,7 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
 			ArticleDetail detail = request.getDetail();
 			ArticleConverter.parse(article, detail);
 			if(article.getStatus() == null) {
-				article.setStatus(ArticleStatusEnum.PRIVATE.getValue());
+				article.setStatus(ArticleStatusEnum.PUBLIC.getValue());
 			}
 			return articleManager.create(article, detail);
 		} catch (ResponseException e) {

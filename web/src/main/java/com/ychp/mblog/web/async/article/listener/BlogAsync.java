@@ -2,8 +2,10 @@ package com.ychp.mblog.web.async.article.listener;
 
 import com.ychp.async.annontation.AsyncBean;
 import com.ychp.async.annontation.AsyncSubscriber;
+import com.ychp.blog.search.ArticleSearchWriteService;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.mblog.web.async.article.ArticleCommentEvent;
+import com.ychp.mblog.web.async.article.ArticleSyncSearchEvent;
 import com.ychp.mblog.web.async.article.ArticleVisitEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class BlogAsync {
 
 	@Autowired
 	private ArticleWriteService articleWriteService;
+
+	@Autowired
+	private ArticleSearchWriteService articleSearchWriteService;
 
 	@AsyncSubscriber
 	public void visit(ArticleVisitEvent articleVisitEvent) {
@@ -34,5 +39,10 @@ public class BlogAsync {
 		} else {
 			articleWriteService.decreaseComment(articleCommentEvent.getId());
 		}
+	}
+
+	@AsyncSubscriber
+	public void dump(ArticleSyncSearchEvent articleSyncSearchEvent) {
+		articleSearchWriteService.dumpOne(articleSyncSearchEvent.getId());
 	}
 }

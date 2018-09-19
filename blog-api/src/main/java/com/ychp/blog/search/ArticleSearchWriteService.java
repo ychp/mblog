@@ -29,4 +29,10 @@ public interface ArticleSearchWriteService {
 	 */
 	void deltaDump(Integer deltaMin);
 
+	/**
+	 * 同步一条数据
+	 * @param id
+	 */
+	void dumpOne(Long id);
+
 }

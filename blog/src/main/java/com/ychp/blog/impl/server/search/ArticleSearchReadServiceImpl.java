@@ -79,7 +79,11 @@ public class ArticleSearchReadServiceImpl implements ArticleSearchReadService {
 		List<Long> articleIds = datas.stream().map(ArticleSearchVO::getId).collect(Collectors.toList());
 		List<ArticleSummary> summaries;
 		try {
-			summaries = articleSummaryRepository.findByArticleIds(articleIds);
+			if(articleIds.isEmpty()) {
+				summaries = Lists.newArrayListWithCapacity(0);
+			} else {
+				summaries = articleSummaryRepository.findByArticleIds(articleIds);
+			}
 		} catch (Exception e) {
 			throw new ResponseException("article.summary.find.fail", e.getMessage(), e.getCause());
 		}

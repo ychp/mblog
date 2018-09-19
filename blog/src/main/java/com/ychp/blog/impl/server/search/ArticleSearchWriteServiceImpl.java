@@ -186,6 +186,16 @@ public class ArticleSearchWriteServiceImpl implements ArticleSearchWriteService 
 		}
 	}
 
+	@Override
+	public void dumpOne(Long id) {
+		Article article = articleRepository.findById(id);
+		if(Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue())) {
+			index(article);
+		} else {
+			remove(article.getId());
+		}
+	}
+
 	private void dump(List<Article> articles) {
 		for(Article article : articles) {
 			if(Objects.equals(article.getStatus(), ArticleStatusEnum.PUBLIC.getValue())) {

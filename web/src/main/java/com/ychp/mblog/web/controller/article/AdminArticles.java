@@ -1,11 +1,13 @@
 package com.ychp.mblog.web.controller.article;
 
+import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.ArticleCriteria;
 import com.ychp.blog.bean.response.ArticleBaseInfoVO;
 import com.ychp.blog.enums.ArticleStatusEnum;
 import com.ychp.blog.service.ArticleReadService;
 import com.ychp.blog.service.ArticleWriteService;
 import com.ychp.common.model.paging.Paging;
+import com.ychp.mblog.web.async.article.ArticleSyncSearchEvent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class AdminArticles {
     @Autowired
     private ArticleWriteService articleWriteService;
 
+    @Autowired
+    private AsyncPublisher publisher;
+
     @ApiOperation("文章分页接口")
     @GetMapping("paging")
     public Paging<ArticleBaseInfoVO> paging(ArticleCriteria criteria) {
@@ -35,13 +40,17 @@ public class AdminArticles {
     @ApiOperation("撤下文章接口")
     @PutMapping("{id}/frozen")
     public Boolean frozen(@PathVariable Long id) {
-        return articleWriteService.updateStatus(id, ArticleStatusEnum.FROZEN.getValue());
+        Boolean result = articleWriteService.updateStatus(id, ArticleStatusEnum.FROZEN.getValue());
+        publisher.post(new ArticleSyncSearchEvent(id));
+        return result;
     }
 
     @ApiOperation("恢复文章接口")
     @PutMapping("{id}/unfrozen")
     public Boolean unfrozen(@PathVariable Long id) {
-        return articleWriteService.updateStatus(id, ArticleStatusEnum.PRIVATE.getValue());
+        Boolean result = articleWriteService.updateStatus(id, ArticleStatusEnum.PUBLIC.getValue());
+        publisher.post(new ArticleSyncSearchEvent(id));
+        return result;
     }
 
 }
