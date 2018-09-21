@@ -1,0 +1,47 @@
+{
+  "article": {
+    "_all": {
+      "enabled": false
+    },
+    "properties": {
+      "id": {
+        "type": "text"
+      },
+      "title": {
+        "type": "text",
+        "index_options": "offsets"
+      },
+      "userId": {
+        "type": "long"
+      },
+      "author": {
+        "type": "text"
+      },
+      "categoryId": {
+        "type": "long"
+      },
+      "categoryName": {
+        "type": "keyword"
+      },
+      "image": {
+        "type": "text"
+      },
+      "synopsis": {
+        "type": "text",
+        "index_options": "offsets"
+      },
+      "content": {
+        "type": "text",
+        "index_options": "offsets"
+      },
+      "publishAt": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "publishDate": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      }
+    }
+  }
+}

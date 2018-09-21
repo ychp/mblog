@@ -1,23 +1,14 @@
-/*
-+--------------------------------------------------------------------------
-|   Mblog [#RELEASE_VERSION#]
-|   ========================================
-|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
-|   http://www.mtons.com
-|
-+---------------------------------------------------------------------------
-*/
 package com.ychp.msg.email.impl;
 
 import com.google.common.base.Throwables;
-import com.ychp.common.exception.InvalidException;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.ychp.code.builder.Builder;
 import com.ychp.common.exception.ResponseException;
-import com.ychp.common.handlebar.Builder;
+import com.ychp.common.util.ParameterChecker;
 import com.ychp.msg.email.EmailSender;
 import com.ychp.msg.email.dto.EmailTemplateDto;
 import com.ychp.msg.email.properties.EmailProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -28,15 +19,22 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * @author langhsu on 2015/8/14.
+ * @author yingchengpeng
+ * @date 2018-09-11
  */
 @Slf4j
 public class DefaultEmailSender implements EmailSender {
 
     private final Builder builder;
+    private ExecutorService executor;
+    private boolean inited = false;
 
     @Autowired
     public DefaultEmailSender(EmailProperties properties, Builder builder) {
@@ -49,7 +47,6 @@ public class DefaultEmailSender implements EmailSender {
         }
         this.builder = builder;
     }
-    private boolean inited = false;
 
     @PostConstruct
     public void init() {
@@ -58,17 +55,9 @@ public class DefaultEmailSender implements EmailSender {
             return;
         }
 
-        if(StringUtils.isEmpty(host)) {
-            throw new InvalidException("email.init.fail", "host", host);
-        }
-
-        if(StringUtils.isEmpty(userName)) {
-            throw new InvalidException("email.init.fail", "userName", userName);
-        }
-
-        if(StringUtils.isEmpty(password)) {
-            throw new InvalidException("email.init.fail", "password", password);
-        }
+        ParameterChecker.notNull(host,"host", "email.init.fail");
+        ParameterChecker.notNull(userName,"userName", "email.init.fail");
+        ParameterChecker.notNull(password,"password", "email.init.fail");
 
         sender = new JavaMailSenderImpl();
         sender.setHost(host);
@@ -84,13 +73,18 @@ public class DefaultEmailSender implements EmailSender {
 
         // 标记加载完毕
         inited = true;
+        executor = new ThreadPoolExecutor(10, 1000, 10, TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(50),
+                new ThreadFactoryBuilder().setNameFormat("email-sender").build());
     }
 
     private String host;
     private String userName;
     private String password;
     private Map<String, EmailTemplateDto> templateDtos;
-    // 发送器
+    /**
+     * 发送器
+     */
     private JavaMailSenderImpl sender;
 
     @Override
@@ -99,14 +93,14 @@ public class DefaultEmailSender implements EmailSender {
         if(emailTemplate == null) {
             throw new ResponseException("email.template.not.exists");
         }
-        final String content = builder.build(emailTemplate.getContent(), params, null, false, false);
-        sendText(address, emailTemplate.getTitle(), content, false);
+        final List<String> contents = builder.build(emailTemplate.getContent(), null, null, params, false, false);
+        sendText(address, emailTemplate.getTitle(), contents.get(0), false);
     }
 
     @Override
     public void sendTemplate(String address, String subject, String template, Map<String, Object> params) {
-        final String html = builder.build(template, params, null, false, false);
-        sendText(address, subject, html, true);
+        final List<String> htmls = builder.build(template, null, null, params, false, false);
+        sendText(address, subject, htmls.get(0), true);
     }
 
     private EmailTemplateDto getTemplate(String templateKey) {
@@ -124,14 +118,12 @@ public class DefaultEmailSender implements EmailSender {
             message.setTo(address);
             message.setText(content, html);
 
-            new Thread(() -> sender.send(msg)).start();
+            executor.execute(() -> sender.send(msg));
 
         } catch (Exception e) {
             log.warn("send email fail, address = {}, subject = {}, content = {}, case {}",
                     address, subject, content, Throwables.getStackTraceAsString(e));
         }
     }
-
-
 
 }

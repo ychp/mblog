@@ -3,9 +3,8 @@ package com.ychp.common.exception;
 import lombok.Getter;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2018-08-10
  */
 public class ResponseException extends RuntimeException {
 
@@ -18,6 +17,10 @@ public class ResponseException extends RuntimeException {
 
     public ResponseException(String errorCode) {
         this(errorCode, 500, errorCode);
+    }
+
+    public ResponseException(Integer status, String errorCode) {
+        this(errorCode, status, errorCode);
     }
 
     public ResponseException(String errorCode, String message) {
