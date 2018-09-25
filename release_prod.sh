@@ -25,13 +25,7 @@ else
     echo '  docker rm $pid' >> ~/blog.sh
     echo '  rm /var/run/blog-api.pid' >> ~/blog.sh
     echo 'fi;' >> ~/blog.sh
-    echo 'pid=`docker run -p 8100:8100 -v /var/log/blog_new:/var/log/blog \' >> ~/blog.sh
-
-    echo "请输入数据库连接:"
-    read mysql_host
-
-    echo "请输入数据库端口:"
-    read mysql_port
+    echo 'pid=`docker run -p 8100:8100 -v /var/log/blog_new:/var/log/blog --link mysql:mysql --link redis:redis --name blog \' >> ~/blog.sh
 
     echo "请输入数据库名称:"
     read mysql_database
@@ -39,22 +33,17 @@ else
     echo "请输入数据库密码:"
     read mysql_password
 
-    echo '-e MYSQL_HOST='${mysql_host}' \' >> ~/blog.sh
-    echo '-e MYSQL_PORT='${mysql_port}' \' >> ~/blog.sh
+    echo '-e MYSQL_HOST=mysql \' >> ~/blog.sh
+    echo '-e MYSQL_PORT=3306 \' >> ~/blog.sh
+    echo '-e MYSQL_NAME=root \' >> ~/blog.sh
     echo '-e MYSQL_DATABASE='${mysql_database}' \' >> ~/blog.sh
     echo '-e MYSQL_PASSWORD='${mysql_password}' \' >> ~/blog.sh
-
-    echo "请输入redis链接:"
-    read redis_host
-
-    echo "请输入redis端口:"
-    read redis_port
 
     echo "请输入redis密码:"
     read redis_password
 
-    echo '-e REDIS_HOST='${redis_host}' \' >> ~/blog.sh
-    echo '-e REDIS_PORT='${redis_port}' \' >> ~/blog.sh
+    echo '-e REDIS_HOST=redis \' >> ~/blog.sh
+    echo '-e REDIS_PORT=6379 \' >> ~/blog.sh
     echo '-e REDIS_AUTH='${redis_password}' \' >> ~/blog.sh
 
     echo "请输入es链接:"
