@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.article;
+package com.ychp.mblog.web.controller.blog;
 
 import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.blog.bean.query.ArticleCriteria;

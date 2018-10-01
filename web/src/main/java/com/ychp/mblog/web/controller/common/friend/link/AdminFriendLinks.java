@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.friend.link;
+package com.ychp.mblog.web.controller.common.friend.link;
 
 import com.ychp.common.model.paging.Paging;
 import com.ychp.cache.annontation.DataInvalidCache;

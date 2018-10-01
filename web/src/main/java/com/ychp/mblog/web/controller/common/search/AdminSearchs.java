@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.search;
+package com.ychp.mblog.web.controller.common.search;
 
 import com.ychp.blog.search.ArticleSearchWriteService;
 import io.swagger.annotations.Api;

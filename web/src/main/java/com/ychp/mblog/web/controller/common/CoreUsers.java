@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.user;
+package com.ychp.mblog.web.controller.common;
 
 import com.ychp.async.publisher.AsyncPublisher;
 import com.ychp.common.captcha.CaptchaGenerator;

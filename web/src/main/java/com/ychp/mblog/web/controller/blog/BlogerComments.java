@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.article;
+package com.ychp.mblog.web.controller.blog;
 
 import com.google.common.base.MoreObjects;
 import com.ychp.async.publisher.AsyncPublisher;

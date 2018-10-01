@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.file;
+package com.ychp.mblog.web.controller.common.file;
 
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.util.SessionContextUtils;

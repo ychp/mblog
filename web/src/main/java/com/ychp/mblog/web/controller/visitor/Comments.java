@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.article;
+package com.ychp.mblog.web.controller.visitor;
 
 import com.ychp.blog.bean.query.CommentCriteria;
 import com.ychp.blog.bean.response.CommentWithChildrenInfo;

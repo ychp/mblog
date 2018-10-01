@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.log;
+package com.ychp.mblog.web.controller.admin;
 
 import com.ychp.common.model.paging.Paging;
 import com.ychp.user.api.bean.query.SeeLogCriteria;

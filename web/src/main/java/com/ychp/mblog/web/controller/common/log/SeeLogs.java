@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.log;
+package com.ychp.mblog.web.controller.common.log;
 
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.controller.bean.LogConverter;

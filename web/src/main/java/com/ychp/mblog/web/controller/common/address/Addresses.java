@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.address;
+package com.ychp.mblog.web.controller.common.address;
 
 import com.ychp.user.cache.AddressCacher;
 import com.ychp.user.model.Address;

@@ -1,4 +1,4 @@
-package com.ychp.mblog.web.controller.log;
+package com.ychp.mblog.web.controller.blog;
 
 import com.google.common.collect.Lists;
 import com.ychp.async.publisher.AsyncPublisher;
