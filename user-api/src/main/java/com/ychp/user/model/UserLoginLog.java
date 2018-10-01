@@ -21,25 +21,16 @@ public class UserLoginLog implements Serializable {
 
     private static final long serialVersionUID = -8933676789498260924L;
 
-    /**
-     * 主键
-     */
     @Getter
     @Setter
     @ApiModelProperty("主键")
     private Long id;
 
-    /**
-     * 用户ID
-     */
     @Getter
     @Setter
     @ApiModelProperty("用户ID")
     private Long userId;
 
-    /**
-     * ip地址
-     */
     @Getter
     @Setter
     @ApiModelProperty("ip地址")

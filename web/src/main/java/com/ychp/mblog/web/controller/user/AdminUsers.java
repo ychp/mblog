@@ -1,15 +1,15 @@
 package com.ychp.mblog.web.controller.user;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.user.bean.query.UserCriteria;
-import com.ychp.user.bean.query.UserLoginLogCriteria;
-import com.ychp.user.bean.response.UserLoginLogVO;
-import com.ychp.user.bean.response.UserVO;
+import com.ychp.user.api.bean.query.UserCriteria;
+import com.ychp.user.api.bean.query.UserLoginLogCriteria;
+import com.ychp.user.api.bean.response.UserLoginLogVO;
+import com.ychp.user.api.bean.response.UserVO;
 import com.ychp.user.enums.UserStatusEnum;
 import com.ychp.user.model.User;
-import com.ychp.user.service.UserLoginLogReadService;
-import com.ychp.user.service.UserReadService;
-import com.ychp.user.service.UserWriteService;
+import com.ychp.user.api.service.UserLoginLogReadService;
+import com.ychp.user.api.service.UserReadService;
+import com.ychp.user.api.service.UserWriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -10,12 +10,12 @@ import com.ychp.cache.ext.DataExtService;
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.file.cos.CosAutoConfiguration;
 import com.ychp.ip.IPServiceAutoConfiguration;
-import com.ychp.mblog.web.cache.impl.BlogDataExtService;
+import com.ychp.mblog.web.cache.impl.BlogDataExtServiceImpl;
 import com.ychp.mblog.web.interceptors.SessionInterceptor;
 import com.ychp.redis.RedisAutoConfiguration;
 import com.ychp.session.SkySessionAutoConfiguration;
 import com.ychp.user.UserApiAutoConfig;
-import com.ychp.user.impl.UserAutoConfiguration;
+import com.ychp.user.UserAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -91,6 +91,6 @@ public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataExtService dataExtService() {
-        return new BlogDataExtService();
+        return new BlogDataExtServiceImpl();
     }
 }

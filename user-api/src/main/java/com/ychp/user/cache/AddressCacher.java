@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.ychp.user.model.Address;
-import com.ychp.user.service.AddressReadService;
+import com.ychp.user.api.service.AddressReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class AddressCacher {
 				.maximumSize(10)
 				.build(new CacheLoader<Long, Address>() {
 					@Override
-					public Address load(Long id) throws Exception {
+					public Address load(Long id) {
 						return addressReadService.findById(id);
 					}
 				});
@@ -40,7 +40,7 @@ public class AddressCacher {
 				.maximumSize(10)
 				.build(new CacheLoader<Long, List<Address>>() {
 					@Override
-					public List<Address> load(Long pid) throws Exception {
+					public List<Address> load(Long pid) {
 						return addressReadService.findByPid(pid);
 					}
 				});

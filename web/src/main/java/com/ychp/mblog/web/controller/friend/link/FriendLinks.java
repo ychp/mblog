@@ -2,7 +2,7 @@ package com.ychp.mblog.web.controller.friend.link;
 
 import com.ychp.cache.annontation.DataCache;
 import com.ychp.user.model.FriendLink;
-import com.ychp.user.service.FriendLinkReadService;
+import com.ychp.user.api.service.FriendLinkReadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

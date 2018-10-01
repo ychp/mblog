@@ -2,10 +2,10 @@ package com.ychp.mblog.web.controller.friend.link;
 
 import com.ychp.common.model.paging.Paging;
 import com.ychp.cache.annontation.DataInvalidCache;
-import com.ychp.user.bean.query.FriendLinkCriteria;
+import com.ychp.user.api.bean.query.FriendLinkCriteria;
 import com.ychp.user.model.FriendLink;
-import com.ychp.user.service.FriendLinkReadService;
-import com.ychp.user.service.FriendLinkWriteService;
+import com.ychp.user.api.service.FriendLinkReadService;
+import com.ychp.user.api.service.FriendLinkWriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

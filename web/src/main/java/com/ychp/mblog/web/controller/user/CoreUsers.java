@@ -12,9 +12,9 @@ import com.ychp.mblog.web.async.user.UserLoginEvent;
 import com.ychp.mblog.web.component.user.LoginChecker;
 import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.util.SkyUserMaker;
+import com.ychp.user.api.service.UserReadService;
+import com.ychp.user.api.service.UserWriteService;
 import com.ychp.user.model.User;
-import com.ychp.user.service.UserReadService;
-import com.ychp.user.service.UserWriteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,9 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2018-08-27
  */
 @Api(description = "公共用户接口")
 @RestController

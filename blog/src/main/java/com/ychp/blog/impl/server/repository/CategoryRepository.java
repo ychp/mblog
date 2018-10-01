@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/10
+* @date 2018/08/10
 */
 @Repository
 public class CategoryRepository extends BaseRepository<Category, Long> {

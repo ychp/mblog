@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/10
+* @date 2018/08/10
 */
 @Repository
 public class ArticleRepository extends BaseRepository<Article, Long> {

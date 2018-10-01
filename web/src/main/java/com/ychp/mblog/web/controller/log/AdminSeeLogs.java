@@ -1,9 +1,9 @@
 package com.ychp.mblog.web.controller.log;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.user.bean.query.SeeLogCriteria;
-import com.ychp.user.bean.response.SeeLogVO;
-import com.ychp.user.service.SeeLogReadService;
+import com.ychp.user.api.bean.query.SeeLogCriteria;
+import com.ychp.user.api.bean.response.SeeLogVO;
+import com.ychp.user.api.service.SeeLogReadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

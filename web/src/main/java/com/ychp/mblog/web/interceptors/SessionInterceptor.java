@@ -10,7 +10,7 @@ import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.model.User;
-import com.ychp.user.service.UserReadService;
+import com.ychp.user.api.service.UserReadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

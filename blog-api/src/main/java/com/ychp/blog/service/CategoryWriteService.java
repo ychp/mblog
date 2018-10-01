@@ -4,7 +4,7 @@ import com.ychp.blog.model.Category;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/10
+* @date 2018/08/10
 */
 public interface CategoryWriteService {
 

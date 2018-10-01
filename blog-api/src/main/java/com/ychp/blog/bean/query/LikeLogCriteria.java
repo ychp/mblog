@@ -9,7 +9,7 @@ import lombok.ToString;
 
 /**
  * @author yingchengpeng
- * @date: 2018/08/11
+ * @date 2018/08/11
  */
 @ApiModel(description = "查询类型")
 @ToString
