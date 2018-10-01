@@ -5,7 +5,7 @@ import com.ychp.blog.bean.request.ArticleUpdateRequest;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/10
+* @date 2018/08/10
 */
 public interface ArticleWriteService {
 

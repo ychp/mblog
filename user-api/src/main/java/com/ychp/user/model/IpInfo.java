@@ -20,41 +20,27 @@ import java.util.Date;
 public class IpInfo implements Serializable {
 
     private static final long serialVersionUID = -2907696866673660899L;
-    /**
-     * 主键
-     */
+
     @Getter
     @Setter
     @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
-    /**
-     * ip地址
-     */
     @Getter
     @Setter
     @ApiModelProperty("ip地址")
     private String ip;
 
-    /**
-     * 国家
-     */
     @Getter
     @Setter
     @ApiModelProperty("国家")
     private String country;
 
-    /**
-     * 省份
-     */
     @Getter
     @Setter
     @ApiModelProperty("省份")
     private String province;
 
-    /**
-     * 城市
-     */
     @Getter
     @Setter
     @ApiModelProperty("城市")

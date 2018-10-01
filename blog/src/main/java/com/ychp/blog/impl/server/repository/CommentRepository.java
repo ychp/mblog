@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
 * @author yingchengpeng
-* @date: 2018/09/10
+* @date 2018/09/10
 */
 @Repository
 public class CommentRepository extends BaseRepository<Comment, Long> {

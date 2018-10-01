@@ -9,8 +9,8 @@ import com.ychp.common.model.SkyUser;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.util.SkyUserMaker;
+import com.ychp.user.cache.UserCacher;
 import com.ychp.user.model.User;
-import com.ychp.user.service.UserReadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,28 +31,17 @@ import java.util.concurrent.TimeUnit;
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private UserReadService userReadService;
+    private IPServer ipServer;
 
     @Autowired
-    private IPServer ipServer;
+    private UserCacher userCacher;
 
     @Value("${cache.expire.time:60}")
     private Long expiredTime;
-    private LoadingCache<Long, User> userById;
     private LoadingCache<String, List<String>> white;
 
     @PostConstruct
     public void init() {
-        userById = CacheBuilder.newBuilder()
-                .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
-                .initialCapacity(100)
-                .maximumSize(1000)
-                .build(new CacheLoader<Long, User>() {
-                    @Override
-                    public User load(Long id) throws Exception {
-                        return userReadService.findById(id);
-                    }
-                });
 
         white = CacheBuilder.newBuilder()
                 .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
@@ -60,7 +49,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                 .maximumSize(1000)
                 .build(new CacheLoader<String, List<String>>() {
                     @Override
-                    public List<String> load(String s) throws Exception {
+                    public List<String> load(String s) {
                         return Lists.newArrayList(
                                 "/api/address/.*",
                                 "/api/article/.*",
@@ -93,7 +82,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
 
         if(userId != null) {
-            User user = userById.get(Long.valueOf(userId.toString()));
+            User user = userCacher.findById(Long.valueOf(userId.toString()));
             SkyUser skyUser = SkyUserMaker.make(user);
             String ip = ipServer.getIp(request);
             skyUser.setIp(ip);

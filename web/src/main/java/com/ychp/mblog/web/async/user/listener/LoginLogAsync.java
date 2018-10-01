@@ -5,7 +5,7 @@ import com.ychp.async.annontation.AsyncSubscriber;
 import com.ychp.common.model.SkyUser;
 import com.ychp.mblog.web.async.user.UserLoginEvent;
 import com.ychp.user.model.UserLoginLog;
-import com.ychp.user.service.UserLoginLogWriteService;
+import com.ychp.user.api.service.UserLoginLogWriteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 

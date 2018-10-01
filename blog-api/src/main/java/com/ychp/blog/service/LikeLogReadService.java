@@ -6,7 +6,7 @@ import com.ychp.common.model.paging.Paging;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/11
+* @date 2018/08/11
 */
 public interface LikeLogReadService {
 

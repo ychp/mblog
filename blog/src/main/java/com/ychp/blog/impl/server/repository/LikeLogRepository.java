@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/11
+* @date 2018/08/11
 */
 @Repository
 public class LikeLogRepository extends BaseRepository<LikeLog, Long> {

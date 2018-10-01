@@ -4,7 +4,7 @@ import com.ychp.blog.model.LikeLog;
 
 /**
 * @author yingchengpeng
-* @date: 2018/08/11
+* @date 2018/08/11
 */
 public interface LikeLogWriteService {
 

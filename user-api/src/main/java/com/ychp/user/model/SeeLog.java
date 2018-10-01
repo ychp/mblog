@@ -20,41 +20,27 @@ import java.util.Date;
 public class SeeLog implements Serializable {
 
     private static final long serialVersionUID = -8768019865836160762L;
-    /**
-     * 主键
-     */
+
     @Getter
     @Setter
     @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
-    /**
-     * ip地址
-     */
     @Getter
     @Setter
     @ApiModelProperty("ip地址")
     private String ip;
 
-    /**
-     * 设备id
-     */
     @Getter
     @Setter
     @ApiModelProperty(value = "设备id", example = "1")
     private Long deviceId;
 
-    /**
-     * 访问页面
-     */
     @Getter
     @Setter
     @ApiModelProperty("访问页面")
     private String url;
 
-    /**
-     * 请求
-     */
     @Getter
     @Setter
     @ApiModelProperty("请求")

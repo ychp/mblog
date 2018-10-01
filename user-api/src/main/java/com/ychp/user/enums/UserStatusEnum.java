@@ -9,7 +9,9 @@ import java.util.Objects;
  * @date 2018/8/12
  */
 public enum UserStatusEnum {
+	// 正常
 	NORMAL(1),
+	// 冻结
 	FROZEN(-1);
 
 	UserStatusEnum(int value) {
