@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 echo 'pull newest code'
+git checkout master
 git pull
 
 local_path=`pwd`
