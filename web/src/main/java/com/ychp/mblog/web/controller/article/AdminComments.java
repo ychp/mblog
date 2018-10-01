@@ -54,7 +54,7 @@ public class AdminComments {
     }
 
     @ApiOperation("评价详情")
-    @GetMapping(value = "{id}/detail")
+    @GetMapping(value = "{id}/findById")
     public CommentWithChildrenInfo detail(@PathVariable Long id){
         Comment parent = commentReadService.findById(id);
         List<Comment> comments = commentReadService.findByPid(id);

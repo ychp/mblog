@@ -49,7 +49,7 @@ public class Articles {
     private ArticleCacher articleCacher;
 
     @ApiOperation("文章详情接口")
-    @GetMapping("{id}/detail")
+    @GetMapping("{id}/findById")
     public ArticleDetailVO detail(@ApiParam(example = "1") @PathVariable Long id, HttpServletRequest request) {
         ArticleDetailVO detailVO = articleCacher.findDetail(id);
         ArticleSummary summary = articleReadService.findSummaryById(id);

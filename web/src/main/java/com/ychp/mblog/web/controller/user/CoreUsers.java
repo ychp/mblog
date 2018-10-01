@@ -1,7 +1,6 @@
 package com.ychp.mblog.web.controller.user;
 
 import com.ychp.async.publisher.AsyncPublisher;
-import com.ychp.cache.annontation.DataCache;
 import com.ychp.common.captcha.CaptchaGenerator;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
@@ -14,6 +13,7 @@ import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.api.service.UserReadService;
 import com.ychp.user.api.service.UserWriteService;
+import com.ychp.user.cache.UserCacher;
 import com.ychp.user.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,11 +55,13 @@ public class CoreUsers {
     @Autowired
     private LoginChecker loginChecker;
 
+    @Autowired
+    private UserCacher userCacher;
+
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("{id}")
-    @DataCache("user:{{id}}")
     public SkyUser detail(@ApiParam(example = "1") @PathVariable Long id) {
-        return SkyUserMaker.make(userReadService.findById(id));
+        return SkyUserMaker.make(userCacher.findById(id));
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")

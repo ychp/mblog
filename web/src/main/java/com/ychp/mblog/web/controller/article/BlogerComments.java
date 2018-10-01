@@ -138,7 +138,7 @@ public class BlogerComments {
     }
 
     @ApiOperation("评价详情")
-    @GetMapping(value = "{id}/detail")
+    @GetMapping(value = "{id}/findById")
     public CommentWithChildrenInfo detail(@PathVariable Long id){
         Long userId = SessionContextUtils.getUserId();
         Comment parent = commentReadService.findById(id);
