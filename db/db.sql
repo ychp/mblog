@@ -213,3 +213,16 @@ CREATE TABLE IF NOT EXISTS `sky_comment` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论';
+
+
+DROP TABLE IF EXISTS `sky_flow_relation`;
+
+CREATE TABLE IF NOT EXISTS `sky_flow_relation` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `follower_id` bigint(20) NOT NULL COMMENT '关注人',
+  `followee_id` bigint(20) NOT NULL COMMENT '被关注人',
+  `is_subscribe` tinyint(4) DEFAULT 0 COMMENT '是否订阅',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='关注信息';
