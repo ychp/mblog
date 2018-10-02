@@ -8,6 +8,7 @@ import com.ychp.common.util.Encryption;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.async.user.UserLoginEvent;
+import com.ychp.mblog.web.async.user.UserRegisterEvent;
 import com.ychp.mblog.web.constant.SessionConstants;
 import com.ychp.mblog.web.controller.bean.request.user.UserProfileRequest;
 import com.ychp.mblog.web.controller.bean.request.user.UserRegisterRequest;
@@ -93,6 +94,7 @@ public class Users {
         skyUser.setIp(ipServer.getIp(request));
 
         publisher.post(new UserLoginEvent(skyUser));
+        publisher.post(new UserRegisterEvent(skyUser));
         return skyUser;
     }
 
