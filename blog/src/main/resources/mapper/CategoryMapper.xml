@@ -96,4 +96,12 @@
         delete from <include refid="tb"/>
         where `id` = #{id}
     </delete>
+
+    <select id="findByUserIdAndName" parameterType="map" resultMap="CategoryMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM <include refid="tb"/>
+        WHERE `user_id` = #{userId} and `name` = #{name} LIMIT 1
+    </select>
+
 </mapper>
