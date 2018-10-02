@@ -4,6 +4,9 @@ import com.ychp.common.model.paging.Paging;
 import com.ychp.user.api.bean.query.UserCriteria;
 import com.ychp.user.api.bean.response.UserVO;
 import com.ychp.user.model.User;
+import com.ychp.user.model.UserProfile;
+
+import java.util.List;
 
 /**
  * @author yingchengpeng
@@ -18,6 +21,14 @@ public interface UserReadService {
      * @return 查询结果
      */
     User findById(Long id);
+
+    /**
+     * 根据ids查询
+     *
+     * @param ids 主键id
+     * @return 查询结果
+     */
+    List<User> findByIds(List<Long> ids);
 
     /**
      * 根据id查询用户基础信息
@@ -50,5 +61,13 @@ public interface UserReadService {
      * @return 查询结果
      */
     User findByName(String name);
+
+    /**
+     * 根据ids查询
+     *
+     * @param userIds 主键id
+     * @return 查询结果
+     */
+    List<UserProfile> findProfileByIds(List<Long> userIds);
 
 }

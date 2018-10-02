@@ -1,5 +1,6 @@
 package com.ychp.user.server.service;
 
+import com.google.common.collect.Lists;
 import com.ychp.common.exception.InvalidException;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.paging.Paging;
@@ -15,7 +16,9 @@ import com.ychp.user.model.UserProfile;
 import com.ychp.user.api.service.UserReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -38,6 +41,18 @@ public class UserReadServiceImpl implements UserReadService {
         }
         try {
             return userRepository.findById(id);
+        } catch (Exception e) {
+            throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
+    public List<User> findByIds(List<Long> ids) {
+        if(CollectionUtils.isEmpty(ids)) {
+            return Lists.newArrayListWithCapacity(0);
+        }
+        try {
+            return userRepository.findByIds(ids);
         } catch (Exception e) {
             throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
         }
@@ -95,6 +110,18 @@ public class UserReadServiceImpl implements UserReadService {
             return userRepository.findByName(name);
         } catch (Exception e) {
             throw new ResponseException("user.find.fail", e.getMessage(), e.getCause());
+        }
+    }
+
+    @Override
+    public List<UserProfile> findProfileByIds(List<Long> userIds) {
+        if(CollectionUtils.isEmpty(userIds)) {
+            return Lists.newArrayListWithCapacity(0);
+        }
+        try {
+            return userProfileRepository.findByUserIds(userIds);
+        } catch (Exception e) {
+            throw new ResponseException("user.profile.find.fail", e.getMessage(), e.getCause());
         }
     }
 }

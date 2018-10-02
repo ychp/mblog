@@ -5,10 +5,15 @@ import com.ychp.common.model.paging.Paging;
 import com.ychp.common.util.SessionContextUtils;
 import com.ychp.mblog.web.async.user.CancelFollowEvent;
 import com.ychp.mblog.web.async.user.FollowEvent;
+import com.ychp.mblog.web.controller.bean.FollowRelationConverter;
 import com.ychp.user.api.bean.query.FollowRelationCriteria;
+import com.ychp.user.api.bean.response.FollowRelationVO;
 import com.ychp.user.api.service.FollowRelationReadService;
 import com.ychp.user.api.service.FollowRelationWriteService;
+import com.ychp.user.api.service.UserReadService;
 import com.ychp.user.model.FollowRelation;
+import com.ychp.user.model.User;
+import com.ychp.user.model.UserProfile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author yingchengpeng
@@ -31,6 +39,9 @@ public class BlogerFollow {
 
     @Autowired
     private FollowRelationReadService followRelationReadService;
+
+    @Autowired
+    private UserReadService userReadService;
 
     @Autowired
     private AsyncPublisher publisher;
@@ -61,16 +72,31 @@ public class BlogerFollow {
 
     @ApiOperation(value = "粉丝列表", httpMethod = "GET")
     @GetMapping("follower-paging")
-    public Paging<FollowRelation> pagingByFollowee(FollowRelationCriteria criteria) {
+    public Paging<FollowRelationVO> pagingByFollowee(FollowRelationCriteria criteria) {
         criteria.setFolloweeId(SessionContextUtils.getUserId());
-        return followRelationReadService.paging(criteria);
+        Paging<FollowRelation> paging = followRelationReadService.paging(criteria);
+        if(paging.isEmpty()) {
+            return Paging.empty();
+        }
+        List<Long> userIds = paging.getDatas().stream().map(FollowRelation::getFollowerId).collect(Collectors.toList());
+        List<User> users = userReadService.findByIds(userIds);
+        List<UserProfile> userProfiles = userReadService.findProfileByIds(userIds);
+
+        return FollowRelationConverter.get(paging, users, userProfiles, false);
     }
 
     @ApiOperation(value = "关注列表", httpMethod = "GET")
     @GetMapping("followee-paging")
-    public Paging<FollowRelation> pagingByFollower(FollowRelationCriteria criteria) {
+    public Paging<FollowRelationVO> pagingByFollower(FollowRelationCriteria criteria) {
         criteria.setFollowerId(SessionContextUtils.getUserId());
-        return followRelationReadService.paging(criteria);
+        Paging<FollowRelation> paging = followRelationReadService.paging(criteria);
+        if(paging.isEmpty()) {
+            return Paging.empty();
+        }
+        List<Long> userIds = paging.getDatas().stream().map(FollowRelation::getFolloweeId).collect(Collectors.toList());
+        List<User> users = userReadService.findByIds(userIds);
+        List<UserProfile> userProfiles = userReadService.findProfileByIds(userIds);
+        return FollowRelationConverter.get(paging, users, userProfiles, true);
     }
 
     @ApiOperation(value = "订阅", httpMethod = "POST")
