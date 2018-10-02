@@ -90,7 +90,5 @@ else
     echo '-dit blog:1.0`' >> ~/blog.sh
     echo 'echo $pid >> /var/run/blog-api.pid' >> ~/blog.sh
     echo 'tail -f /var/log/blog_new/root.log' >> ~/blog.sh
-    firewall-cmd --permanent --add-port=8100/tcp
-    firewall-cmd --reload
     sh ~/blog.sh
 fi;
