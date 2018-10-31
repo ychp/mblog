@@ -58,6 +58,7 @@ public class BlogerCategories {
     @ApiOperation("类目分页接口")
     @GetMapping("paging")
     public Paging<Category> paging(CategoryCriteria criteria) {
+        criteria.setUserId(SessionContextUtils.getUserId());
         return categoryReadService.paging(criteria);
     }
 
