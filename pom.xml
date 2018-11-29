@@ -264,4 +264,17 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>ychp</id>
+            <name>Releases Repository of ychp</name>
+            <url>http://repo.yingchengpeng.com/repository/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ychp</id>
+            <name>Snapshot Repository of ychp</name>
+            <url>http://repo.yingchengpeng.com/repository/snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
