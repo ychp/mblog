@@ -33,31 +33,21 @@
         <dependency>
             <groupId>com.ychp</groupId>
             <artifactId>file</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ychp</groupId>
             <artifactId>async</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ychp</groupId>
             <artifactId>web-tools</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ychp</groupId>
-            <artifactId>cache</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ychp</groupId>
             <artifactId>session</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>

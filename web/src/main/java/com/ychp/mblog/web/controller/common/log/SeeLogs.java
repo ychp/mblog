@@ -1,6 +1,5 @@
 package com.ychp.mblog.web.controller.common.log;
 
-import com.ychp.ip.component.IPServer;
 import com.ychp.mblog.web.controller.bean.LogConverter;
 import com.ychp.mblog.web.controller.bean.request.log.SeeLogRequest;
 import com.ychp.user.api.bean.request.SeeLogCreateRequest;
@@ -10,6 +9,7 @@ import com.ychp.user.model.SeeLog;
 import com.ychp.user.api.service.DeviceInfoReadService;
 import com.ychp.user.api.service.IpInfoReadService;
 import com.ychp.user.api.service.SeeLogWriteService;
+import com.ychp.web.ip.component.IPServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

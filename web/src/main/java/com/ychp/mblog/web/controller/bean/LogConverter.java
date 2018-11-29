@@ -1,12 +1,12 @@
 package com.ychp.mblog.web.controller.bean;
 
-import com.ychp.ip.component.IPServer;
-import com.ychp.ip.enums.IPAPIType;
-import com.ychp.ip.model.IpAddress;
-import com.ychp.request.model.UserAgent;
-import com.ychp.request.util.RequestUtils;
 import com.ychp.user.model.DeviceInfo;
 import com.ychp.user.model.IpInfo;
+import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.enums.IPAPIType;
+import com.ychp.web.ip.model.IpAddress;
+import com.ychp.web.request.model.UserAgent;
+import com.ychp.web.request.util.RequestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

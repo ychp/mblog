@@ -11,27 +11,17 @@
     <modules>
         <module>web</module>
         <module>user-api</module>
-        <module>common</module>
         <module>user</module>
         <module>msg</module>
-        <module>redis</module>
-        <module>code-builder</module>
-        <module>handlebars</module>
-        <module>mybatis</module>
-        <module>web-tools</module>
         <module>blog-api</module>
         <module>blog</module>
-        <module>file</module>
-        <module>async</module>
-        <module>markdown</module>
-        <module>cache</module>
-        <module>session</module>
-        <module>elaticsearch</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <ychp.lib.version>1.0-SNAPSHOT</ychp.lib.version>
+
         <lombok.version>1.16.14</lombok.version>
         <logback.version>1.1.7</logback.version>
         <guava.version>24.0-jre</guava.version>
@@ -103,6 +93,69 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- lib -->
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>common</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>file</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>async</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>cache</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>handlebars</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>markdown</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>spring-boot-starter-redis</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>session</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>web-tools</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ychp</groupId>
+                <artifactId>code-builder</artifactId>
+                <version>${ychp.lib.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>joda-time</groupId>

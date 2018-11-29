@@ -1,17 +1,11 @@
 package com.ychp.mblog.web.controller.bean;
 
 import com.ychp.common.model.paging.Paging;
-import com.ychp.ip.component.IPServer;
-import com.ychp.ip.enums.IPAPIType;
-import com.ychp.ip.model.IpAddress;
-import com.ychp.request.model.UserAgent;
-import com.ychp.request.util.RequestUtils;
 import com.ychp.user.api.bean.response.FollowRelationVO;
-import com.ychp.user.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.ychp.user.model.FollowRelation;
+import com.ychp.user.model.User;
+import com.ychp.user.model.UserProfile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,13 +38,4 @@ public class FollowRelationConverter {
         return new Paging<>(paging.getTotal(), followRelationVOS);
     }
 
-    public DeviceInfo getDeviceInfo(HttpServletRequest request) {
-        DeviceInfo deviceInfo = new DeviceInfo();
-        UserAgent userAgent = RequestUtils.getUaInfo(request);
-        deviceInfo.setOs(userAgent.getSystem());
-        deviceInfo.setBrowser(userAgent.getBrowser());
-        deviceInfo.setBrowserVersion(userAgent.getBrowserVersion());
-        deviceInfo.setDevice(userAgent.getDevice());
-        return deviceInfo;
-    }
 }
