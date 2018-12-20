@@ -74,21 +74,17 @@ public class BlogerFollow {
     @GetMapping("follower-paging")
     public Paging<FollowRelationVO> pagingByFollowee(FollowRelationCriteria criteria) {
         criteria.setFolloweeId(SessionContextUtils.getUserId());
-        Paging<FollowRelation> paging = followRelationReadService.paging(criteria);
-        if(paging.isEmpty()) {
-            return Paging.empty();
-        }
-        List<Long> userIds = paging.getDatas().stream().map(FollowRelation::getFollowerId).collect(Collectors.toList());
-        List<User> users = userReadService.findByIds(userIds);
-        List<UserProfile> userProfiles = userReadService.findProfileByIds(userIds);
-
-        return FollowRelationConverter.get(paging, users, userProfiles, false);
+        return paging(criteria, false);
     }
 
     @ApiOperation(value = "关注列表", httpMethod = "GET")
     @GetMapping("followee-paging")
     public Paging<FollowRelationVO> pagingByFollower(FollowRelationCriteria criteria) {
         criteria.setFollowerId(SessionContextUtils.getUserId());
+        return paging(criteria, true);
+    }
+
+    private Paging<FollowRelationVO> paging(FollowRelationCriteria criteria, Boolean isFollowee) {
         Paging<FollowRelation> paging = followRelationReadService.paging(criteria);
         if(paging.isEmpty()) {
             return Paging.empty();
