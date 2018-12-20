@@ -2,7 +2,7 @@ package com.ychp.msg.email.impl;
 
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.ychp.code.builder.Builder;
+import com.ychp.code.builder.BaseBuilder;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.util.ParameterChecker;
 import com.ychp.msg.email.EmailSender;
@@ -32,12 +32,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DefaultEmailSender implements EmailSender {
 
-    private final Builder builder;
+    private final BaseBuilder builder;
     private ExecutorService executor;
     private boolean inited = false;
 
     @Autowired
-    public DefaultEmailSender(EmailProperties properties, Builder builder) {
+    public DefaultEmailSender(EmailProperties properties, BaseBuilder builder) {
         this.host = properties.getHost();
         this.userName = properties.getUserName();
         this.password = properties.getPassword();

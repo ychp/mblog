@@ -19,12 +19,12 @@ public class FollowRelationCriteria extends PagingCriteria {
 
     @Getter
     @Setter
-    @ApiModelProperty("关注人")
+    @ApiModelProperty(value = "关注人", example = "1")
     private Long followerId;
 
     @Getter
     @Setter
-    @ApiModelProperty("被关注人")
+    @ApiModelProperty(value = "被关注人", example = "2")
     private Long followeeId;
 
 }

@@ -11,6 +11,7 @@ import com.ychp.web.ip.component.IpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.annotation.PostConstruct;
@@ -80,7 +81,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        throw new ResponseException(401, "user.not.login");
+        throw new ResponseException(HttpStatus.UNAUTHORIZED.value(), "user.not.login");
     }
 
     private boolean contains(List<String> uris, String uri) {

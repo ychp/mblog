@@ -22,17 +22,17 @@ public class FollowRelation implements Serializable {
     private static final long serialVersionUID = -2484046100429591799L;
     @Getter
     @Setter
-    @ApiModelProperty("主键")
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
     @Getter
     @Setter
-    @ApiModelProperty("关注人")
+    @ApiModelProperty(value = "关注人", example = "1")
     private Long followerId;
 
     @Getter
     @Setter
-    @ApiModelProperty("被关注人")
+    @ApiModelProperty(value = "被关注人", example = "1")
     private Long followeeId;
 
     @Getter

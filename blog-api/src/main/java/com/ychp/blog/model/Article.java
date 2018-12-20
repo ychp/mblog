@@ -63,7 +63,7 @@ public class Article implements Serializable {
 
     @Getter
     @Setter
-    @ApiModelProperty("状态：0.私有，1.公开，-1.撤下，-99.删除")
+    @ApiModelProperty(value = "状态：0.私有，1.公开，-1.撤下，-99.删除", example = "1")
     private Integer status;
 
     @Getter

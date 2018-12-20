@@ -1,6 +1,6 @@
 package com.ychp.msg.email;
 
-import com.ychp.code.builder.Builder;
+import com.ychp.code.builder.BaseBuilder;
 import com.ychp.code.builder.impl.DefaultBuilder;
 import com.ychp.msg.email.impl.DefaultEmailSender;
 import com.ychp.msg.email.properties.EmailProperties;
@@ -18,12 +18,12 @@ import org.springframework.context.annotation.Configuration;
 public class EmailAutoConfiguration {
 
     @Bean
-    public Builder builder() {
+    public BaseBuilder builder() {
         return new DefaultBuilder();
     }
 
     @Bean
-    public EmailSender emailSender(EmailProperties emailProperties, Builder builder) {
+    public EmailSender emailSender(EmailProperties emailProperties, BaseBuilder builder) {
         return new DefaultEmailSender(emailProperties, builder);
     }
 }

@@ -32,17 +32,17 @@ public class Comments {
 
     @ApiOperation("文章详情-评价列表(不分页)")
     @GetMapping("list")
-    public List<CommentWithChildrenInfo> findCommentByAimId(@ApiParam(value = "类型", defaultValue = "1")
+    public List<CommentWithChildrenInfo> findCommentByAimId(@ApiParam(value = "类型", example = "1", defaultValue = "1")
                                                                 @RequestParam(defaultValue = "1") Integer type,
-                                                            @ApiParam("id") @RequestParam Long aimId) {
+                                                            @ApiParam(value = "id", example = "1") @RequestParam Long aimId) {
         return commentReadService.list(type, aimId);
     }
 
     @ApiOperation("文章详情-评价列表(分页)")
     @GetMapping(value = "paging")
-    public Paging<CommentWithChildrenInfo> paging(@ApiParam(value = "类型", defaultValue = "1")
+    public Paging<CommentWithChildrenInfo> paging(@ApiParam(value = "类型", example = "1", defaultValue = "1")
                                         @RequestParam(defaultValue = "1") Integer type,
-                                    @ApiParam("id") @RequestParam Long aimId){
+                                    @ApiParam(value = "id", example = "1") @RequestParam Long aimId){
         CommentCriteria criteria = new CommentCriteria();
         criteria.setAimId(aimId);
         criteria.setType(type);
