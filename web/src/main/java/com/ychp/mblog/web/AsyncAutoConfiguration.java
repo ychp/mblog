@@ -29,8 +29,6 @@ public class AsyncAutoConfiguration {
 
         // 设置拒绝策略
         executor.setRejectedExecutionHandler((r, executor1) -> log.error("thread reject with name = {}", r.toString()));
-        // 使用预定义的异常处理类 todo
-        // executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 
         return executor;
     }

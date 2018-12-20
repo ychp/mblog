@@ -9,6 +9,11 @@ import com.ychp.blog.search.bean.response.SearchWithAggsVO;
  */
 public interface ArticleSearchReadService {
 
+	/**
+	 * 搜索
+	 * @param criteria 条件
+	 * @return 搜索结果
+	 */
 	SearchWithAggsVO search(ArticleSearchCriteria criteria);
 
 }

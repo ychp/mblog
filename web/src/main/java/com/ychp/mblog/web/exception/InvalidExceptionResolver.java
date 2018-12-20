@@ -32,9 +32,8 @@ public class InvalidExceptionResolver {
 
     @ResponseBody
     @ExceptionHandler(value = InvalidException.class)
-    public ResponseEntity<String> OPErrorHandler(InvalidException se,
-                                                 HttpServletRequest request,
-                                                 HttpServletResponse response) {
+    public ResponseEntity<String> oPErrorHandler(InvalidException se,
+                                                 HttpServletRequest request) {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         log.error("request uri[{}] by error {} = {} fail, case {}", uri, se.getParamKey(), se.getParam(), Throwables.getStackTraceAsString(se));

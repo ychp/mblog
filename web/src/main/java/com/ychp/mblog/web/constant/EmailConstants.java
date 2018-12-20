@@ -2,8 +2,8 @@ package com.ychp.mblog.web.constant;
 
 /**
  * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/28
+ * @author yingchengpeng
+ * @date 2016/08/27
  */
 public class EmailConstants {
 

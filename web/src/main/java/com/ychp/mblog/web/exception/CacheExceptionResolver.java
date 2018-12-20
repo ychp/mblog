@@ -34,9 +34,8 @@ public class CacheExceptionResolver {
 
     @ResponseBody
     @ExceptionHandler(value = CacheException.class)
-    public ResponseEntity<String> OPErrorHandler(CacheException ce,
-                                                 HttpServletRequest request,
-                                                 HttpServletResponse response) {
+    public ResponseEntity<String> oPErrorHandler(CacheException ce,
+                                                 HttpServletRequest request) {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = Maps.newHashMap();

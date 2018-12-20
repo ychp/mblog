@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 /**
  * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/28
+ * @author yingchengpeng
+ * @date 2016/08/27
  */
 @Data
 public class EmailTemplateDto implements Serializable {

@@ -1,8 +1,5 @@
 package com.ychp.mblog.web.interceptors;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ychp.common.exception.ResponseException;
 import com.ychp.common.model.SkyUser;
@@ -10,7 +7,7 @@ import com.ychp.common.util.SessionContextUtils;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.cache.UserCacher;
 import com.ychp.user.model.User;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author yingchengpeng
@@ -31,26 +27,18 @@ import java.util.concurrent.TimeUnit;
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     @Autowired
     private UserCacher userCacher;
 
     @Value("${cache.expire.time:60}")
     private Long expiredTime;
-    private LoadingCache<String, List<String>> white;
+    private List<String> whiteList;
 
     @PostConstruct
     public void init() {
-
-        white = CacheBuilder.newBuilder()
-                .expireAfterWrite(expiredTime, TimeUnit.MINUTES)
-                .initialCapacity(100)
-                .maximumSize(1000)
-                .build(new CacheLoader<String, List<String>>() {
-                    @Override
-                    public List<String> load(String s) {
-                        return Lists.newArrayList(
+        whiteList = Lists.newArrayList(
                                 "/api/address/.*",
                                 "/api/article/.*",
                                 "/api/comment/.*",
@@ -70,8 +58,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                                 "/error",
                                 "/csrf",
                                 "/index");
-                    }
-                });
 
     }
 
@@ -90,7 +76,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(contains(white.get("all"), uri)) {
+        if(contains(whiteList, uri)) {
             return true;
         }
 

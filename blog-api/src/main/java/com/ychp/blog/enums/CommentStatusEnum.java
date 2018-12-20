@@ -9,8 +9,11 @@ import java.util.Objects;
  * @date 2018/9/10
  */
 public enum CommentStatusEnum {
+	// 隐藏
 	HIDE(0, "隐藏"),
+	// 显示
 	SHOW(1, "显示"),
+	// 删除
 	DELETED(-1, "删除");
 
 

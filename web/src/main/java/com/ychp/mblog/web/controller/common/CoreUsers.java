@@ -14,7 +14,7 @@ import com.ychp.user.api.service.UserReadService;
 import com.ychp.user.api.service.UserWriteService;
 import com.ychp.user.cache.UserCacher;
 import com.ychp.user.model.User;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -47,7 +47,7 @@ public class CoreUsers {
     private UserWriteService userWriteService;
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     @Autowired
     private AsyncPublisher publisher;

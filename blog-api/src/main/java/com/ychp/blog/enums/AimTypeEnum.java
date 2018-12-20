@@ -9,8 +9,11 @@ import java.util.Objects;
  * @date 2018/8/12
  */
 public enum AimTypeEnum {
+	// 文章
 	ARTICLE(1, "文章"),
+	// 说说
 	TALK(2, "说说"),
+	// 照片
 	PHOTO(3, "照片");
 
 

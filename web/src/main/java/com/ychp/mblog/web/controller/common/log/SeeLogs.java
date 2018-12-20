@@ -9,7 +9,7 @@ import com.ychp.user.model.SeeLog;
 import com.ychp.user.api.service.DeviceInfoReadService;
 import com.ychp.user.api.service.IpInfoReadService;
 import com.ychp.user.api.service.SeeLogWriteService;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class SeeLogs {
 	private SeeLogWriteService seeLogWriteService;
 
 	@Autowired
-	private IPServer ipServer;
+	private IpServer ipServer;
 
 	@Autowired
 	private LogConverter logConverter;

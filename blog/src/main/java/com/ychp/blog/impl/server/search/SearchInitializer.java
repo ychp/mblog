@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author yingchengpeng
@@ -36,10 +37,10 @@ public class SearchInitializer {
 		this.initIndices();
 	}
 
-	public void initIndices() {
+	void initIndices() {
 		try {
 			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("search/article.json")));
+					new InputStreamReader(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("search/article.json"))));
 
 			StringBuilder stringBuffer = new StringBuilder();
 			String tmp = reader.readLine();

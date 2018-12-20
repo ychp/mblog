@@ -9,9 +9,13 @@ import java.util.Objects;
  * @date 2018/8/12
  */
 public enum ArticleStatusEnum {
+	// 私有
 	PRIVATE(0, "私有"),
+	// 公开
 	PUBLIC(1, "公开"),
+	// 撤下
 	FROZEN(-1, "撤下"),
+	// 删除
 	DELETE(-99, "删除");
 
 

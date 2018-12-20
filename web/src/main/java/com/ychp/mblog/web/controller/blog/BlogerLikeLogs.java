@@ -16,13 +16,13 @@ import com.ychp.mblog.web.async.log.LikeEvent;
 import com.ychp.mblog.web.controller.bean.LogConverter;
 import com.ychp.mblog.web.controller.bean.request.log.LikeLogRequest;
 import com.ychp.mblog.web.controller.bean.response.log.LikeLogVO;
-import com.ychp.user.model.DeviceInfo;
-import com.ychp.user.model.IpInfo;
 import com.ychp.user.api.service.DeviceInfoReadService;
 import com.ychp.user.api.service.DeviceInfoWriteService;
 import com.ychp.user.api.service.IpInfoReadService;
 import com.ychp.user.api.service.IpInfoWriteService;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.user.model.DeviceInfo;
+import com.ychp.user.model.IpInfo;
+import com.ychp.web.ip.component.IpServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class BlogerLikeLogs {
 	private LikeLogWriteService likeLogWriteService;
 
 	@Autowired
-	private IPServer ipServer;
+	private IpServer ipServer;
 
 	@Autowired
 	private LogConverter logConverter;

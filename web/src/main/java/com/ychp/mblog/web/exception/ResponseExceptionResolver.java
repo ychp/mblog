@@ -35,15 +35,14 @@ public class ResponseExceptionResolver {
 
     @ResponseBody
     @ExceptionHandler(value = ResponseException.class)
-    public ResponseEntity<String> OPErrorHandler(ResponseException se,
-                                                 HttpServletRequest request,
-                                                 HttpServletResponse response) {
+    public ResponseEntity<String> oPErrorHandler(ResponseException se,
+                                                 HttpServletRequest request) {
         Locale locale = request.getLocale();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = Maps.newHashMap();
         parameterMap.putAll(request.getParameterMap());
         Integer status = se.getStatus();
-        if (!Objects.equals(status, 401)){
+        if (!Objects.equals(status, HttpStatus.UNAUTHORIZED.value())){
             log.error("request uri[{}] by params = {} fail, error = {}, case {}",
                         uri, parameterMap, se.getErrorCode(), Throwables.getStackTraceAsString(se));
             log.debug("ResponseException happened, locale = {}, cause = {}",

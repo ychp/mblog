@@ -2,7 +2,7 @@ package com.ychp.mblog.web.controller.bean;
 
 import com.ychp.user.model.DeviceInfo;
 import com.ychp.user.model.IpInfo;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import com.ychp.web.ip.enums.IPAPIType;
 import com.ychp.web.ip.model.IpAddress;
 import com.ychp.web.request.model.UserAgent;
@@ -12,11 +12,16 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Desc:
+ * @author yingchengpeng
+ * @date 2016/08/27
+ */
 @Component
 public class LogConverter {
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     public IpInfo getIpInfo(String ip) {
         IpInfo ipInfo = new IpInfo();

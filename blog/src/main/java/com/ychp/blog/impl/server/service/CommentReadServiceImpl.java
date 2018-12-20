@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 
 /**
  * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 16/8/27
+ * @author yingchengpeng
+ * @date 2016/08/27
  */
 @Slf4j
 @Service

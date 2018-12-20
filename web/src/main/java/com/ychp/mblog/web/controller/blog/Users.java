@@ -15,14 +15,14 @@ import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.api.bean.query.UserLoginLogCriteria;
 import com.ychp.user.api.bean.response.UserLoginLogVO;
 import com.ychp.user.api.bean.response.UserVO;
+import com.ychp.user.api.service.UserLoginLogReadService;
+import com.ychp.user.api.service.UserReadService;
+import com.ychp.user.api.service.UserWriteService;
 import com.ychp.user.cache.AddressCacher;
 import com.ychp.user.model.Address;
 import com.ychp.user.model.User;
 import com.ychp.user.model.UserProfile;
-import com.ychp.user.api.service.UserLoginLogReadService;
-import com.ychp.user.api.service.UserReadService;
-import com.ychp.user.api.service.UserWriteService;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,8 @@ import java.util.Objects;
 
 /**
  * Desc:
- * Author: <a href="ychp@terminus.io">应程鹏</a>
- * Date: 2017/8/27
+ * @author yingchengpeng
+ * @date 2016/08/27
  */
 @Api(description = "面向用户的用户接口")
 @RestController
@@ -53,7 +53,7 @@ public class Users {
     private AddressCacher addressCacher;
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     @Autowired
     private AsyncPublisher publisher;
