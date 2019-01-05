@@ -75,7 +75,7 @@ public class BlogerComments {
             comment.setLevel(parent.getLevel() + 1);
             comment.setReceiver(parent.getReplier());
             comment.setReceiverName(parent.getReplierName());
-            comment.setReplierAvatar(parent.getReplierName());
+            comment.setReplierAvatar(parent.getReplierAvatar());
         } else {
             if(Objects.equals(commentRequest.getType(), AimTypeEnum.ARTICLE.getValue())) {
                 Article article = articleReadService.findById(commentRequest.getAimId());
