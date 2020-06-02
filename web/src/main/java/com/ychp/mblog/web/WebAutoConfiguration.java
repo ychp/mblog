@@ -15,7 +15,7 @@ import com.ychp.session.SkySessionAutoConfiguration;
 import com.ychp.spring.boot.starter.redis.RedisAutoConfiguration;
 import com.ychp.user.UserApiAutoConfig;
 import com.ychp.user.UserAutoConfiguration;
-import com.ychp.web.ip.IPServiceAutoConfiguration;
+import com.ychp.web.ip.IpServiceAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,7 +35,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @EnableScheduling
 @Configuration
-@Import({IPServiceAutoConfiguration.class,
+@Import({IpServiceAutoConfiguration.class,
         CosAutoConfiguration.class,
         RedisAutoConfiguration.class,
         CacheAutoConfiguration.class,

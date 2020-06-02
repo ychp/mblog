@@ -14,7 +14,7 @@ import com.ychp.blog.service.LikeLogReadService;
 import com.ychp.common.model.paging.Paging;
 import com.ychp.common.model.paging.PagingCriteria;
 import com.ychp.mblog.web.async.article.ArticleVisitEvent;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,7 +40,7 @@ public class Articles {
     private AsyncPublisher publisher;
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     @Autowired
     private LikeLogReadService likeLogReadService;

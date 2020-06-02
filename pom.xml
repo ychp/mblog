@@ -319,14 +319,12 @@
 
     <distributionManagement>
         <repository>
-            <id>ychp</id>
-            <name>Releases Repository of ychp</name>
-            <url>http://repo.yingchengpeng.com/repository/releases/</url>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2002603-release-xQLFp5/</url>
         </repository>
         <snapshotRepository>
-            <id>ychp</id>
-            <name>Snapshot Repository of ychp</name>
-            <url>http://repo.yingchengpeng.com/repository/snapshot/</url>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2002603-snapshot-Phr3k0/</url>
         </snapshotRepository>
     </distributionManagement>
 

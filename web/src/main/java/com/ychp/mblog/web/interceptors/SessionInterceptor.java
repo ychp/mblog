@@ -10,7 +10,7 @@ import com.ychp.common.util.SessionContextUtils;
 import com.ychp.mblog.web.util.SkyUserMaker;
 import com.ychp.user.cache.UserCacher;
 import com.ychp.user.model.User;
-import com.ychp.web.ip.component.IPServer;
+import com.ychp.web.ip.component.IpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private IPServer ipServer;
+    private IpServer ipServer;
 
     @Autowired
     private UserCacher userCacher;
