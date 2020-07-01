@@ -26,7 +26,7 @@
         <logback.version>1.1.7</logback.version>
         <guava.version>24.0-jre</guava.version>
         <commons-lang3.version>3.4</commons-lang3.version>
-        <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
         <hikari.version>2.4.6</hikari.version>
         <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
         <spring.version>4.3.14.RELEASE</spring.version>
