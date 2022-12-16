@@ -29,7 +29,7 @@
         <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
         <hikari.version>2.4.6</hikari.version>
         <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
-        <spring.version>4.3.14.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
 
         <jedis.version>2.7.3</jedis.version>
         <spring-data-redis.version>1.6.2.RELEASE</spring-data-redis.version>
